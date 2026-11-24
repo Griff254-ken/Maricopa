@@ -152,6 +152,11 @@ footer b{color:#fff}
 @keyframes slideDown{from{transform:translateY(-100%)}}
 .backend-alert button{background:rgba(255,255,255,.2);color:#fff;padding:4px 12px;border-radius:6px;font-weight:600;font-size:.8rem}
 .backend-alert button:hover{background:rgba(255,255,255,.3)}
+/* Admin sync badge */
+.admin-sync{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:999px;margin-left:auto}
+.admin-sync.ok{background:rgba(22,163,74,.15);color:var(--ok)}
+.admin-sync.warn{background:rgba(245,158,11,.15);color:var(--acc2)}
+.admin-sync.bad{background:rgba(220,38,38,.15);color:var(--danger)}
 </style>
 </head>
 <body>
@@ -188,7 +193,17 @@ footer b{color:#fff}
 </div></section>
 
 <section class="shop" id="shop"><div class="wrap">
-  <div class="head"><div><h2>Our Products</h2><p>Tap any product to choose a quantity.</p></div><div class="filters" id="filters"></div></div>
+  <div class="head">
+    <div>
+      <h2>Our Products</h2>
+      <p>Tap any product to choose a quantity.</p>
+      <span class="admin-sync" id="adminSync" title="Live sync with admin console">
+        <span>●</span>
+        <span id="adminSyncText">Connecting…</span>
+      </span>
+    </div>
+    <div class="filters" id="filters"></div>
+  </div>
   <div class="tools"><input id="q" type="search" placeholder="🔍 Search products (e.g. cement, C25, block)" aria-label="Search products"></div>
   <div class="notice" id="adminNotice">
     <em>🔒</em>
@@ -246,7 +261,7 @@ footer b{color:#fff}
 /* =====================================================================
    MARICOPA STORE — PRODUCTION-READY STOREFRONT (DARAJA BACKEND)
    =====================================================================
-   BACKEND INTEGRATION CONTRACT
+   BACKEND INTEGRATION CONTRACT (matches admin.html)
    ---------------------------------------------------------------------
    The server (admin-controlled) is the single source of truth for:
      • Product catalogue (name, category, unit, price, description,
@@ -321,6 +336,7 @@ const fromApi = a => ({
 
 let P = [], cart = [], cat = "All", Q = "", cur = null, sel = {}, note = "", step = 1, pend = null;
 let backendOk = null; // null = unknown, true = ok, false = failed
+let adminSyncOk = false;
 try { cart = JSON.parse(localStorage.getItem("mca_cart2") || "[]"); } catch(e) {}
 const save = () => { try { localStorage.setItem("mca_cart2", JSON.stringify(cart)); } catch(e) {} };
 const prod = id => P.find(p => p.id === String(id));
@@ -329,13 +345,24 @@ const lineTotal = i => { const p = prod(i.id); return p ? up(p, i.sel) * i.q : 0
 const total = () => cart.reduce((s, i) => s + lineTotal(i), 0);
 const stepOf = p => /m³/.test(p.u) ? 0.5 : 1;
 
+/* ---------------- Admin sync indicator ---------------- */
+function setAdminSync(ok, text) {
+  adminSyncOk = ok;
+  const el = $("#adminSync");
+  if (!el) return;
+  el.classList.remove("ok", "warn", "bad");
+  el.classList.add(ok ? "ok" : (backendOk === false ? "bad" : "warn"));
+  $("#adminSyncText").textContent = text;
+}
+
 /* ---------------- Backend connection alert ---------------- */
 function setBackendAlert(ok, msg) {
   backendOk = ok;
   const el = $("#backendAlert");
-  if (ok) { el.classList.remove("show"); return; }
+  if (ok) { el.classList.remove("show"); setAdminSync(true, "Synced with admin"); return; }
   el.querySelector("span").textContent = msg || "Backend connection failed. Orders cannot be processed.";
   el.classList.add("show");
+  setAdminSync(false, "Admin offline");
 }
 
 /* ---------------- Toasts ---------------- */
@@ -594,7 +621,10 @@ async function waitPaid(id) {
         return { receipt: s.mpesaReceipt || s.receipt, adminConfirmed: true };
       }
       // Payment received but admin not yet confirmed — keep waiting
-      if (i === 0) toast("info", "Payment received", "Waiting for admin confirmation before release.");
+      if (i === 0) {
+        toast("info", "Payment received", "Waiting for admin confirmation before release.");
+        setAdminSync(false, "Awaiting admin approval");
+      }
       continue;
     }
     if (st === "failed" || st === "cancelled") {
@@ -696,6 +726,7 @@ function success(ord, snap, c, ref) {
   const d = new Date().toLocaleString("en-KE");
   const r = ref || ord.reference;
   pend = null;
+  setAdminSync(true, "Admin confirmed");
   toast("success", "Order confirmed", "Admin has authorised your payment. Thank you!", 6000);
   stk(`<div class="pulse ok">✓</div>
     <h3>Order confirmed!</h3>
@@ -742,6 +773,7 @@ async function load() {
     return;
   }
 
+  setAdminSync(false, "Connecting…");
   $("#grid").innerHTML = Array(8).fill('<div class="sk"></div>').join("");
   try {
     const d = await api(CONFIG.PRODUCTS);
@@ -754,8 +786,9 @@ async function load() {
     renderGrid();
     updCart();
     setBackendAlert(true);
+    setAdminSync(true, "Synced with admin");
   } catch(e) {
-    $("#grid").innerHTML = `<div class="nores">😕 Could not load products.<br><br>${esc(e.message)}<br><br><button class="btn" id="retry">Try again</button></div>`;
+    $("#grid").innerHTML = `<div class="nores"> Could not load products.<br><br>${esc(e.message)}<br><br><button class="btn" id="retry">Try again</button></div>`;
     $("#retry").onclick = load;
     toast("error", "Could not load products", e.message, 8000);
   }
