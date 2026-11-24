@@ -141,15 +141,25 @@ footer b{color:#fff}
 .og textarea{width:100%;min-height:60px;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;resize:vertical}.og textarea:focus{outline:2px solid var(--acc);border-color:transparent}
 .oos{opacity:.55}.it small.o{display:block;color:var(--ink);opacity:.8}
 .sk{height:290px;border-radius:18px;background:linear-gradient(90deg,var(--card) 25%,var(--line) 50%,var(--card) 75%);background-size:200% 100%;animation:sh 1.2s infinite}@keyframes sh{to{background-position:-200% 0}}
-/* Admin-required notice */
 .notice{background:#fef3c7;border:1px solid #fcd34d;border-radius:12px;padding:14px 16px;margin-bottom:20px;display:flex;gap:12px;align-items:flex-start;font-size:.9rem}
 .notice em{font-style:normal;font-size:1.3rem;flex-shrink:0}
 .notice b{display:block;margin-bottom:2px}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .notice{background:#2a2418;border-color:#5c4a1e}}
 :root[data-theme="dark"] .notice{background:#2a2418;border-color:#5c4a1e}
+/* Backend connection alert */
+.backend-alert{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--danger);color:#fff;text-align:center;padding:12px 16px;font-weight:700;font-size:.9rem;display:none;align-items:center;justify-content:center;gap:10px;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.backend-alert.show{display:flex;animation:slideDown .3s}
+@keyframes slideDown{from{transform:translateY(-100%)}}
+.backend-alert button{background:rgba(255,255,255,.2);color:#fff;padding:4px 12px;border-radius:6px;font-weight:600;font-size:.8rem}
+.backend-alert button:hover{background:rgba(255,255,255,.3)}
 </style>
 </head>
 <body>
+<div class="backend-alert" id="backendAlert" role="alert">
+  <span>⚠️ Backend connection failed. Orders cannot be processed.</span>
+  <button onclick="location.reload()">Retry</button>
+</div>
+
 <header><div class="wrap nav">
   <div class="logo"><i>M</i><div>MARICOPA<small>CONCRETE &amp; ALLIED</small></div></div>
   <button class="cartbtn" id="openCart" aria-label="Open cart">🛒 Cart <span class="badge" id="count">0</span></button>
@@ -234,7 +244,7 @@ footer b{color:#fff}
 
 <script>
 /* =====================================================================
-   MARICOPA STORE — PRODUCTION-READY STOREFRONT
+   MARICOPA STORE — PRODUCTION-READY STOREFRONT (DARAJA BACKEND)
    =====================================================================
    BACKEND INTEGRATION CONTRACT
    ---------------------------------------------------------------------
@@ -242,7 +252,7 @@ footer b{color:#fff}
      • Product catalogue (name, category, unit, price, description,
        image, inStock, emoji, gradient, specs, options)
      • Order creation and pricing (server must recompute every price)
-     • M-Pesa STK push (Daraja keys stay server-side)
+     • M-Pesa STK push via Daraja API (keys stay server-side)
      • Payment confirmation (admin authorises before goods released)
 
    ENDPOINTS
@@ -273,7 +283,7 @@ footer b{color:#fff}
      Goods are never released before adminConfirmed === true.
    ===================================================================== */
 const CONFIG = {
-  API: "",                       // set to your backend base URL, e.g. "https://api.maricopa.co.ke"
+  API: "",                       // ⚠️ REQUIRED: set to your backend base URL, e.g. "https://api.maricopa.co.ke"
   PRODUCTS: "/api/products",
   ORDERS:   "/api/orders",
   STK:      "/api/mpesa/stkpush",
@@ -281,50 +291,6 @@ const CONFIG = {
   TIMEOUT:  15000,
   POLL_MS:  3000,
   POLL_MAX: 60                    // ~3 minutes of polling
-};
-const DEMO = !CONFIG.API;
-
-/* ---------------- Demo catalogue (used only when API is empty) ---------------- */
-const BASE = [
- {id:1,n:"Ready-Mix Concrete C20",c:"Concrete",e:"🚛",u:"per m³",p:11500,d:"General-purpose mix for slabs, footings and paths.",g:["#64748b","#334155"]},
- {id:2,n:"Ready-Mix Concrete C25",c:"Concrete",e:"🏗️",u:"per m³",p:12500,d:"Structural grade for columns, beams and floors.",g:["#f59e0b","#b45309"]},
- {id:3,n:"Ready-Mix Concrete C30",c:"Concrete",e:"🏢",u:"per m³",p:13800,d:"High-strength mix for heavy-duty structural work.",g:["#ef4444","#991b1b"]},
- {id:4,n:"Portland Cement 50kg",c:"Cement",e:"🧱",u:"per bag",p:760,d:"Fresh, high-quality cement for every job.",g:["#78716c","#44403c"]},
- {id:5,n:"Building Sand",c:"Aggregates",e:"⏳",u:"per tonne",p:2200,d:"Clean, washed sand for plaster and mortar.",g:["#eab308","#a16207"]},
- {id:6,n:"Ballast ¾\"",c:"Aggregates",e:"🪨",u:"per tonne",p:2600,d:"Crushed stone for concrete mixing.",g:["#6b7280","#374151"]},
- {id:7,n:"Hardcore Stones",c:"Aggregates",e:"⛰️",u:"per tonne",p:2000,d:"Foundation filling and base layers.",g:["#71717a","#3f3f46"]},
- {id:8,n:"Machine-Cut Block 6\"",c:"Blocks & Pavers",e:"🧱",u:"per piece",p:75,d:"Strong, uniform blocks for walling.",g:["#a8a29e","#57534e"]},
- {id:9,n:"Cabro Paving Block",c:"Blocks & Pavers",e:"🟧",u:"per m²",p:1100,d:"Durable interlocking pavers for driveways.",g:["#fb923c","#c2410c"]},
- {id:10,n:"Steel Bar Y12 (12m)",c:"Steel",e:"📏",u:"per bar",p:1450,d:"High-yield reinforcement bar.",g:["#38bdf8","#0369a1"]},
- {id:11,n:"Binding Wire 25kg",c:"Steel",e:"🧵",u:"per roll",p:3600,d:"Annealed wire for tying reinforcement.",g:["#94a3b8","#475569"]},
- {id:12,n:"Concrete Culvert 600mm",c:"Precast",e:"⭕",u:"per piece",p:5800,d:"Precast pipe for drainage and road crossings.",g:["#2dd4bf","#0f766e"]}
-];
-const SPEC = {
-1:[["Grade","C20 (20 N/mm²)"],["Mix ratio","1 : 2 : 4"],["Slump","75–100 mm"],["Max aggregate","20 mm"],["Best for","Slabs, footings, paths"]],
-2:[["Grade","C25 (25 N/mm²)"],["Mix ratio","1 : 1.5 : 3"],["Slump","75–100 mm"],["Max aggregate","20 mm"],["Best for","Columns, beams, floors"]],
-3:[["Grade","C30 (30 N/mm²)"],["Mix ratio","1 : 1 : 2"],["Slump","100–125 mm"],["Max aggregate","20 mm"],["Best for","Heavy-duty structures"]],
-4:[["Strength class","42.5N"],["Pack weight","50 kg"],["Bags per tonne","20"],["Best for","Concrete, mortar, plaster"]],
-5:[["Type","Washed river sand"],["Grain size","0–4.75 mm"],["Volume","≈ 0.6 m³ per tonne"],["Best for","Plaster, mortar, screed"]],
-6:[["Size","19 mm (¾\")"],["Type","Crushed stone"],["Volume","≈ 0.65 m³ per tonne"],["Best for","Concrete mixing"]],
-7:[["Size","100–200 mm"],["Type","Quarry stone"],["Volume","≈ 0.6 m³ per tonne"],["Best for","Foundation fill, base"]],
-8:[["Size","400 × 200 × 150 mm"],["Weight","≈ 16 kg"],["Compressive","≥ 3.5 N/mm²"],["Coverage","12.5 blocks per m²"],["Best for","Walling"]],
-9:[["Size","200 × 100 × 60 mm"],["Compressive","≥ 30 N/mm²"],["Coverage","≈ 50 pcs per m²"],["Best for","Driveways, parking"]],
-10:[["Diameter","12 mm"],["Length","12 m"],["Weight","≈ 10.7 kg per bar"],["Grade","B500B"],["Best for","Beams, columns, slabs"]],
-11:[["Gauge","18 (≈ 1.2 mm)"],["Roll weight","25 kg"],["Finish","Annealed"],["Best for","Tying reinforcement"]],
-12:[["Internal dia.","600 mm"],["Length","1,000 mm"],["Class","Reinforced"],["Best for","Drainage, road crossings"]]
-};
-const CON = [["Slump",["75–100 mm","100–125 mm","125–150 mm"]],["Aggregate size",["14 mm","20 mm"]]];
-const OPTS = {
-1:CON,2:CON,3:CON,
-4:[["Strength class",["32.5R","42.5N","52.5N"]]],
-5:[["Type",["Washed river sand","Plaster sand","Pit sand"]]],
-6:[["Size",["13 mm",'19 mm (¾")',"25 mm"]]],
-7:[["Size",["100–150 mm","150–200 mm"]]],
-8:[["Block size",['4" (100 mm)','6" (150 mm)','9" (225 mm)']],["Type",["Solid","Hollow"]]],
-9:[["Thickness",["60 mm","80 mm"]],["Colour",["Grey","Red","Charcoal"]]],
-10:[["Diameter",["8 mm","10 mm","12 mm","16 mm","20 mm"]]],
-11:[["Gauge",["16","18"]]],
-12:[["Internal diameter",["450 mm","600 mm","900 mm"]]]
 };
 
 /* ---------------- Helpers ---------------- */
@@ -337,10 +303,6 @@ const grad = g => `linear-gradient(135deg,${g[0]},${g[1]})`;
 const normOpts = o => o.map(x => ({
   k: x.key || x.k || x[0],
   ch: (x.choices || x.ch || x[1]).map(c => typeof c === "string" ? {v:c, a:0} : {v:c.value ?? c.v, a:+(c.priceAdjust ?? c.a) || 0})
-}));
-const fromBase = () => BASE.map(b => ({
-  ...b, id:String(b.id), specs:SPEC[b.id] || [], opts:normOpts(OPTS[b.id] || []),
-  ok:true, img:""
 }));
 const fromApi = a => ({
   id: String(a.id ?? a._id),
@@ -358,6 +320,7 @@ const fromApi = a => ({
 });
 
 let P = [], cart = [], cat = "All", Q = "", cur = null, sel = {}, note = "", step = 1, pend = null;
+let backendOk = null; // null = unknown, true = ok, false = failed
 try { cart = JSON.parse(localStorage.getItem("mca_cart2") || "[]"); } catch(e) {}
 const save = () => { try { localStorage.setItem("mca_cart2", JSON.stringify(cart)); } catch(e) {} };
 const prod = id => P.find(p => p.id === String(id));
@@ -365,6 +328,15 @@ const up = (p, s) => p.p + p.opts.reduce((t, o) => t + ((o.ch.find(c => c.v === 
 const lineTotal = i => { const p = prod(i.id); return p ? up(p, i.sel) * i.q : 0; };
 const total = () => cart.reduce((s, i) => s + lineTotal(i), 0);
 const stepOf = p => /m³/.test(p.u) ? 0.5 : 1;
+
+/* ---------------- Backend connection alert ---------------- */
+function setBackendAlert(ok, msg) {
+  backendOk = ok;
+  const el = $("#backendAlert");
+  if (ok) { el.classList.remove("show"); return; }
+  el.querySelector("span").textContent = msg || "Backend connection failed. Orders cannot be processed.";
+  el.classList.add("show");
+}
 
 /* ---------------- Toasts ---------------- */
 const IC = {success:"✓",error:"✕",warning:"!",info:"i"};
@@ -386,6 +358,11 @@ function toast(type, title, msg, ms) {
 
 /* ---------------- API helper ---------------- */
 async function api(path, opt = {}) {
+  if (!CONFIG.API) {
+    const msg = "Backend not configured. Set CONFIG.API to your server URL.";
+    setBackendAlert(false, msg);
+    throw new Error(msg);
+  }
   const c = new AbortController(), t = setTimeout(() => c.abort(), CONFIG.TIMEOUT);
   try {
     const r = await fetch(CONFIG.API + path, {
@@ -396,13 +373,14 @@ async function api(path, opt = {}) {
     let d = null;
     try { d = await r.json(); } catch(e) {}
     if (!r.ok) throw new Error((d && (d.message || d.error)) || `Request failed (${r.status})`);
+    setBackendAlert(true);
     return d;
   } catch(e) {
-    throw new Error(
-      e.name === "AbortError" ? "The server took too long to respond." :
-      e.message === "Failed to fetch" ? "Can’t reach the server. Check your internet connection." :
-      e.message
-    );
+    const msg = e.name === "AbortError" ? "The server took too long to respond." :
+      e.message === "Failed to fetch" ? "Cannot reach the server. Check your internet connection." :
+      e.message;
+    setBackendAlert(false, msg);
+    throw new Error(msg);
   } finally { clearTimeout(t); }
 }
 
@@ -418,6 +396,10 @@ function renderFilters() {
 
 function renderGrid() {
   const g = $("#grid");
+  if (!P.length) {
+    g.innerHTML = '<div class="nores">No products available. The admin has not added any products yet, or the backend is unreachable.</div>';
+    return;
+  }
   if (!shown().length) { g.innerHTML = '<div class="nores">No products match your search.</div>'; return; }
   g.innerHTML = shown().map((p, i) => `
     <div class="card ${p.ok ? "" : "oos"}" style="animation-delay:${i * 40}ms" data-id="${esc(p.id)}" tabindex="0">
@@ -598,15 +580,13 @@ const stk = h => { $("#pBody").innerHTML = h; $("#pm").classList.add("open"); };
 const busy = m => `<div class="pulse wait">⏳</div><h3>${m}</h3>`;
 
 async function waitPaid(id) {
-  if (DEMO) {
-    // Demo: simulate admin confirmation after a delay
-    await sleep(4500);
-    return { receipt: "MCA" + Math.random().toString(36).slice(2, 10).toUpperCase(), adminConfirmed: true };
-  }
   for (let i = 0; i < CONFIG.POLL_MAX; i++) {
     await sleep(CONFIG.POLL_MS);
     let s;
-    try { s = await api(CONFIG.STATUS(id)); } catch(e) { continue; }
+    try { s = await api(CONFIG.STATUS(id)); } catch(e) {
+      // Don't break the loop on transient errors; the alert already shows
+      continue;
+    }
     const st = String(s.paymentStatus || s.status || "").toLowerCase();
     if (st === "paid") {
       // Server sets adminConfirmed = true only after admin authorises
@@ -621,7 +601,7 @@ async function waitPaid(id) {
       throw new Error(s.message || "The payment was cancelled or failed.");
     }
   }
-  throw Object.assign(new Error("We haven’t received admin confirmation yet."), {late:true});
+  throw Object.assign(new Error("We haven't received admin confirmation yet."), {late:true});
 }
 
 $("#payBtn").onclick = async () => {
@@ -631,6 +611,10 @@ $("#payBtn").onclick = async () => {
   const err = $("#err");
   const bad = m => { err.textContent = m; toast("warning", "Check your details", m); };
 
+  if (!backendOk) {
+    toast("error", "Backend unavailable", "Cannot process payment. The store is not connected to the server.", 8000);
+    return;
+  }
   if (!cart.length) return toast("warning", "Your cart is empty");
   if (!name) return bad("Please enter your name.");
   if (!ph) return bad("Enter a valid Safaricom number, e.g. 0712 345 678.");
@@ -655,9 +639,7 @@ $("#payBtn").onclick = async () => {
   try {
     if (!ord) {
       stk(busy("Placing your order…"));
-      ord = DEMO
-        ? { orderId: "DEMO-" + uid().slice(0, 6), reference: "MCA-" + Math.random().toString(36).slice(2, 8).toUpperCase(), total: Math.round(total()) }
-        : await api(CONFIG.ORDERS, { method:"POST", headers:{"Idempotency-Key":uid()}, body:sig });
+      ord = await api(CONFIG.ORDERS, { method:"POST", headers:{"Idempotency-Key":uid()}, body:sig });
       pend = { sig, ord };
       if (Math.round(ord.total) !== Math.round(total())) {
         toast("info", "Prices updated", `Your total is now ${KSH(ord.total)}.`);
@@ -669,9 +651,7 @@ $("#payBtn").onclick = async () => {
       <p style="color:var(--mute);margin-top:6px">An M-Pesa prompt for <b>${KSH(ord.total)}</b> was sent to <b>+${ph}</b>. Enter your PIN to complete payment.</p>
       <p style="color:var(--mute);font-size:.8rem;margin-top:14px">After payment, our admin will confirm your order before goods are released.</p>`);
 
-    if (!DEMO) {
-      await api(CONFIG.STK, { method:"POST", body:JSON.stringify({ orderId:ord.orderId, phone:ph }) });
-    }
+    await api(CONFIG.STK, { method:"POST", body:JSON.stringify({ orderId:ord.orderId, phone:ph }) });
     toast("info", "M-Pesa prompt sent", "Enter your PIN on your phone.");
 
     const r = await waitPaid(ord.orderId);
@@ -692,7 +672,7 @@ function fail(e, ord) {
        <h3>${late ? "Awaiting admin confirmation" : "Payment not completed"}</h3>
        <p style="color:var(--mute);margin:8px 0 18px">
          ${esc(e.message)}
-         ${late ? `If M-Pesa already deducted the money, don’t pay again. Quote reference <b>${esc(ord.reference || ord.orderId)}</b> and our team will confirm it.` : "Your cart is safe, so you can try again."}
+         ${late ? `If M-Pesa already deducted the money, don't pay again. Quote reference <b>${esc(ord.reference || ord.orderId)}</b> and our team will confirm it.` : "Your cart is safe, so you can try again."}
        </p>
        <div class="row">
          ${late ? '<button class="btn light" id="chk">Check status</button>' : ""}
@@ -708,7 +688,7 @@ function fail(e, ord) {
       } else {
         toast("info", "Still pending", "Admin has not confirmed yet. Please wait a moment.");
       }
-    } catch(x) { toast("error", "Couldn’t check status", x.message); }
+    } catch(x) { toast("error", "Couldn't check status", x.message); }
   };
 }
 
@@ -755,16 +735,17 @@ document.addEventListener("keydown", e => {
 
 /* ---------------- Load / init ---------------- */
 async function load() {
+  if (!CONFIG.API) {
+    setBackendAlert(false, "Backend not configured. Set CONFIG.API to your server URL before going live.");
+    $("#grid").innerHTML = '<div class="nores">⚠️ Backend not configured.<br><br>The storefront cannot load products or process payments until CONFIG.API is set to your server URL.</div>';
+    toast("error", "Backend not configured", "Set CONFIG.API to your server URL before going live.", 10000);
+    return;
+  }
+
   $("#grid").innerHTML = Array(8).fill('<div class="sk"></div>').join("");
   try {
-    if (DEMO) {
-      await sleep(500);
-      P = fromBase();
-      toast("info", "Demo mode", "Using the built-in catalogue. Payments are simulated, and admin confirmation is automatic.", 5000);
-    } else {
-      const d = await api(CONFIG.PRODUCTS);
-      P = (d.products || d).map(fromApi);
-    }
+    const d = await api(CONFIG.PRODUCTS);
+    P = (d.products || d).map(fromApi);
     const n = cart.length;
     cart = cart.filter(i => prod(i.id));
     save();
@@ -772,10 +753,11 @@ async function load() {
     renderFilters();
     renderGrid();
     updCart();
+    setBackendAlert(true);
   } catch(e) {
-    $("#grid").innerHTML = `<div class="nores">😕 ${esc(e.message)}<br><br><button class="btn" id="retry">Try again</button></div>`;
+    $("#grid").innerHTML = `<div class="nores">😕 Could not load products.<br><br>${esc(e.message)}<br><br><button class="btn" id="retry">Try again</button></div>`;
     $("#retry").onclick = load;
-    toast("error", "Couldn’t load products", e.message);
+    toast("error", "Could not load products", e.message, 8000);
   }
 }
 
