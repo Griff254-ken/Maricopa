@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Admin · Maricopa Concrete &amp; Allied</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f59e0b'/%3E%3Cpath d='M14 48V16h8l10 16 10-16h8v32h-8V31L32 46 22 31v17z' fill='%2316171a'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#16171a">
+<meta name="robots" content="noindex,nofollow">
+<style>
+:root{--bg:#f4f1ec;--card:#fff;--ink:#1b1b1d;--mute:#6b6a68;--line:#e3ded6;--acc:#f59e0b;--acc2:#d97706;--dark:#16171a;--ok:#16a34a;--danger:#dc2626;--info:#2563eb;--shadow:0 10px 30px rgba(0,0,0,.08);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101113;--card:#1a1c20;--ink:#f3f1ed;--mute:#a09d97;--line:#2b2e34;--shadow:0 10px 30px rgba(0,0,0,.4)}}
+:root[data-theme="dark"]{--bg:#101113;--card:#1a1c20;--ink:#f3f1ed;--mute:#a09d97;--line:#2b2e34;--shadow:0 10px 30px rgba(0,0,0,.4)}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:var(--bg);color:var(--ink);font-family:'Segoe UI',system-ui,-apple-system,Roboto,sans-serif;line-height:1.5;min-height:100vh}
+button{font:inherit;cursor:pointer;border:0}
+input,select,textarea{font:inherit}
+.wrap{max-width:1280px;margin:auto;padding:0 20px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--dark);color:#fff;border-bottom:3px solid var(--acc)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.5px;font-size:1.05rem;color:#fff;text-decoration:none}
+.logo i{width:34px;height:34px;background:var(--acc);color:#111;display:grid;place-items:center;font-style:normal;border-radius:8px;transform:rotate(-6deg)}
+.logo small{display:block;font-weight:500;font-size:.62rem;color:#bbb;letter-spacing:2px;margin-top:-2px}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-link{color:#ddd;text-decoration:none;font-size:.9rem;padding:8px 12px;border-radius:8px;transition:.2s}
+.nav-link:hover{background:rgba(255,255,255,.08);color:#fff}
+.nav-link.storefront{background:var(--acc);color:#111;font-weight:700}
+.nav-link.storefront:hover{background:#fbbf24}
+.backend-status{display:flex;align-items:center;gap:6px;font-size:.78rem;color:#bbb;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+.backend-status .dot{width:8px;height:8px;border-radius:50%;background:var(--danger);transition:.3s}
+.backend-status.ok .dot{background:var(--ok);box-shadow:0 0 0 3px rgba(22,163,74,.25)}
+.backend-status.bad .dot{background:var(--danger);box-shadow:0 0 0 3px rgba(220,38,38,.25);animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.4}}
+
+/* Layout */
+.layout{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 64px)}
+@media (max-width:900px){.layout{grid-template-columns:1fr}}
+.sidebar{background:var(--card);border-right:1px solid var(--line);padding:20px 0;position:sticky;top:64px;height:calc(100vh - 64px);overflow-y:auto}
+@media (max-width:900px){.sidebar{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:12px 0}}
+.sidebar nav{display:flex;flex-direction:column;gap:2px;padding:0 12px}
+.sidebar button{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:9px;background:none;color:var(--ink);text-align:left;font-weight:600;font-size:.92rem;transition:.15s;width:100%}
+.sidebar button:hover{background:var(--bg)}
+.sidebar button.on{background:var(--dark);color:#fff}
+.sidebar button.on em{background:rgba(255,255,255,.15);color:#fff}
+.sidebar button em{font-style:normal;background:var(--bg);color:var(--mute);width:22px;height:22px;border-radius:6px;display:grid;place-items:center;font-size:.75rem;font-weight:700}
+.sidebar .badge-count{margin-left:auto;background:var(--acc);color:#111;font-size:.7rem;font-weight:800;padding:2px 8px;border-radius:999px;min-width:22px;text-align:center}
+
+.main{padding:28px 0 60px}
+@media (max-width:900px){.main{padding:20px 0 40px}}
+.page-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:24px}
+.page-head h1{font-size:1.7rem;font-weight:800}
+.page-head p{color:var(--mute);font-size:.92rem;margin-top:2px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* Buttons */
+.btn{background:var(--dark);color:#fff;font-weight:700;padding:11px 18px;border-radius:10px;display:inline-flex;align-items:center;gap:8px;transition:.2s;font-size:.9rem;text-decoration:none}
+.btn:hover{background:#2a2c31;transform:translateY(-1px)}
+.btn.acc{background:var(--acc);color:#111}
+.btn.acc:hover{background:#fbbf24}
+.btn.ok{background:var(--ok);color:#fff}
+.btn.ok:hover{background:#15803d}
+.btn.danger{background:var(--danger);color:#fff}
+.btn.danger:hover{background:#b91c1c}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{background:var(--bg);border-color:var(--ink)}
+.btn.sm{padding:7px 12px;font-size:.82rem;border-radius:8px}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* Cards / Panels */
+.panel{background:var(--card);border-radius:16px;border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden;margin-bottom:20px}
+.panel-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.panel-head h2{font-size:1.15rem;font-weight:800}
+.panel-head p{color:var(--mute);font-size:.85rem;margin-top:2px}
+.panel-body{padding:20px 22px}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:22px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+.stat b{font-size:1.6rem;font-weight:800;display:block;line-height:1.2}
+.stat span{font-size:.8rem;color:var(--mute);display:block;margin-top:2px}
+.stat.acc b{color:var(--acc2)}
+.stat.ok b{color:var(--ok)}
+.stat.danger b{color:var(--danger)}
+.stat.info b{color:var(--info)}
+
+/* Table */
+.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--line)}
+table.data{width:100%;border-collapse:collapse;font-size:.88rem;min-width:640px}
+table.data th{background:var(--bg);color:var(--mute);font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+table.data td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.data tr:last-child td{border-bottom:0}
+table.data tr:hover td{background:rgba(245,158,11,.04)}
+table.data .product-cell{display:flex;align-items:center;gap:10px;min-width:200px}
+table.data .thumb{width:42px;height:42px;border-radius:9px;object-fit:cover;background:var(--bg);display:grid;place-items:center;font-size:1.4rem;flex-shrink:0;overflow:hidden}
+table.data .thumb img{width:100%;height:100%;object-fit:cover}
+table.data .actions{display:flex;gap:6px;justify-content:flex-end}
+.empty-row td{text-align:center;color:var(--mute);padding:40px 12px!important}
+.empty-row em{font-style:normal;font-size:2.4rem;display:block;margin-bottom:8px;opacity:.5}
+
+/* Pills */
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:.74rem;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.pill.pending{background:rgba(245,158,11,.15);color:var(--acc2)}
+.pill.paid{background:rgba(22,163,74,.15);color:var(--ok)}
+.pill.failed{background:rgba(220,38,38,.15);color:var(--danger)}
+.pill.cancelled{background:rgba(107,106,104,.15);color:var(--mute)}
+.pill.confirmed{background:rgba(22,163,74,.15);color:var(--ok)}
+.pill.unconfirmed{background:rgba(245,158,11,.15);color:var(--acc2)}
+.pill.stock-ok{background:rgba(22,163,74,.15);color:var(--ok)}
+.pill.stock-out{background:rgba(220,38,38,.15);color:var(--danger)}
+
+/* Forms */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:600px){.form-grid{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:4px}
+.field.full{grid-column:1/-1}
+.field label{font-size:.78rem;font-weight:700;color:var(--mute);text-transform:uppercase;letter-spacing:.4px}
+.field input,.field select,.field textarea{padding:11px 13px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--ink);width:100%;font-size:.92rem;transition:.15s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px rgba(245,158,11,.15)}
+.field textarea{min-height:70px;resize:vertical}
+.field .hint{font-size:.74rem;color:var(--mute)}
+.field .err{color:var(--danger);font-size:.78rem;min-height:1em}
+
+/* Image uploader */
+.img-uploader{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.img-preview{width:110px;height:110px;border-radius:12px;border:2px dashed var(--line);background:var(--bg);display:grid;place-items:center;font-size:2rem;color:var(--mute);overflow:hidden;flex-shrink:0;position:relative;cursor:pointer;transition:.2s}
+.img-preview:hover{border-color:var(--acc);background:rgba(245,158,11,.06)}
+.img-preview img{width:100%;height:100%;object-fit:cover}
+.img-preview.drag{border-color:var(--acc);background:rgba(245,158,11,.12)}
+.img-controls{flex:1;min-width:180px;display:flex;flex-direction:column;gap:8px}
+.img-controls input[type=file]{display:none}
+.img-controls .btn{width:100%;justify-content:center}
+.img-controls .hint{font-size:.75rem;color:var(--mute)}
+
+/* Options builder */
+.opt-row{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin-bottom:8px;align-items:center}
+.opt-row input{padding:9px 11px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:.86rem;width:100%}
+.opt-row .x{background:var(--bg);color:var(--danger);border-radius:7px;width:32px;height:32px;font-size:1rem;display:grid;place-items:center;border:1px solid var(--line)}
+.opt-row .x:hover{background:rgba(220,38,38,.1)}
+.opt-group{border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px;background:var(--bg)}
+.opt-group-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.opt-group-head input{font-weight:700;font-size:.85rem;padding:6px 9px;border-radius:7px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.opt-group-head .x{background:none;color:var(--danger);font-size:.78rem;font-weight:700}
+
+/* Empty / skeleton */
+.sk{height:52px;border-radius:10px;background:linear-gradient(90deg,var(--card) 25%,var(--line) 50%,var(--card) 75%);background-size:200% 100%;animation:sh 1.2s infinite;margin-bottom:8px}
+@keyframes sh{to{background-position:-200% 0}}
+
+/* Login screen */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at 80% 20%,rgba(245,158,11,.25),transparent 50%),linear-gradient(135deg,#16171a,#2a2c31)}
+.login-card{background:var(--card);border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.4);padding:36px 32px;width:100%;max-width:400px;animation:pop .4s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{from{transform:scale(.92);opacity:0}}
+.login-card .logo{justify-content:center;margin-bottom:6px;color:var(--ink)}
+.login-card .logo i{background:var(--acc);color:#111}
+.login-card .logo small{color:var(--mute)}
+.login-card h1{text-align:center;font-size:1.35rem;margin:16px 0 4px}
+.login-card p{text-align:center;color:var(--mute);font-size:.86rem;margin-bottom:22px}
+.login-card .field{margin-bottom:12px}
+.login-card .btn{width:100%;justify-content:center;margin-top:6px;padding:13px}
+.login-card .err{color:var(--danger);font-size:.82rem;text-align:center;min-height:1.2em;margin-top:6px}
+.login-foot{text-align:center;font-size:.75rem;color:var(--mute);margin-top:16px}
+
+/* Modal */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:50;display:none;align-items:center;justify-content:center;padding:16px}
+.overlay.open{display:flex;animation:fade .2s}
+@keyframes fade{from{opacity:0}}
+.modal{background:var(--card);border-radius:20px;width:100%;max-width:640px;max-height:92vh;overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.5);animation:pop .3s cubic-bezier(.2,1.4,.4,1)}
+.modal-head{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;position:sticky;top:0;background:var(--card);z-index:1;border-radius:20px 20px 0 0}
+.modal-head h2{font-size:1.15rem}
+.modal-head .x{background:var(--bg);color:var(--ink);width:34px;height:34px;border-radius:50%;font-size:1rem}
+.modal-body{padding:22px 24px}
+.modal-foot{padding:16px 24px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:10px;position:sticky;bottom:0;background:var(--card);border-radius:0 0 20px 20px}
+
+/* Toasts */
+#toasts{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right:16px;z-index:100;display:flex;flex-direction:column;gap:10px;width:min(380px,calc(100vw - 32px));pointer-events:none}
+.tt{pointer-events:auto;position:relative;overflow:hidden;display:grid;grid-template-columns:36px 1fr 24px;gap:12px;align-items:start;background:var(--card);color:var(--ink);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:14px;padding:14px 12px 17px 14px;box-shadow:0 18px 50px rgba(0,0,0,.28);animation:tin .4s cubic-bezier(.2,1.2,.4,1)}
+.tt i{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:900;color:#fff;background:var(--c)}
+.tt b{display:block;font-size:.95rem}.tt p{font-size:.84rem;color:var(--mute);margin-top:2px}
+.tt button{background:none;color:var(--mute);font-size:.8rem;width:24px;height:24px}
+.tt span{position:absolute;left:0;bottom:0;height:3px;width:100%;background:var(--c);transform-origin:left;animation:tbar linear forwards}
+.tt.success{--c:var(--ok)}.tt.error{--c:var(--danger)}.tt.warning{--c:var(--acc)}.tt.info{--c:var(--info)}.tt.hold span{animation-play-state:paused}.tt.out{animation:tout .25s forwards}
+@keyframes tin{from{opacity:0;transform:translateX(40px) scale(.95)}}@keyframes tout{to{opacity:0;transform:translateX(40px)}}@keyframes tbar{to{transform:scaleX(0)}}
+@media(max-width:600px){#toasts{right:50%;transform:translateX(50%)}}
+
+/* Order detail */
+.order-lines{width:100%;border-collapse:collapse;font-size:.86rem;margin:10px 0}
+.order-lines th{text-align:left;color:var(--mute);font-size:.72rem;text-transform:uppercase;letter-spacing:.4px;padding:6px 0;border-bottom:1px solid var(--line)}
+.order-lines td{padding:7px 0;border-bottom:1px solid var(--line)}
+.order-lines td:last-child,.order-lines th:last-child{text-align:right}
+.order-total{display:flex;justify-content:space-between;font-size:1.05rem;font-weight:800;padding-top:10px}
+.order-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:.88rem;margin-bottom:14px}
+@media (max-width:500px){.order-meta{grid-template-columns:1fr}}
+.order-meta .k{color:var(--mute);font-size:.74rem;text-transform:uppercase;letter-spacing:.4px;font-weight:700}
+.order-meta .v{font-weight:600;margin-top:2px}
+
+/* Tabs inside modal */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:18px}
+.tabs button{background:none;color:var(--mute);padding:10px 14px;font-weight:700;font-size:.88rem;border-bottom:2px solid transparent;margin-bottom:-1px;border-radius:8px 8px 0 0}
+.tabs button.on{color:var(--ink);border-bottom-color:var(--acc)}
+
+.section{display:none}.section.on{display:block}
+
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.filter-chip{background:var(--card);color:var(--ink);border:1px solid var(--line);padding:7px 14px;border-radius:999px;font-weight:600;font-size:.82rem;transition:.15s}
+.filter-chip.on,.filter-chip:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
+
+@media (max-width:600px){
+  .wrap{padding:0 14px}
+  .page-head h1{font-size:1.35rem}
+  .modal{border-radius:16px;max-height:94vh}
+  .login-card{padding:28px 22px}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= LOGIN SCREEN ================= -->
+<div id="loginScreen" class="login-wrap">
+  <div class="login-card">
+    <div class="logo"><i>M</i><div>MARICOPA<small>CONCRETE &amp; ALLIED</small></div></div>
+    <h1>Admin Sign In</h1>
+    <p>Enter your credentials to manage the store.</p>
+    <div class="field">
+      <label for="loginUser">Username</label>
+      <input id="loginUser" autocomplete="username" placeholder="admin">
+    </div>
+    <div class="field">
+      <label for="loginPass">Password</label>
+      <input id="loginPass" type="password" autocomplete="current-password" placeholder="••••••••">
+    </div>
+    <button class="btn acc" id="loginBtn">Sign in</button>
+    <div class="err" id="loginErr"></div>
+    <div class="login-foot">Protected area · Only authorised staff</div>
+  </div>
+</div>
+
+<!-- ================= ADMIN APP ================= -->
+<div id="adminApp" style="display:none">
+  <header><div class="wrap nav">
+    <a class="logo" href="#" onclick="return false"><i>M</i><div>MARICOPA<small>ADMIN CONSOLE</small></div></a>
+    <div class="nav-right">
+      <span class="backend-status" id="backendStatus" title="Backend connection status">
+        <span class="dot"></span>
+        <span id="backendStatusText">Checking…</span>
+      </span>
+      <a class="nav-link storefront" href="index.html" target="_blank" rel="noopener">🛍️ Storefront</a>
+      <button class="nav-link" id="logoutBtn" style="background:none">Sign out</button>
+    </div>
+  </div></header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <nav>
+        <button data-sec="dashboard" class="on"><em>📊</em> Dashboard</button>
+        <button data-sec="orders"><em>📦</em> Orders <span class="badge-count" id="pendingCount" style="display:none">0</span></button>
+        <button data-sec="products"><em>🏷️</em> Products</button>
+        <button data-sec="settings"><em>⚙️</em> Settings</button>
+      </nav>
+    </aside>
+
+    <main class="main"><div class="wrap">
+
+      <!-- ---------- DASHBOARD ---------- -->
+      <section class="section on" id="sec-dashboard">
+        <div class="page-head">
+          <div><h1>Dashboard</h1><p>Overview of store activity and pending actions.</p></div>
+          <button class="btn ghost sm" id="refreshDash">↻ Refresh</button>
+        </div>
+
+        <div class="stats">
+          <div class="stat acc"><b id="statPending">—</b><span>Payments awaiting confirmation</span></div>
+          <div class="stat ok"><b id="statPaid">—</b><span>Confirmed orders</span></div>
+          <div class="stat info"><b id="statProducts">—</b><span>Products listed</span></div>
+          <div class="stat danger"><b id="statOOS">—</b><span>Out of stock</span></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <div><h2>Orders needing your approval</h2><p>Payments received — confirm to release goods.</p></div>
+            <button class="btn acc sm" data-jump="orders">View all orders →</button>
+          </div>
+          <div class="panel-body" id="dashOrders">
+            <div class="sk"></div><div class="sk"></div><div class="sk"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- ORDERS ---------- -->
+      <section class="section" id="sec-orders">
+        <div class="page-head">
+          <div><h1>Orders</h1><p>Review payments and confirm orders before release.</p></div>
+          <button class="btn ghost sm" id="refreshOrders">↻ Refresh</button>
+        </div>
+
+        <div class="filter-row" id="orderFilters">
+          <button class="filter-chip on" data-status="all">All</button>
+          <button class="filter-chip" data-status="paid">Paid (awaiting confirmation)</button>
+          <button class="filter-chip" data-status="pending">Pending</button>
+          <button class="filter-chip" data-status="cancelled">Cancelled</button>
+        </div>
+
+        <div class="panel"><div class="panel-body" style="padding:0">
+          <div class="table-wrap"><table class="data" id="ordersTable">
+            <thead><tr><th>Reference</th><th>Customer</th><th>Items</th><th>Total</th><th>Payment</th><th>Approval</th><th></th></tr></thead>
+            <tbody><tr><td colspan="7" class="empty-row"><div class="sk"></div></td></tr></tbody>
+          </table></div>
+        </div></div>
+      </section>
+
+      <!-- ---------- PRODUCTS ---------- -->
+      <section class="section" id="sec-products">
+        <div class="page-head">
+          <div><h1>Products</h1><p>Add, edit or remove products and set prices and images.</p></div>
+          <button class="btn acc" id="addProductBtn">+ Add product</button>
+        </div>
+
+        <div class="panel"><div class="panel-body" style="padding:0">
+          <div class="table-wrap"><table class="data" id="productsTable">
+            <thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Unit</th><th>Stock</th><th></th></tr></thead>
+            <tbody><tr><td colspan="6" class="empty-row"><div class="sk"></div></td></tr></tbody>
+          </table></div>
+        </div></div>
+      </section>
+
+      <!-- ---------- SETTINGS ---------- -->
+      <section class="section" id="sec-settings">
+        <div class="page-head"><div><h1>Settings</h1><p>Backend connection and account information.</p></div></div>
+
+        <div class="panel"><div class="panel-head"><h2>Backend API</h2></div><div class="panel-body">
+          <div class="field">
+            <label for="apiUrl">API base URL</label>
+            <input id="apiUrl" placeholder="https://your-backend.com">
+            <div class="hint">The storefront and this admin panel must point to the same backend. Saved in your browser.</div>
+          </div>
+          <div class="toolbar" style="margin-top:6px">
+            <button class="btn acc" id="saveApi">Save &amp; reconnect</button>
+            <button class="btn ghost" id="testApi">Test connection</button>
+          </div>
+        </div></div>
+
+        <div class="panel"><div class="panel-head"><h2>Session</h2></div><div class="panel-body">
+          <p style="color:var(--mute);font-size:.9rem;margin-bottom:14px">Signed in as <b id="whoami" style="color:var(--ink)">admin</b>. Credentials are sent via HTTP Basic auth on every request.</p>
+          <button class="btn danger" id="logoutBtn2">Sign out</button>
+        </div></div>
+      </section>
+
+    </div></main>
+  </div>
+</div>
+
+<!-- ================= PRODUCT MODAL ================= -->
+<div class="overlay" id="productModal"><div class="modal">
+  <div class="modal-head"><h2 id="pmTitle">Add product</h2><button class="x" data-close="productModal">✕</button></div>
+  <div class="modal-body">
+    <div class="tabs">
+      <button class="on" data-tab="basic">Basic info</button>
+      <button data-tab="pricing">Pricing &amp; stock</button>
+      <button data-tab="options">Options &amp; specs</button>
+    </div>
+
+    <!-- Basic -->
+    <div class="section on" id="tab-basic">
+      <div class="form-grid">
+        <div class="field full"><label>Product name *</label><input id="fName" placeholder="e.g. Ready-Mix Concrete C25"><div class="err" id="eName"></div></div>
+        <div class="field"><label>Category *</label><input id="fCategory" list="catList" placeholder="e.g. Concrete">
+          <datalist id="catList"></datalist>
+        </div>
+        <div class="field"><label>Emoji (fallback)</label><input id="fEmoji" placeholder="📦" maxlength="4"></div>
+        <div class="field full"><label>Description</label><textarea id="fDescription" placeholder="Short description shown to customers…"></textarea></div>
+        <div class="field full">
+          <label>Product image</label>
+          <div class="img-uploader">
+            <div class="img-preview" id="imgPreview" title="Click to upload">📷</div>
+            <div class="img-controls">
+              <input type="file" id="imgFile" accept="image/*">
+              <button class="btn ghost sm" id="imgPick">📁 Choose image</button>
+              <button class="btn ghost sm" id="imgClear" style="color:var(--danger)">🗑 Remove</button>
+              <div class="hint">JPG/PNG, square works best. Uploaded to backend as base64 (demo) or via your media endpoint.</div>
+            </div>
+          </div>
+          <input id="fImage" type="hidden">
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="section" id="tab-pricing">
+      <div class="form-grid">
+        <div class="field"><label>Price (KSh) *</label><input id="fPrice" type="number" min="0" step="1" placeholder="0"><div class="err" id="ePrice"></div></div>
+        <div class="field"><label>Unit *</label><input id="fUnit" placeholder="e.g. per m³, per bag"></div>
+        <div class="field"><label>In stock</label>
+          <select id="fInStock"><option value="true">Available</option><option value="false">Out of stock</option></select>
+        </div>
+        <div class="field"><label>Gradient (fallback)</label><input id="fGradient" placeholder="#64748b, #334155" value="#64748b, #334155"></div>
+      </div>
+    </div>
+
+    <!-- Options -->
+    <div class="section" id="tab-options">
+      <div class="panel-head" style="padding:0 0 12px;border:0">
+        <div><h2 style="font-size:1rem">Options</h2><p style="font-size:.8rem">Optional choices customers can make (e.g. size, colour).</p></div>
+        <button class="btn ghost sm" id="addOptGroup">+ Add option group</button>
+      </div>
+      <div id="optGroups"></div>
+
+      <div class="panel-head" style="padding:14px 0 12px;border:0;border-top:1px solid var(--line);margin-top:8px">
+        <div><h2 style="font-size:1rem">Specifications</h2><p style="font-size:.8rem">Technical specs shown on the product detail popup.</p></div>
+        <button class="btn ghost sm" id="addSpec">+ Add spec</button>
+      </div>
+      <div id="specRows"></div>
+    </div>
+  </div>
+  <div class="modal-foot">
+    <button class="btn ghost" data-close="productModal">Cancel</button>
+    <button class="btn acc" id="saveProduct">Save product</button>
+  </div>
+</div></div>
+
+<!-- ================= ORDER MODAL ================= -->
+<div class="overlay" id="orderModal"><div class="modal">
+  <div class="modal-head"><h2 id="omTitle">Order details</h2><button class="x" data-close="orderModal">✕</button></div>
+  <div class="modal-body" id="omBody"></div>
+  <div class="modal-foot" id="omFoot"></div>
+</div></div>
+
+<div id="toasts" aria-live="polite"></div>
+
+<script>
+/* =====================================================================
+   MARICOPA ADMIN CONSOLE
+   Connects to the backend built earlier. All API calls require
+   HTTP Basic auth (credentials entered on the login screen).
+   ===================================================================== */
+
+/* -------- Config -------- */
+const DEFAULT_API = ""; // set to e.g. "https://api.maricopa.co.ke"
+const CONFIG = {
+  API: localStorage.getItem("mca_api") || DEFAULT_API,
+  TIMEOUT: 15000
+};
+
+/* -------- State -------- */
+let auth = { user: "", pass: "", header: "" };
+let products = [];
+let orders = [];
+let orderFilter = "all";
+let editingProduct = null;   // null = new, object = edit
+let productImage = "";       // base64 data URL or remote URL
+let optGroups = [];          // [{ key, choices:[{value, priceAdjust}] }]
+let specs = [];              // [[label, value]]
+let backendOk = false;
+
+/* -------- Tiny helpers -------- */
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const KSH = n => "KSh " + Math.round(Number(n) || 0).toLocaleString("en-KE");
+const fmtDate = iso => { try { return new Date(iso).toLocaleString("en-KE", {day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}); } catch { return iso; } };
+
+/* -------- Toasts -------- */
+const IC = {success:"✓",error:"✕",warning:"!",info:"i"};
+function toast(type, title, msg, ms) {
+  const box = $("#toasts");
+  while (box.children.length >= 4) box.firstChild.remove();
+  const d = document.createElement("div");
+  const life = ms || (type === "error" ? 7000 : 4000);
+  d.className = "tt " + type;
+  d.setAttribute("role", type === "error" ? "alert" : "status");
+  d.innerHTML = `<i>${IC[type]}</i><div><b>${esc(title)}</b>${msg ? `<p>${esc(msg)}</p>` : ""}</div><button aria-label="Dismiss">✕</button><span style="animation-duration:${life}ms"></span>`;
+  const kill = () => { d.classList.add("out"); setTimeout(() => d.remove(), 250); };
+  let t = setTimeout(kill, life);
+  d.querySelector("button").onclick = kill;
+  d.onmouseenter = () => { clearTimeout(t); d.classList.add("hold"); };
+  d.onmouseleave = () => { d.classList.remove("hold"); t = setTimeout(kill, 1500); };
+  box.appendChild(d);
+}
+
+/* -------- Backend status indicator -------- */
+function setBackendStatus(ok, text) {
+  backendOk = ok;
+  const el = $("#backendStatus");
+  el.classList.toggle("ok", ok);
+  el.classList.toggle("bad", !ok);
+  $("#backendStatusText").textContent = text || (ok ? "Connected" : "Disconnected");
+}
+
+/* -------- API client -------- */
+async function api(path, opt = {}) {
+  if (!CONFIG.API) {
+    setBackendStatus(false, "No API URL");
+    throw new Error("Backend URL not set. Open Settings to configure it.");
+  }
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), CONFIG.TIMEOUT);
+  try {
+    const res = await fetch(CONFIG.API + path, {
+      ...opt,
+      signal: ctrl.signal,
+      headers: {
+        "Content-Type": "application/json",
+        ...(auth.header ? { Authorization: auth.header } : {}),
+        ...(opt.headers || {})
+      }
+    });
+    let data = null;
+    try { data = await res.json(); } catch {}
+    if (res.status === 401) {
+      setBackendStatus(false, "Auth failed");
+      throw Object.assign(new Error("Invalid username or password."), { auth: true });
+    }
+    if (!res.ok) throw new Error((data && (data.error || data.message)) || `Request failed (${res.status})`);
+    setBackendStatus(true, "Connected");
+    return data;
+  } catch (e) {
+    if (e.name === "AbortError") {
+      setBackendStatus(false, "Timeout");
+      throw new Error("The server took too long to respond.");
+    }
+    if (e.message === "Failed to fetch") {
+      setBackendStatus(false, "Offline");
+      throw new Error("Cannot reach the backend. Check the API URL and your internet connection.");
+    }
+    if (!e.auth) setBackendStatus(false, "Error");
+    throw e;
+  } finally { clearTimeout(t); }
+}
+
+/* =====================================================================
+   LOGIN
+   ===================================================================== */
+function showLogin() {
+  $("#loginScreen").style.display = "";
+  $("#adminApp").style.display = "none";
+}
+function showApp() {
+  $("#loginScreen").style.display = "none";
+  $("#adminApp").style.display = "";
+}
+
+async function attemptLogin() {
+  const user = $("#loginUser").value.trim();
+  const pass = $("#loginPass").value;
+  const err = $("#loginErr");
+  err.textContent = "";
+  if (!user || !pass) { err.textContent = "Enter your username and password."; return; }
+
+  if (!CONFIG.API) {
+    err.textContent = "Backend URL not configured. Set it in Settings after signing in.";
+    // Allow sign-in anyway so user can reach Settings
+  }
+
+  auth = { user, pass, header: "Basic " + btoa(user + ":" + pass) };
+  try {
+    // Validate against an admin endpoint
+    await api("/api/admin/orders?status=all");
+    $("#loginPass").value = "";
+    showApp();
+    $("#whoami").textContent = user;
+    toast("success", "Signed in", `Welcome, ${user}.`);
+    await bootstrap();
+  } catch (e) {
+    if (e.auth || !CONFIG.API) {
+      // If auth failed or backend URL missing, keep login screen but allow
+      // reaching Settings if credentials look plausible (no backend).
+      err.textContent = e.auth ? "Invalid username or password." : e.message;
+      auth = { user: "", pass: "", header: "" };
+    } else {
+      err.textContent = e.message;
+      auth = { user: "", pass: "", header: "" };
+    }
+  }
+}
+
+$("#loginBtn").onclick = attemptLogin;
+$("#loginPass").addEventListener("keydown", e => { if (e.key === "Enter") attemptLogin(); });
+$("#loginUser").addEventListener("keydown", e => { if (e.key === "Enter") $("#loginPass").focus(); });
+
+/* =====================================================================
+   BOOTSTRAP — load everything after login
+   ===================================================================== */
+async function bootstrap() {
+  await Promise.all([loadProducts(true), loadOrders(true)]);
+  renderDashboard();
+  renderOrders();
+  renderProducts();
+  $("#apiUrl").value = CONFIG.API || "";
+  populateCategoryList();
+}
+
+async function loadProducts(silent) {
+  try {
+    const d = await api("/api/admin/products");
+    products = d.products || [];
+    populateCategoryList();
+    return true;
+  } catch (e) {
+    if (!silent) toast("error", "Couldn't load products", e.message);
+    if (e.auth) { showLogin(); }
+    return false;
+  }
+}
+
+async function loadOrders(silent) {
+  try {
+    const q = orderFilter === "all" ? "all" : orderFilter;
+    const d = await api(`/api/admin/orders?status=${encodeURIComponent(q)}`);
+    orders = d.orders || [];
+    return true;
+  } catch (e) {
+    if (!silent) toast("error", "Couldn't load orders", e.message);
+    if (e.auth) { showLogin(); }
+    return false;
+  }
+}
+
+/* =====================================================================
+   NAVIGATION
+   ===================================================================== */
+function showSection(id) {
+  $$(".section").forEach(s => s.classList.remove("on"));
+  $("#sec-" + id).classList.add("on");
+  $$(".sidebar button").forEach(b => b.classList.toggle("on", b.dataset.sec === id));
+  window.scrollTo({top:0, behavior:"smooth"});
+  if (id === "dashboard") { loadOrders(true).then(renderDashboard); loadProducts(true).then(renderDashboard); }
+  if (id === "orders") loadOrders().then(renderOrders);
+  if (id === "products") loadProducts().then(renderProducts);
+}
+$$(".sidebar button").forEach(b => b.onclick = () => showSection(b.dataset.sec));
+document.querySelectorAll("[data-jump]").forEach(b => b.onclick = () => showSection(b.dataset.jump));
+
+/* =====================================================================
+   DASHBOARD
+   ===================================================================== */
+function renderDashboard() {
+  const paid = orders.filter(o => o.paymentStatus === "paid" && !o.adminConfirmed);
+  const confirmed = orders.filter(o => o.adminConfirmed);
+  const oos = products.filter(p => !p.inStock);
+
+  $("#statPending").textContent = paid.length;
+  $("#statPaid").textContent = confirmed.length;
+  $("#statProducts").textContent = products.length;
+  $("#statOOS").textContent = oos.length;
+
+  const box = $("#dashOrders");
+  if (!paid.length) {
+    box.innerHTML = '<div class="empty-row" style="padding:26px;text-align:center;color:var(--mute)"><em style="font-style:normal;font-size:2rem;display:block">✅</em>No payments waiting for approval.</div>';
+    return;
+  }
+  box.innerHTML = `<div class="table-wrap"><table class="data">
+    <thead><tr><th>Reference</th><th>Customer</th><th>Total</th><th>Paid</th><th></th></tr></thead>
+    <tbody>${paid.slice(0,6).map(o => `
+      <tr>
+        <td><b>${esc(o.reference)}</b></td>
+        <td>${esc(o.customer.name)}<br><small style="color:var(--mute)">${esc(o.customer.phone)}</small></td>
+        <td><b>${KSH(o.total)}</b></td>
+        <td><span class="pill paid">✓ Paid</span></td>
+        <td class="actions"><button class="btn ok sm" data-confirm="${esc(o.id)}">Confirm &amp; release</button></td>
+      </tr>`).join("")}</tbody>
+  </table></div>`;
+  box.querySelectorAll("[data-confirm]").forEach(b => b.onclick = () => confirmOrder(b.dataset.confirm));
+}
+
+/* =====================================================================
+   ORDERS
+   ===================================================================== */
+$$("#orderFilters .filter-chip").forEach(c => c.onclick = async () => {
+  orderFilter = c.dataset.status;
+  $$("#orderFilters .filter-chip").forEach(x => x.classList.toggle("on", x === c));
+  await loadOrders();
+  renderOrders();
+});
+
+function renderOrders() {
+  const tbody = $("#ordersTable tbody");
+  const pendingBadge = $("#pendingCount");
+  const paidAwaiting = orders.filter(o => o.paymentStatus === "paid" && !o.adminConfirmed).length;
+  if (paidAwaiting) { pendingBadge.style.display = ""; pendingBadge.textContent = paidAwaiting; }
+  else pendingBadge.style.display = "none";
+
+  if (!orders.length) {
+    tbody.innerHTML = '<tr><td colspan="7" class="empty-row"><em>📦</em>No orders yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = orders.map(o => {
+    const itemCount = (o.items || []).reduce((s, i) => s + (i.quantity || 0), 0);
+    const payPill = `<span class="pill ${o.paymentStatus}">${esc(o.paymentStatus)}</span>`;
+    const appPill = o.adminConfirmed
+      ? '<span class="pill confirmed">✓ Released</span>'
+      : (o.paymentStatus === "paid" ? '<span class="pill unconfirmed">Awaiting approval</span>' : '<span class="pill unconfirmed">—</span>');
+    return `<tr>
+      <td><b>${esc(o.reference)}</b><br><small style="color:var(--mute)">${fmtDate(o.createdAt)}</small></td>
+      <td>${esc(o.customer.name)}<br><small style="color:var(--mute)">${esc(o.customer.phone)}</small></td>
+      <td>${itemCount} item${itemCount === 1 ? "" : "s"}</td>
+      <td><b>${KSH(o.total)}</b></td>
+      <td>${payPill}</td>
+      <td>${appPill}</td>
+      <td class="actions"><button class="btn ghost sm" data-view="${esc(o.id)}">View</button></td>
+    </tr>`;
+  }).join("");
+  tbody.querySelectorAll("[data-view]").forEach(b => b.onclick = () => openOrder(b.dataset.view));
+}
+
+async function confirmOrder(id) {
+  try {
+    await api(`/api/admin/orders/${id}/confirm`, { method: "POST" });
+    toast("success", "Order released", "Customer can now receive their goods.");
+    await loadOrders(true);
+    renderOrders();
+    renderDashboard();
+    const modal = $("#orderModal");
+    if (modal.classList.contains("open")) openOrder(id);
+  } catch (e) {
+    toast("error", "Couldn't confirm order", e.message);
+  }
+}
+
+async function rejectOrder(id) {
+  if (!confirm("Cancel this order? The customer will be notified that it was cancelled.")) return;
+  try {
+    await api(`/api/admin/orders/${id}/reject`, { method: "POST" });
+    toast("warning", "Order cancelled");
+    await loadOrders(true);
+    renderOrders();
+    renderDashboard();
+    $("#orderModal").classList.remove("open");
+  } catch (e) {
+    toast("error", "Couldn't cancel order", e.message);
+  }
+}
+
+function openOrder(id) {
+  const o = orders.find(x => x.id === id);
+  if (!o) return;
+  $("#omTitle").textContent = "Order " + o.reference;
+  $("#omBody").innerHTML = `
+    <div class="order-meta">
+      <div><div class="k">Customer</div><div class="v">${esc(o.customer.name)}</div></div>
+      <div><div class="k">Phone</div><div class="v">+${esc(o.customer.phone)}</div></div>
+      <div><div class="k">Delivery location</div><div class="v">${esc(o.customer.location)}</div></div>
+      <div><div class="k">Placed</div><div class="v">${fmtDate(o.createdAt)}</div></div>
+      <div><div class="k">Payment</div><div class="v">${`<span class="pill ${o.paymentStatus}">${esc(o.paymentStatus)}</span>`}</div></div>
+      <div><div class="k">M-Pesa receipt</div><div class="v">${esc(o.mpesaReceipt || "—")}</div></div>
+    </div>
+    <table class="order-lines">
+      <thead><tr><th>Item</th><th>Qty</th><th>Unit price</th><th>Line total</th></tr></thead>
+      <tbody>${(o.items || []).map(i => `
+        <tr>
+          <td>${esc(i.name)}${i.options && Object.keys(i.options).length ? `<br><small style="color:var(--mute)">${esc(Object.values(i.options).join(" · "))}</small>` : ""}${i.note ? `<br><small style="color:var(--mute)">📝 ${esc(i.note)}</small>` : ""}</td>
+          <td>${i.quantity}</td>
+          <td>${KSH(i.unitPrice)}</td>
+          <td><b>${KSH(i.lineTotal)}</b></td>
+        </tr>`).join("")}</tbody>
+    </table>
+    <div class="order-total"><span>Total</span><span>${KSH(o.total)}</span></div>
+    ${o.adminConfirmed ? '<p style="margin-top:14px;color:var(--ok);font-weight:700">✓ This order has been approved and released.</p>' : ""}
+  `;
+
+  const foot = $("#omFoot");
+  if (o.paymentStatus === "paid" && !o.adminConfirmed) {
+    foot.innerHTML = `
+      <button class="btn danger" data-reject="${esc(o.id)}">Cancel order</button>
+      <button class="btn ok" data-confirm="${esc(o.id)}">Confirm &amp; release goods</button>`;
+    foot.querySelector("[data-confirm]").onclick = () => confirmOrder(o.id);
+    foot.querySelector("[data-reject]").onclick = () => rejectOrder(o.id);
+  } else if (o.adminConfirmed) {
+    foot.innerHTML = `<button class="btn ghost" data-close="orderModal">Close</button>`;
+  } else {
+    foot.innerHTML = `<button class="btn ghost" data-close="orderModal">Close</button>`;
+  }
+  foot.querySelectorAll("[data-close]").forEach(b => b.onclick = () => $("#orderModal").classList.remove("open"));
+  $("#orderModal").classList.add("open");
+}
+
+/* =====================================================================
+   PRODUCTS
+   ===================================================================== */
+function renderProducts() {
+  const tbody = $("#productsTable tbody");
+  if (!products.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-row"><em>🏷️</em>No products yet. Add your first product.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = products.map(p => `
+    <tr>
+      <td>
+        <div class="product-cell">
+          <div class="thumb">${p.image ? `<img src="${esc(p.image)}" alt="">` : esc(p.emoji || "📦")}</div>
+          <div><b>${esc(p.name)}</b><br><small style="color:var(--mute)">${esc((p.description || "").slice(0, 50))}${(p.description || "").length > 50 ? "…" : ""}</small></div>
+        </div>
+      </td>
+      <td>${esc(p.category)}</td>
+      <td><b>${KSH(p.price)}</b></td>
+      <td>${esc(p.unit)}</td>
+      <td>${p.inStock ? '<span class="pill stock-ok">In stock</span>' : '<span class="pill stock-out">Out</span>'}</td>
+      <td class="actions">
+        <button class="btn ghost sm" data-edit="${esc(p.id)}">Edit</button>
+        <button class="btn danger sm" data-del="${esc(p.id)}">Delete</button>
+      </td>
+    </tr>`).join("");
+  tbody.querySelectorAll("[data-edit]").forEach(b => b.onclick = () => openProductModal(b.dataset.edit));
+  tbody.querySelectorAll("[data-del]").forEach(b => b.onclick = () => deleteProduct(b.dataset.del));
+}
+
+function populateCategoryList() {
+  const cats = [...new Set(products.map(p => p.category).filter(Boolean))];
+  $("#catList").innerHTML = cats.map(c => `<option value="${esc(c)}">`).join("");
+}
+
+/* -------- Product modal -------- */
+function openProductModal(id) {
+  editingProduct = id ? products.find(p => p.id === id) : null;
+  productImage = editingProduct?.image || "";
+  optGroups = JSON.parse(JSON.stringify(editingProduct?.options || []));
+  specs = JSON.parse(JSON.stringify(editingProduct?.specs || []));
+  if (!optGroups.length) optGroups = [];
+  if (!specs.length) specs = [];
+
+  $("#pmTitle").textContent = editingProduct ? "Edit product" : "Add product";
+  $("#fName").value = editingProduct?.name || "";
+  $("#fCategory").value = editingProduct?.category || "";
+  $("#fEmoji").value = editingProduct?.emoji || "📦";
+  $("#fDescription").value = editingProduct?.description || "";
+  $("#fPrice").value = editingProduct?.price ?? "";
+  $("#fUnit").value = editingProduct?.unit || "";
+  $("#fInStock").value = String(editingProduct?.inStock ?? true);
+  const g = editingProduct?.gradient || ["#64748b","#334155"];
+  $("#fGradient").value = `${g[0]}, ${g[1]}`;
+  $("#fImage").value = productImage;
+  $("#eName").textContent = "";
+  $("#ePrice").textContent = "";
+
+  setImagePreview(productImage);
+  renderOptGroups();
+  renderSpecs();
+  switchTab("basic");
+  $("#productModal").classList.add("open");
+}
+
+function setImagePreview(src) {
+  const el = $("#imgPreview");
+  if (src) el.innerHTML = `<img src="${esc(src)}" alt="">`;
+  else el.textContent = "📷";
+}
+
+$$("[data-tab]").forEach(b => b.onclick = () => switchTab(b.dataset.tab));
+function switchTab(name) {
+  $$(".tabs button").forEach(b => b.classList.toggle("on", b.dataset.tab === name));
+  $$("#productModal .section").forEach(s => s.classList.toggle("on", s.id === "tab-" + name));
+}
+
+/* Image upload — converts to base64 and stores in hidden input.
+   Your backend can accept the base64 string directly in the `image`
+   field (recommended for simple setups), or you can add a dedicated
+   /api/admin/upload endpoint that returns a URL and store that instead. */
+$("#imgPick").onclick = () => $("#imgFile").click();
+$("#imgPreview").onclick = () => $("#imgFile").click();
+$("#imgClear").onclick = () => { productImage = ""; $("#fImage").value = ""; setImagePreview(""); $("#imgFile").value = ""; };
+$("#imgFile").onchange = e => {
+  const f = e.target.files[0];
+  if (!f) return;
+  if (f.size > 2 * 1024 * 1024) { toast("warning", "Image too large", "Please choose an image under 2 MB."); return; }
+  const reader = new FileReader();
+  reader.onload = ev => { productImage = ev.target.result; $("#fImage").value = productImage; setImagePreview(productImage); };
+  reader.readAsDataURL(f);
+};
+
+/* Drag & drop on preview */
+const preview = $("#imgPreview");
+["dragover","dragenter"].forEach(ev => preview.addEventListener(ev, e => { e.preventDefault(); preview.classList.add("drag"); }));
+["dragleave","drop"].forEach(ev => preview.addEventListener(ev, e => { e.preventDefault(); preview.classList.remove("drag"); }));
+preview.addEventListener("drop", e => {
+  const f = e.dataTransfer.files[0];
+  if (!f || !f.type.startsWith("image/")) return;
+  if (f.size > 2 * 1024 * 1024) { toast("warning", "Image too large", "Please choose an image under 2 MB."); return; }
+  const reader = new FileReader();
+  reader.onload = ev => { productImage = ev.target.result; $("#fImage").value = productImage; setImagePreview(productImage); };
+  reader.readAsDataURL(f);
+});
+
+/* Option groups */
+$("#addOptGroup").onclick = () => { optGroups.push({ key: "", choices: [{ value: "", priceAdjust: 0 }] }); renderOptGroups(); };
+function renderOptGroups() {
+  const box = $("#optGroups");
+  if (!optGroups.length) { box.innerHTML = '<p style="color:var(--mute);font-size:.85rem;margin-bottom:10px">No options — customers will just choose a quantity.</p>'; return; }
+  box.innerHTML = optGroups.map((g, gi) => `
+    <div class="opt-group">
+      <div class="opt-group-head">
+        <input placeholder="Option name (e.g. Slump)" value="${esc(g.key)}" data-gk="${gi}">
+        <button class="x" data-gdel="${gi}">✕ Remove group</button>
+      </div>
+      <div>
+        ${g.choices.map((c, ci) => `
+          <div class="opt-row">
+            <input placeholder="Value (e.g. 75–100 mm)" value="${esc(c.value)}" data-gv="${gi}-${ci}">
+            <input type="number" min="0" step="1" placeholder="Price adj. (+KSh)" value="${c.priceAdjust || ""}" data-ga="${gi}-${ci}">
+            <button class="x" data-cdel="${gi}-${ci}">✕</button>
+          </div>`).join("")}
+        <button class="btn ghost sm" data-cadd="${gi}">+ Add choice</button>
+      </div>
+    </div>`).join("");
+
+  box.querySelectorAll("[data-gk]").forEach(inp => inp.oninput = e => { optGroups[+e.target.dataset.gk].key = e.target.value; });
+  box.querySelectorAll("[data-gv]").forEach(inp => inp.oninput = e => {
+    const [gi, ci] = e.target.dataset.gv.split("-").map(Number);
+    optGroups[gi].choices[ci].value = e.target.value;
+  });
+  box.querySelectorAll("[data-ga]").forEach(inp => inp.oninput = e => {
+    const [gi, ci] = e.target.dataset.ga.split("-").map(Number);
+    optGroups[gi].choices[ci].priceAdjust = Number(e.target.value) || 0;
+  });
+  box.querySelectorAll("[data-gdel]").forEach(b => b.onclick = () => { optGroups.splice(+b.dataset.gdel, 1); renderOptGroups(); });
+  box.querySelectorAll("[data-cdel]").forEach(b => b.onclick = () => {
+    const [gi, ci] = b.dataset.cdel.split("-").map(Number);
+    if (optGroups[gi].choices.length === 1) { toast("warning", "Need at least one choice", "Remove the group instead."); return; }
+    optGroups[gi].choices.splice(ci, 1); renderOptGroups();
+  });
+  box.querySelectorAll("[data-cadd]").forEach(b => b.onclick = () => {
+    optGroups[+b.dataset.cadd].choices.push({ value: "", priceAdjust: 0 }); renderOptGroups();
+  });
+}
+
+/* Specs */
+$("#addSpec").onclick = () => { specs.push(["", ""]); renderSpecs(); };
+function renderSpecs() {
+  const box = $("#specRows");
+  if (!specs.length) { box.innerHTML = '<p style="color:var(--mute);font-size:.85rem">No specifications.</p>'; return; }
+  box.innerHTML = specs.map((s, i) => `
+    <div class="opt-row" style="grid-template-columns:1fr 1fr auto">
+      <input placeholder="Label (e.g. Grade)" value="${esc(s[0])}" data-sk="${i}">
+      <input placeholder="Value (e.g. C25)" value="${esc(s[1])}" data-sv="${i}">
+      <button class="x" data-sdel="${i}">✕</button>
+    </div>`).join("");
+  box.querySelectorAll("[data-sk]").forEach(inp => inp.oninput = e => { specs[+e.target.dataset.sk][0] = e.target.value; });
+  box.querySelectorAll("[data-sv]").forEach(inp => inp.oninput = e => { specs[+e.target.dataset.sv][1] = e.target.value; });
+  box.querySelectorAll("[data-sdel]").forEach(b => b.onclick = () => { specs.splice(+b.dataset.sdel, 1); renderSpecs(); });
+}
+
+/* Save product */
+$("#saveProduct").onclick = async () => {
+  const name = $("#fName").value.trim();
+  const price = Number($("#fPrice").value);
+  const category = $("#fCategory").value.trim() || "Other";
+  const unit = $("#fUnit").value.trim();
+
+  let ok = true;
+  $("#eName").textContent = ""; $("#ePrice").textContent = "";
+  if (!name) { $("#eName").textContent = "Product name is required."; ok = false; }
+  if (!Number.isFinite(price) || price < 0) { $("#ePrice").textContent = "Enter a valid price."; ok = false; }
+  if (!unit) { ok = false; toast("warning", "Unit required", "Add a unit (e.g. per bag)."); }
+  if (!ok) { switchTab(!name ? "basic" : "pricing"); return; }
+
+  const gradParts = $("#fGradient").value.split(",").map(s => s.trim()).filter(Boolean);
+  const gradient = gradParts.length === 2 ? gradParts : ["#64748b","#334155"];
+
+  const body = {
+    name, category, unit, price,
+    description: $("#fDescription").value.trim(),
+    image: productImage || "",
+    inStock: $("#fInStock").value === "true",
+    emoji: $("#fEmoji").value.trim() || "📦",
+    gradient,
+    specs: specs.filter(s => s[0] && s[1]),
+    options: optGroups
+      .filter(g => g.key && g.choices.some(c => c.value))
+      .map(g => ({ key: g.key, choices: g.choices.filter(c => c.value) }))
+  };
+
+  const btn = $("#saveProduct");
+  btn.disabled = true; btn.textContent = "Saving…";
+  try {
+    if (editingProduct) {
+      await api(`/api/admin/products/${editingProduct.id}`, { method: "PUT", body: JSON.stringify(body) });
+      toast("success", "Product updated", name);
+    } else {
+      await api("/api/admin/products", { method: "POST", body: JSON.stringify(body) });
+      toast("success", "Product added", name);
+    }
+    $("#productModal").classList.remove("open");
+    await loadProducts();
+    renderProducts();
+    renderDashboard();
+  } catch (e) {
+    toast("error", "Couldn't save product", e.message);
+  } finally {
+    btn.disabled = false; btn.textContent = "Save product";
+  }
+};
+
+async function deleteProduct(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  if (!confirm(`Delete "${p.name}"? This cannot be undone.`)) return;
+  try {
+    await api(`/api/admin/products/${id}`, { method: "DELETE" });
+    toast("success", "Product deleted", p.name);
+    await loadProducts();
+    renderProducts();
+    renderDashboard();
+  } catch (e) {
+    toast("error", "Couldn't delete product", e.message);
+  }
+}
+
+/* =====================================================================
+   SETTINGS
+   ===================================================================== */
+$("#saveApi").onclick = () => {
+  const url = $("#apiUrl").value.trim().replace(/\/$/, "");
+  localStorage.setItem("mca_api", url);
+  CONFIG.API = url;
+  setBackendStatus(false, "Reconnecting…");
+  toast("info", "Reconnecting", "Testing new API URL…");
+  api("/api/admin/orders?status=all")
+    .then(() => { setBackendStatus(true, "Connected"); toast("success", "Backend connected"); loadProducts().then(renderProducts); loadOrders().then(() => { renderOrders(); renderDashboard(); }); })
+    .catch(e => toast("error", "Connection failed", e.message));
+};
+
+$("#testApi").onclick = async () => {
+  try {
+    await api("/api/admin/orders?status=all");
+    toast("success", "Backend reachable", "The API is responding correctly.");
+  } catch (e) {
+    toast("error", "Cannot reach backend", e.message);
+  }
+};
+
+/* Logout */
+function logout() {
+  auth = { user: "", pass: "", header: "" };
+  products = []; orders = [];
+  showLogin();
+  toast("info", "Signed out");
+}
+$("#logoutBtn").onclick = logout;
+$("#logoutBtn2").onclick = logout;
+
+/* Refresh buttons */
+$("#refreshDash").onclick = async () => { await Promise.all([loadProducts(true), loadOrders(true)]); renderDashboard(); renderOrders(); renderProducts(); toast("info", "Refreshed"); };
+$("#refreshOrders").onclick = async () => { await loadOrders(); renderOrders(); toast("info", "Orders refreshed"); };
+
+/* Modal close */
+$$("[data-close]").forEach(b => b.onclick = () => {
+  const id = b.dataset.close;
+  $("#" + id).classList.remove("open");
+});
+$$(".overlay").forEach(o => o.onclick = e => { if (e.target === o) o.classList.remove("open"); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") $$(".overlay.open").forEach(o => o.classList.remove("open")); });
+
+/* =====================================================================
+   INIT
+   ===================================================================== */
+(function init() {
+  // If we already have a stored API URL, try a silent health check
+  if (CONFIG.API) {
+    $("#apiUrl").value = CONFIG.API;
+    // If a previous session was open, show app immediately and try bootstrap
+    // (the API call will fail gracefully and show login if needed).
+    showLogin();
+    // Auto-attempt only if credentials were remembered — we deliberately
+    // do NOT store passwords, so always show login first.
+  } else {
+    $("#apiUrl").value = "";
+    showLogin();
+  }
+})();
+</script>
+</body>
+</html>
