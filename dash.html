@@ -157,19 +157,21 @@ footer b{color:#fff}
 .admin-sync.ok{background:rgba(22,163,74,.15);color:var(--ok)}
 .admin-sync.warn{background:rgba(245,158,11,.15);color:var(--acc2)}
 .admin-sync.bad{background:rgba(220,38,38,.15);color:var(--danger)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 </style>
 </head>
 <body>
-<div class="backend-alert" id="backendAlert" role="alert">
+<div class="backend-alert" id="backendAlert" role="alert" aria-live="assertive">
   <span>⚠️ Backend connection failed. Orders cannot be processed.</span>
   <button onclick="location.reload()">Retry</button>
 </div>
 
 <header><div class="wrap nav">
-  <div class="logo"><i>M</i><div>MARICOPA<small>CONCRETE &amp; ALLIED</small></div></div>
-  <button class="cartbtn" id="openCart" aria-label="Open cart">🛒 Cart <span class="badge" id="count">0</span></button>
+  <div class="logo"><i aria-hidden="true">M</i><div>MARICOPA<small>CONCRETE &amp; ALLIED</small></div></div>
+  <button class="cartbtn" id="openCart" aria-label="Open cart">🛒 Cart <span class="badge" id="count" aria-live="polite">0</span></button>
 </div></header>
 
+<main>
 <section class="hero"><div class="wrap">
   <div>
     <span class="tag">🏗️ Built on strength. Delivered on time.</span>
@@ -177,7 +179,7 @@ footer b{color:#fff}
     <p>Pick your products, choose your quantities and pay securely with M-Pesa. Maricopa Concrete and Allied supplies contractors, builders and homeowners.</p>
     <div class="cta"><a class="btn" href="#shop">Shop materials</a><button class="btn ghost" onclick="openCart()">View cart</button></div>
   </div>
-  <div class="stats">
+  <div class="stats" aria-hidden="true">
     <div class="stat"><b>24hr</b><span>Fast dispatch</span></div>
     <div class="stat"><b>100%</b><span>Quality tested</span></div>
     <div class="stat"><b>M-Pesa</b><span>Instant payment</span></div>
@@ -186,10 +188,10 @@ footer b{color:#fff}
 </div></section>
 
 <section class="trust"><div class="wrap">
-  <div class="t"><em>🚚</em><div><b>Site delivery</b>Anywhere in your area</div></div>
-  <div class="t"><em>✅</em><div><b>Certified mix</b>Tested grades</div></div>
-  <div class="t"><em>📲</em><div><b>Pay by M-Pesa</b>STK push to your phone</div></div>
-  <div class="t"><em>🧾</em><div><b>Instant receipt</b>Print or save</div></div>
+  <div class="t"><em aria-hidden="true">🚚</em><div><b>Site delivery</b>Anywhere in your area</div></div>
+  <div class="t"><em aria-hidden="true">✅</em><div><b>Certified mix</b>Tested grades</div></div>
+  <div class="t"><em aria-hidden="true">📲</em><div><b>Pay by M-Pesa</b>STK push to your phone</div></div>
+  <div class="t"><em aria-hidden="true">🧾</em><div><b>Instant receipt</b>Print or save</div></div>
 </div></section>
 
 <section class="shop" id="shop"><div class="wrap">
@@ -197,20 +199,21 @@ footer b{color:#fff}
     <div>
       <h2>Our Products</h2>
       <p>Tap any product to choose a quantity.</p>
-      <span class="admin-sync" id="adminSync" title="Live sync with admin console">
-        <span>●</span>
+      <span class="admin-sync" id="adminSync" title="Live sync with admin console" aria-live="polite">
+        <span aria-hidden="true">●</span>
         <span id="adminSyncText">Connecting…</span>
       </span>
     </div>
-    <div class="filters" id="filters"></div>
+    <div class="filters" id="filters" role="tablist" aria-label="Product categories"></div>
   </div>
-  <div class="tools"><input id="q" type="search" placeholder="🔍 Search products (e.g. cement, C25, block)" aria-label="Search products"></div>
+  <div class="tools"><input id="q" type="search" placeholder="🔍 Search products (e.g. cement, C25, block)" aria-label="Search products" autocomplete="off"></div>
   <div class="notice" id="adminNotice">
-    <em>🔒</em>
+    <em aria-hidden="true">🔒</em>
     <div><b>Admin-managed store</b>Product availability, prices and images are set by the admin. All payments are confirmed by the admin before goods are released. You will receive an order confirmation once your payment is authorised.</div>
   </div>
-  <div class="grid" id="grid"></div>
+  <div class="grid" id="grid" aria-live="polite"></div>
 </div></section>
+</main>
 
 <footer><div class="wrap">
   <div><b>Maricopa Concrete &amp; Allied</b><br>Quality materials for every build.</div>
@@ -218,35 +221,35 @@ footer b{color:#fff}
 </div></footer>
 
 <!-- Quantity modal -->
-<div class="overlay" id="qm"><div class="modal">
+<div class="overlay" id="qm" role="dialog" aria-modal="true" aria-labelledby="qName"><div class="modal">
   <div class="pic" id="qPic"></div>
   <div class="mb">
     <h3 id="qName"></h3><p id="qDesc"></p>
     <table class="specs" id="qSpecs"></table>
     <div id="qOpts"></div>
-    <details class="calc" id="qCalc"><summary>📐 Not sure how much? Calculate volume</summary><div class="g3"><div><label>Length (m)</label><input id="cL" type="number" min="0" step="0.1" inputmode="decimal"></div><div><label>Width (m)</label><input id="cW" type="number" min="0" step="0.1" inputmode="decimal"></div><div><label>Thickness (mm)</label><input id="cT" type="number" min="0" value="150" inputmode="decimal"></div></div><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b id="cOut">Enter all three sizes</b><button class="btn" id="cUse" style="padding:8px 14px">Use</button></div></details>
+    <details class="calc" id="qCalc"><summary>📐 Not sure how much? Calculate volume</summary><div class="g3"><div><label for="cL">Length (m)</label><input id="cL" type="number" min="0" step="0.1" inputmode="decimal"></div><div><label for="cW">Width (m)</label><input id="cW" type="number" min="0" step="0.1" inputmode="decimal"></div><div><label for="cT">Thickness (mm)</label><input id="cT" type="number" min="0" value="150" inputmode="decimal"></div></div><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b id="cOut">Enter all three sizes</b><button class="btn" id="cUse" style="padding:8px 14px">Use</button></div></details>
     <div style="font-size:.8rem;font-weight:700;color:var(--mute);text-align:center" id="qUnit"></div>
-    <div class="qty"><button id="qm1">−</button><input id="qIn" type="number" min="1" value="1" inputmode="numeric"><button id="qp1">+</button></div>
+    <div class="qty"><button id="qm1" aria-label="Decrease quantity">−</button><input id="qIn" type="number" min="1" value="1" inputmode="numeric" aria-label="Quantity"><button id="qp1" aria-label="Increase quantity">+</button></div>
     <div class="sub"><span>Subtotal</span><span id="qSub"></span></div>
     <div class="row"><button class="btn light" id="qCancel">Cancel</button><button class="btn" id="qAdd">Add to cart</button></div>
   </div>
 </div></div>
 
 <!-- Checkout / STK modal -->
-<div class="overlay" id="pm"><div class="modal"><div class="stk" id="pBody"></div></div></div>
+<div class="overlay" id="pm" role="dialog" aria-modal="true" aria-labelledby="pTitle"><div class="modal"><div class="stk" id="pBody"></div></div></div>
 
-<aside class="drawer" id="drawer" aria-label="Cart">
-  <div class="dh"><h2 style="font-size:1.3rem">Your Cart</h2><button class="x" id="closeCart" aria-label="Close">✕</button></div>
+<aside class="drawer" id="drawer" aria-label="Cart" aria-hidden="true">
+  <div class="dh"><h2 style="font-size:1.3rem">Your Cart</h2><button class="x" id="closeCart" aria-label="Close cart">✕</button></div>
   <div class="items" id="items"></div>
   <div class="df" id="df">
     <div class="tot"><span>Subtotal</span><span id="tSub"></span></div>
     <div class="tot"><span>VAT (16% included)</span><span id="tVat"></span></div>
     <div class="tot g"><span>Total</span><span id="tAll"></span></div>
     <div class="f">
-      <label>Full name</label><input id="cName" placeholder="e.g. Caroline Amagove" autocomplete="name">
-      <label>M-Pesa phone number</label><input id="cPhone" placeholder="07XX XXX XXX" inputmode="tel" autocomplete="tel">
-      <label>Delivery location</label><input id="cLoc" placeholder="Town / site / landmark">
-      <div class="err" id="err"></div>
+      <label for="cName">Full name</label><input id="cName" placeholder="e.g. Caroline Amagove" autocomplete="name">
+      <label for="cPhone">M-Pesa phone number</label><input id="cPhone" placeholder="07XX XXX XXX" inputmode="tel" autocomplete="tel">
+      <label for="cLoc">Delivery location</label><input id="cLoc" placeholder="Town / site / landmark" autocomplete="street-address">
+      <div class="err" id="err" role="alert"></div>
     </div>
     <button class="pay" id="payBtn"><span class="mp">M-PESA</span> Pay now</button>
     <p style="font-size:.72rem;color:var(--mute);margin-top:10px;text-align:center">Payment is confirmed by our admin before goods are released.</p>
@@ -254,58 +257,62 @@ footer b{color:#fff}
 </aside>
 <div class="overlay" id="dim" style="z-index:55"></div>
 <button class="fab" id="fab" data-e="1" onclick="openCart()"><span>🛒 View cart (<span id="fc">0</span>)</span><b id="ft">KSh 0</b></button>
-<div id="toasts" aria-live="polite"></div>
+<div id="toasts" aria-live="polite" aria-atomic="false"></div>
 <div id="printRc"></div>
 
 <script>
-
+'use strict';
+/* =====================================================================
+   CONFIGURATION — must match the server.js endpoints exactly
+   ===================================================================== */
 const CONFIG = {
-  API: "https://maricopa-server-2.onrender.com",                   
+  API: "https://maricopa-server-2.onrender.com",
   PRODUCTS: "/api/products",
   ORDERS:   "/api/orders",
   STK:      "/api/mpesa/stkpush",
   STATUS:   id => `/api/orders/${encodeURIComponent(id)}/status`,
   TIMEOUT:  15000,
   POLL_MS:  3000,
-  POLL_MAX: 60                    // ~3 minutes of polling
+  POLL_MAX: 60
 };
 
 /* ---------------- Helpers ---------------- */
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const KSH = n => "KSh " + Math.round(n).toLocaleString("en-KE");
+const KSH = n => "KSh " + Math.round(Number(n) || 0).toLocaleString("en-KE");
 const sleep = ms => new Promise(r => setTimeout(r, ms));
-const uid = () => crypto.randomUUID ? crypto.randomUUID() : Date.now() + Math.random().toString(16).slice(2);
-const grad = g => `linear-gradient(135deg,${g[0]},${g[1]})`;
-const normOpts = o => o.map(x => ({
-  k: x.key || x.k || x[0],
-  ch: (x.choices || x.ch || x[1]).map(c => typeof c === "string" ? {v:c, a:0} : {v:c.value ?? c.v, a:+(c.priceAdjust ?? c.a) || 0})
-}));
+const uid = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now() + Math.random().toString(16).slice(2));
+const grad = g => `linear-gradient(135deg,${Array.isArray(g) && g.length === 2 ? g[0] : "#64748b"},${Array.isArray(g) && g.length === 2 ? g[1] : "#334155"})`;
+const normOpts = o => (Array.isArray(o) ? o : []).map(x => ({
+  k: x.key || x.k || (Array.isArray(x) ? x[0] : ""),
+  ch: (x.choices || x.ch || (Array.isArray(x) ? x[1] : []) || []).map(c => typeof c === "string" ? {v:c, a:0} : {v:c.value ?? c.v, a:+(c.priceAdjust ?? c.a) || 0})
+})).filter(o => o.k && o.ch.length);
 const fromApi = a => ({
   id: String(a.id ?? a._id),
-  n: a.name,
+  n: a.name || "Unnamed product",
   c: a.category || "Other",
   e: a.emoji || "📦",
   u: a.unit || "",
   p: +a.price || 0,
   d: a.description || "",
-  g: a.gradient || ["#64748b","#334155"],
-  img: a.image || "",
+  g: Array.isArray(a.gradient) && a.gradient.length === 2 ? a.gradient : ["#64748b","#334155"],
+  img: typeof a.image === "string" ? a.image : "",
   ok: a.inStock !== false,
   specs: Array.isArray(a.specs) ? a.specs : Object.entries(a.specs || {}),
   opts: normOpts(a.options || [])
 });
 
+/* ---------------- State ---------------- */
 let P = [], cart = [], cat = "All", Q = "", cur = null, sel = {}, note = "", step = 1, pend = null;
-let backendOk = null; // null = unknown, true = ok, false = failed
+let backendOk = null;
 let adminSyncOk = false;
-try { cart = JSON.parse(localStorage.getItem("mca_cart2") || "[]"); } catch(e) {}
+try { cart = JSON.parse(localStorage.getItem("mca_cart2") || "[]"); } catch(e) { cart = []; }
 const save = () => { try { localStorage.setItem("mca_cart2", JSON.stringify(cart)); } catch(e) {} };
 const prod = id => P.find(p => p.id === String(id));
 const up = (p, s) => p.p + p.opts.reduce((t, o) => t + ((o.ch.find(c => c.v === s[o.k]) || {}).a || 0), 0);
 const lineTotal = i => { const p = prod(i.id); return p ? up(p, i.sel) * i.q : 0; };
 const total = () => cart.reduce((s, i) => s + lineTotal(i), 0);
-const stepOf = p => /m³/.test(p.u) ? 0.5 : 1;
+const stepOf = p => (/m³/.test(p.u) ? 0.5 : 1);
 
 /* ---------------- Admin sync indicator ---------------- */
 function setAdminSync(ok, text) {
@@ -321,6 +328,7 @@ function setAdminSync(ok, text) {
 function setBackendAlert(ok, msg) {
   backendOk = ok;
   const el = $("#backendAlert");
+  if (!el) return;
   if (ok) { el.classList.remove("show"); setAdminSync(true, "Synced with admin"); return; }
   el.querySelector("span").textContent = msg || "Backend connection failed. Orders cannot be processed.";
   el.classList.add("show");
@@ -331,12 +339,13 @@ function setBackendAlert(ok, msg) {
 const IC = {success:"✓",error:"✕",warning:"!",info:"i"};
 function toast(type, title, msg, ms) {
   const box = $("#toasts");
+  if (!box) return;
   while (box.children.length >= 4) box.firstChild.remove();
   const d = document.createElement("div");
   const life = ms || (type === "error" ? 7000 : 4000);
   d.className = "tt " + type;
   d.setAttribute("role", type === "error" ? "alert" : "status");
-  d.innerHTML = `<i>${IC[type]}</i><div><b>${esc(title)}</b>${msg ? `<p>${esc(msg)}</p>` : ""}</div><button aria-label="Dismiss">✕</button><span style="animation-duration:${life}ms"></span>`;
+  d.innerHTML = `<i aria-hidden="true">${IC[type]}</i><div><b>${esc(title)}</b>${msg ? `<p>${esc(msg)}</p>` : ""}</div><button aria-label="Dismiss">✕</button><span style="animation-duration:${life}ms"></span>`;
   const kill = () => { d.classList.add("out"); setTimeout(() => d.remove(), 250); };
   let t = setTimeout(kill, life);
   d.querySelector("button").onclick = kill;
@@ -345,7 +354,7 @@ function toast(type, title, msg, ms) {
   box.appendChild(d);
 }
 
-/* ---------------- API helper ---------------- */
+/* ---------------- API helper (matches server.js error format) ---------------- */
 async function api(path, opt = {}) {
   if (!CONFIG.API) {
     const msg = "Backend not configured. Set CONFIG.API to your server URL.";
@@ -361,7 +370,10 @@ async function api(path, opt = {}) {
     });
     let d = null;
     try { d = await r.json(); } catch(e) {}
-    if (!r.ok) throw new Error((d && (d.message || d.error)) || `Request failed (${r.status})`);
+    if (!r.ok) {
+      // server.js returns { error: "..." } for errors
+      throw new Error((d && (d.error || d.message)) || `Request failed (${r.status})`);
+    }
     setBackendAlert(true);
     return d;
   } catch(e) {
@@ -377,33 +389,36 @@ async function api(path, opt = {}) {
 const shown = () => P.filter(p => (cat === "All" || p.c === cat) && (p.n + " " + p.c).toLowerCase().includes(Q));
 
 function renderFilters() {
-  $("#filters").innerHTML = ["All", ...new Set(P.map(p => p.c))]
-    .map(c => `<button class="chip ${c === cat ? "on" : ""}" data-c="${esc(c)}">${esc(c)}</button>`)
-    .join("");
-  document.querySelectorAll(".chip").forEach(b => b.onclick = () => { cat = b.dataset.c; renderFilters(); renderGrid(); });
+  const el = $("#filters");
+  if (!el) return;
+  const cats = ["All", ...new Set(P.map(p => p.c))];
+  el.innerHTML = cats.map(c => `<button class="chip ${c === cat ? "on" : ""}" data-c="${esc(c)}" role="tab" aria-selected="${c === cat}">${esc(c)}</button>`).join("");
+  el.querySelectorAll(".chip").forEach(b => b.onclick = () => { cat = b.dataset.c; renderFilters(); renderGrid(); });
 }
 
 function renderGrid() {
   const g = $("#grid");
+  if (!g) return;
   if (!P.length) {
     g.innerHTML = '<div class="nores">No products available. The admin has not added any products yet, or the backend is unreachable.</div>';
     return;
   }
-  if (!shown().length) { g.innerHTML = '<div class="nores">No products match your search.</div>'; return; }
-  g.innerHTML = shown().map((p, i) => `
-    <div class="card ${p.ok ? "" : "oos"}" style="animation-delay:${i * 40}ms" data-id="${esc(p.id)}" tabindex="0">
+  const list = shown();
+  if (!list.length) { g.innerHTML = '<div class="nores">No products match your search.</div>'; return; }
+  g.innerHTML = list.map((p, i) => `
+    <div class="card ${p.ok ? "" : "oos"}" style="animation-delay:${i * 40}ms" data-id="${esc(p.id)}" tabindex="0" role="button" aria-label="${esc(p.n)} — ${p.ok ? "add to cart" : "out of stock"}">
       <div class="pic" style="background:${grad(p.g)}">
         <small>${esc(p.c.toUpperCase())}</small>
         ${esc(p.e)}
-        ${p.img ? `<img src="${esc(p.img)}" alt="${esc(p.n)}" loading="lazy">` : ""}
+        ${p.img ? `<img src="${esc(p.img)}" alt="" loading="lazy">` : ""}
       </div>
       <div class="info">
         <h3>${esc(p.n)}</h3>
         <p>${esc(p.d)}</p>
-        <div class="sp">${p.specs.slice(0, 2).map(s => `<span>${esc(s[1])}</span>`).join("")}</div>
+        <div class="sp">${p.specs.slice(0, 2).map(s => `<span>${esc(Array.isArray(s) ? s[1] : s)}</span>`).join("")}</div>
         <div class="price">
           <b>${KSH(p.p)} <small>${esc(p.u)}</small></b>
-          ${p.ok ? '<button class="add" aria-label="Add">+</button>' : "<small>Out of stock</small>"}
+          ${p.ok ? '<button class="add" aria-label="Add to cart" tabindex="-1">+</button>' : "<small>Out of stock</small>"}
         </div>
       </div>
     </div>`).join("");
@@ -411,7 +426,7 @@ function renderGrid() {
   g.querySelectorAll(".card").forEach(c => {
     const o = () => openQty(c.dataset.id);
     c.onclick = o;
-    c.onkeydown = e => { if (e.key === "Enter") o(); };
+    c.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); o(); } };
   });
 }
 
@@ -432,7 +447,7 @@ function openQty(id) {
 
   $("#qName").textContent = cur.n;
   $("#qDesc").textContent = cur.d;
-  $("#qSpecs").innerHTML = cur.specs.map(s => `<tr><td>${esc(s[0])}</td><td>${esc(s[1])}</td></tr>`).join("");
+  $("#qSpecs").innerHTML = cur.specs.map(s => `<tr><td>${esc(Array.isArray(s) ? s[0] : "")}</td><td>${esc(Array.isArray(s) ? s[1] : "")}</td></tr>`).join("");
   $("#qCalc").style.display = step === 0.5 ? "" : "none";
   $("#qCalc").open = false;
   $("#qIn").step = step;
@@ -440,32 +455,38 @@ function openQty(id) {
   renderOpts();
   updSub();
   $("#qm").classList.add("open");
+  setTimeout(() => $("#qIn").focus(), 100);
 }
 
 function renderOpts() {
-  $("#qOpts").innerHTML = cur.opts.map(o => `
+  const box = $("#qOpts");
+  if (!box) return;
+  box.innerHTML = cur.opts.map(o => `
     <div class="og">
       <label>${esc(o.k)}</label>
       <div class="seg">${o.ch.map(c => `
-        <button type="button" class="${sel[o.k] === c.v ? "on" : ""}" data-k="${esc(o.k)}" data-v="${esc(c.v)}">
+        <button type="button" class="${sel[o.k] === c.v ? "on" : ""}" data-k="${esc(o.k)}" data-v="${esc(c.v)}" aria-pressed="${sel[o.k] === c.v}">
           ${esc(c.v)}${c.a ? ` <small>${c.a > 0 ? "+" : "−"}${KSH(Math.abs(c.a))}</small>` : ""}
         </button>`).join("")}
       </div>
     </div>`).join("")
     + `<div class="og">
-        <label>Special requirements (optional)</label>
+        <label for="qNote">Special requirements (optional)</label>
         <textarea id="qNote" maxlength="200" placeholder="e.g. delivery time, finish, special size…"></textarea>
        </div>`;
   $("#qNote").value = note;
   $("#qNote").oninput = e => note = e.target.value;
-  document.querySelectorAll(".seg button").forEach(b => b.onclick = () => {
+  box.querySelectorAll(".seg button").forEach(b => b.onclick = () => {
     sel[b.dataset.k] = b.dataset.v;
     renderOpts();
     updSub();
   });
 }
 
-const qv = () => Math.max(step, Math.round((+$("#qIn").value || step) / step) * step);
+const qv = () => {
+  const raw = +$("#qIn").value || step;
+  return Math.max(step, Math.round(raw / step) * step);
+};
 function updSub() {
   $("#qUnit").textContent = KSH(up(cur, sel)) + " " + cur.u;
   $("#qSub").textContent = KSH(up(cur, sel) * qv());
@@ -505,7 +526,7 @@ function updCart() {
 
   const box = $("#items");
   if (!cart.length) {
-    box.innerHTML = '<div class="empty"><em>🛒</em>Your cart is empty.<br>Pick a product to get started.</div>';
+    box.innerHTML = '<div class="empty"><em aria-hidden="true">🛒</em>Your cart is empty.<br>Pick a product to get started.</div>';
     $("#df").style.display = "none";
     return;
   }
@@ -516,26 +537,28 @@ function updCart() {
     if (!p) return "";
     const d = [...Object.values(i.sel), i.note].filter(Boolean).map(esc).join(" · ");
     return `<div class="it">
-      <div class="e" style="background:${grad(p.g)}">${esc(p.e)}</div>
+      <div class="e" style="background:${grad(p.g)}" aria-hidden="true">${esc(p.e)}</div>
       <div>
         <b>${esc(p.n)}</b>
         ${d ? `<small class="o">${d}</small>` : ""}
         <small>${KSH(up(p, i.sel))} ${esc(p.u)}</small>
         <div class="mini">
-          <button data-a="-" data-k="${esc(i.k)}">−</button><b>${i.q}</b><button data-a="+" data-k="${esc(i.k)}">+</button>
+          <button data-a="-" data-k="${esc(i.k)}" aria-label="Decrease ${esc(p.n)}">−</button><b>${i.q}</b><button data-a="+" data-k="${esc(i.k)}" aria-label="Increase ${esc(p.n)}">+</button>
         </div>
       </div>
       <div style="text-align:right">
         <b>${KSH(lineTotal(i))}</b>
-        <button class="rm" data-a="x" data-k="${esc(i.k)}">Remove</button>
+        <button class="rm" data-a="x" data-k="${esc(i.k)}" aria-label="Remove ${esc(p.n)}">Remove</button>
       </div>
     </div>`;
   }).join("");
 
   box.querySelectorAll("button[data-a]").forEach(b => b.onclick = () => {
     const it = cart.find(i => i.k === b.dataset.k);
+    if (!it) return;
     const a = b.dataset.a;
-    const s = stepOf(prod(it.id));
+    const p = prod(it.id);
+    const s = p ? stepOf(p) : 1;
     if (a === "+") it.q += s;
     else if (a === "-") it.q -= s;
     else it.q = 0;
@@ -549,16 +572,16 @@ function updCart() {
   $("#tAll").textContent = KSH(t);
 }
 
-function openCart() { $("#drawer").classList.add("open"); $("#dim").classList.add("open"); }
-function closeCart() { $("#drawer").classList.remove("open"); $("#dim").classList.remove("open"); }
+function openCart() { $("#drawer").classList.add("open"); $("#drawer").setAttribute("aria-hidden", "false"); $("#dim").classList.add("open"); }
+function closeCart() { $("#drawer").classList.remove("open"); $("#drawer").setAttribute("aria-hidden", "true"); $("#dim").classList.remove("open"); }
 $("#openCart").onclick = openCart;
 $("#closeCart").onclick = closeCart;
 $("#dim").onclick = closeCart;
 window.openCart = openCart;
 
-/* ---------------- Payment (Daraja via backend, admin-confirmed) ---------------- */
+/* ---------------- Payment (matches server.js flow exactly) ---------------- */
 function normPhone(v) {
-  v = v.replace(/[\s\-+]/g, "");
+  v = String(v || "").replace(/[\s\-+()]/g, "");
   if (/^0[17]\d{8}$/.test(v)) return "254" + v.slice(1);
   if (/^254[17]\d{8}$/.test(v)) return v;
   if (/^[17]\d{8}$/.test(v)) return "254" + v;
@@ -566,23 +589,19 @@ function normPhone(v) {
 }
 
 const stk = h => { $("#pBody").innerHTML = h; $("#pm").classList.add("open"); };
-const busy = m => `<div class="pulse wait">⏳</div><h3>${m}</h3>`;
+const busy = m => `<div class="pulse wait" aria-hidden="true">⏳</div><h3 id="pTitle">${esc(m)}</h3>`;
 
 async function waitPaid(id) {
   for (let i = 0; i < CONFIG.POLL_MAX; i++) {
     await sleep(CONFIG.POLL_MS);
     let s;
-    try { s = await api(CONFIG.STATUS(id)); } catch(e) {
-      // Don't break the loop on transient errors; the alert already shows
-      continue;
-    }
+    try { s = await api(CONFIG.STATUS(id)); } catch(e) { continue; }
     const st = String(s.paymentStatus || s.status || "").toLowerCase();
     if (st === "paid") {
-      // Server sets adminConfirmed = true only after admin authorises
+      // server.js sets adminConfirmed = true only after admin authorises
       if (s.adminConfirmed === true) {
         return { receipt: s.mpesaReceipt || s.receipt, adminConfirmed: true };
       }
-      // Payment received but admin not yet confirmed — keep waiting
       if (i === 0) {
         toast("info", "Payment received", "Waiting for admin confirmation before release.");
         setAdminSync(false, "Awaiting admin approval");
@@ -603,7 +622,7 @@ $("#payBtn").onclick = async () => {
   const err = $("#err");
   const bad = m => { err.textContent = m; toast("warning", "Check your details", m); };
 
-  if (!backendOk) {
+  if (backendOk === false) {
     toast("error", "Backend unavailable", "Cannot process payment. The store is not connected to the server.", 8000);
     return;
   }
@@ -615,13 +634,13 @@ $("#payBtn").onclick = async () => {
   try { localStorage.setItem("mca_cust", JSON.stringify({name, phone:$("#cPhone").value, loc})); } catch(e) {}
 
   const body = {
-    customer: { name, phone:ph, location:loc },
-    items: cart.map(i => ({ productId:i.id, quantity:i.q, options:i.sel, note:i.note }))
+    customer: { name, phone: ph, location: loc },
+    items: cart.map(i => ({ productId: i.id, quantity: i.q, options: i.sel, note: i.note }))
   };
   const sig = JSON.stringify(body);
   const snap = cart.map(i => {
     const p = prod(i.id);
-    return { q:i.q, name:p.n, d:Object.values(i.sel).join(", "), price:up(p, i.sel) };
+    return { q: i.q, name: p.n, d: Object.values(i.sel).join(", "), price: up(p, i.sel) };
   });
 
   let ord = pend && pend.sig === sig ? pend.ord : null;
@@ -631,6 +650,7 @@ $("#payBtn").onclick = async () => {
   try {
     if (!ord) {
       stk(busy("Placing your order…"));
+      // server.js requires a valid Idempotency-Key header (8–100 chars)
       ord = await api(CONFIG.ORDERS, { method:"POST", headers:{"Idempotency-Key":uid()}, body:sig });
       pend = { sig, ord };
       if (Math.round(ord.total) !== Math.round(total())) {
@@ -638,16 +658,16 @@ $("#payBtn").onclick = async () => {
       }
     }
 
-    stk(`<div class="pulse">📲</div>
-      <h3>Check your phone</h3>
-      <p style="color:var(--mute);margin-top:6px">An M-Pesa prompt for <b>${KSH(ord.total)}</b> was sent to <b>+${ph}</b>. Enter your PIN to complete payment.</p>
+    stk(`<div class="pulse" aria-hidden="true">📲</div>
+      <h3 id="pTitle">Check your phone</h3>
+      <p style="color:var(--mute);margin-top:6px">An M-Pesa prompt for <b>${KSH(ord.total)}</b> was sent to <b>+${esc(ph)}</b>. Enter your PIN to complete payment.</p>
       <p style="color:var(--mute);font-size:.8rem;margin-top:14px">After payment, our admin will confirm your order before goods are released.</p>`);
 
-    await api(CONFIG.STK, { method:"POST", body:JSON.stringify({ orderId:ord.orderId, phone:ph }) });
+    await api(CONFIG.STK, { method:"POST", body: JSON.stringify({ orderId: ord.orderId, phone: ph }) });
     toast("info", "M-Pesa prompt sent", "Enter your PIN on your phone.");
 
     const r = await waitPaid(ord.orderId);
-    success(ord, snap, {name, loc, ph}, r.receipt);
+    success(ord, snap, { name, loc, ph }, r.receipt);
   } catch(e) {
     fail(e, ord);
   } finally {
@@ -659,9 +679,9 @@ function fail(e, ord) {
   const late = !!e.late;
   ord = ord || {};
   toast(late ? "warning" : "error", late ? "Admin confirmation pending" : "Payment failed", e.message, 8000);
-  stk(`<div class="pulse ${late ? "wait" : ""}" style="${late ? "" : "background:var(--danger)"}">
+  stk(`<div class="pulse ${late ? "wait" : ""}" style="${late ? "" : "background:var(--danger)"}" aria-hidden="true">
         ${late ? "⏳" : "✕"}</div>
-       <h3>${late ? "Awaiting admin confirmation" : "Payment not completed"}</h3>
+       <h3 id="pTitle">${late ? "Awaiting admin confirmation" : "Payment not completed"}</h3>
        <p style="color:var(--mute);margin:8px 0 18px">
          ${esc(e.message)}
          ${late ? `If M-Pesa already deducted the money, don't pay again. Quote reference <b>${esc(ord.reference || ord.orderId)}</b> and our team will confirm it.` : "Your cart is safe, so you can try again."}
@@ -671,17 +691,19 @@ function fail(e, ord) {
          <button class="btn" id="cls">${late ? "Close" : "Back to cart"}</button>
        </div>`);
   $("#cls").onclick = () => $("#pm").classList.remove("open");
-  if (late) $("#chk").onclick = async () => {
-    try {
-      const s = await api(CONFIG.STATUS(ord.orderId));
-      if (String(s.paymentStatus).toLowerCase() === "paid" && s.adminConfirmed === true) {
-        toast("success", "Admin confirmed");
-        success(ord, [], {name:"", loc:"", ph:""}, s.mpesaReceipt);
-      } else {
-        toast("info", "Still pending", "Admin has not confirmed yet. Please wait a moment.");
-      }
-    } catch(x) { toast("error", "Couldn't check status", x.message); }
-  };
+  if (late && ord.orderId) {
+    $("#chk").onclick = async () => {
+      try {
+        const s = await api(CONFIG.STATUS(ord.orderId));
+        if (String(s.paymentStatus).toLowerCase() === "paid" && s.adminConfirmed === true) {
+          toast("success", "Admin confirmed");
+          success(ord, [], { name:"", loc:"", ph:"" }, s.mpesaReceipt);
+        } else {
+          toast("info", "Still pending", "Admin has not confirmed yet. Please wait a moment.");
+        }
+      } catch(x) { toast("error", "Couldn't check status", x.message); }
+    };
+  }
 }
 
 function success(ord, snap, c, ref) {
@@ -690,8 +712,8 @@ function success(ord, snap, c, ref) {
   pend = null;
   setAdminSync(true, "Admin confirmed");
   toast("success", "Order confirmed", "Admin has authorised your payment. Thank you!", 6000);
-  stk(`<div class="pulse ok">✓</div>
-    <h3>Order confirmed!</h3>
+  stk(`<div class="pulse ok" aria-hidden="true">✓</div>
+    <h3 id="pTitle">Order confirmed!</h3>
     <p style="color:var(--mute);margin-top:4px">Order <b>${esc(ord.reference || ord.orderId)}</b> · M-Pesa ref <b>${esc(r)}</b></p>
     <div class="rc">
       ${snap.map(i => `<div><span>${i.q} × ${esc(i.name)}</span><span>${KSH(i.q * i.price)}</span></div>`).join("")}
@@ -723,7 +745,11 @@ function success(ord, snap, c, ref) {
 }
 
 document.addEventListener("keydown", e => {
-  if (e.key === "Escape") { $("#qm").classList.remove("open"); closeCart(); }
+  if (e.key === "Escape") {
+    const qm = $("#qm");
+    if (qm && qm.classList.contains("open")) qm.classList.remove("open");
+    closeCart();
+  }
 });
 
 /* ---------------- Load / init ---------------- */
@@ -739,7 +765,7 @@ async function load() {
   $("#grid").innerHTML = Array(8).fill('<div class="sk"></div>').join("");
   try {
     const d = await api(CONFIG.PRODUCTS);
-    P = (d.products || d).map(fromApi);
+    P = (d.products || d || []).map(fromApi).filter(p => p.id);
     const n = cart.length;
     cart = cart.filter(i => prod(i.id));
     save();
@@ -751,7 +777,8 @@ async function load() {
     setAdminSync(true, "Synced with admin");
   } catch(e) {
     $("#grid").innerHTML = `<div class="nores"> Could not load products.<br><br>${esc(e.message)}<br><br><button class="btn" id="retry">Try again</button></div>`;
-    $("#retry").onclick = load;
+    const retry = $("#retry");
+    if (retry) retry.onclick = load;
     toast("error", "Could not load products", e.message, 8000);
   }
 }
