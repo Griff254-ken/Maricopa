@@ -175,7 +175,7 @@ th{background:var(--bg);color:var(--mute);font-size:.78rem;font-weight:700;paddi
 <div id="toasts" aria-live="polite"></div>
 
 <script>
-const DEFAULT_API="https://maricopa-server-2.onrender.com";
+const DEFAULT_API="https://maricopa-server.onrender.com";
 const store={get:k=>{try{return localStorage.getItem(k)}catch{return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch{}}};
 const CFG={API:(store.get("mca_api")||DEFAULT_API).replace(/\/+$/,""),TIMEOUT:45000};
 let auth="",me="",products=[],orders=[],ofilter="all",editing=null,img="",groups=[],specs=[],timer=null,lastAw=0;
