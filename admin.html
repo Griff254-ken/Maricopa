@@ -25,7 +25,7 @@ button{font:inherit;cursor:pointer;border:0;color:inherit}input,select,textarea{
 .lw{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at 80% 20%,rgba(245,158,11,.25),transparent 50%),linear-gradient(135deg,#16171a,#2a2c31)}
 .lc{background:var(--card);border-radius:20px;padding:34px 30px;width:100%;max-width:410px;box-shadow:0 30px 80px rgba(0,0,0,.4)}
 .lc .logo{justify-content:center}.lc h1{text-align:center;font-size:1.35rem;margin:14px 0 2px}.sub{text-align:center;color:var(--mute);font-size:.88rem;margin-bottom:14px}
-.srv,.bs{display:flex;align-items:center;justify-content:center;gap:8px;font-size:.78rem;color:var(--mute)}.srv{margin-bottom:16px}
+.srv,.bs{display:flex;align-items:center;justify-content:center;gap:8px;font-size:.78rem;color:var(--mute)}.srv{margin-bottom:10px;align-items:flex-start;line-height:1.4}.srv .d{flex:none;margin-top:5px}
 .d{width:8px;height:8px;border-radius:50%;background:var(--bad)}.wait .d{background:var(--acc);animation:p 1.2s infinite}.ok .d{background:var(--ok)}@keyframes p{50%{opacity:.35}}
 .f{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}.f.full{grid-column:1/-1}
 .f label{font-size:.8rem;font-weight:700;color:var(--mute)}.f small{color:var(--mute);font-size:.75rem}
@@ -82,11 +82,13 @@ th{background:var(--bg);color:var(--mute);font-size:.78rem;font-weight:700;paddi
   <div class="logo"><i>M</i><div>MARICOPA<small>CONCRETE &amp; ALLIED</small></div></div>
   <h1>Welcome 👋</h1><p class="sub">Sign in to manage products and approve orders.</p>
   <div class="srv wait" id="srv"><span class="d"></span><span id="srvT">Checking server…</span></div>
+  <button type="button" class="btn ghost sm" id="retest" style="width:auto;padding:6px 12px;margin:0 auto 14px;display:flex">↻ Test connection</button>
   <div class="f"><label for="lu">Username</label><input id="lu" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="e.g. admin"></div>
   <div class="f"><label for="lp">Password</label><div class="pw"><input id="lp" type="password" autocomplete="current-password" placeholder="Your password"><button type="button" data-a="pw" aria-label="Show password">👁</button></div><small id="caps" hidden>⚠️ Caps Lock is on</small></div>
   <button class="btn acc" id="lb">Sign in</button><div class="err" id="le" role="alert"></div>
+  <div class="help" id="fileNote" hidden><b>Heads up:</b> this page was opened as a file from your computer. Some servers block that. Upload it to your website (or any static host) and open it from there.</div>
   <div class="help"><b>First time here?</b> Use the admin username and password you set in your server settings (<code>ADMIN_USERNAME</code> and <code>ADMIN_PASSWORD</code> on Render). Passwords are case-sensitive.</div>
-  <details><summary>Server address</summary><input id="la" placeholder="https://your-server.onrender.com"><small>Only change this if your server address has changed.</small></details>
+  <details id="adv"><summary>Server address</summary><input id="la" placeholder="https://your-server.onrender.com"><small>Must be exactly the URL shown at the top of your service in Render.</small><br><small id="orig" class="mute"></small></details>
 </div></div>
 
 <div id="app" hidden>
@@ -177,9 +179,12 @@ th{background:var(--bg);color:var(--mute);font-size:.78rem;font-weight:700;paddi
 <script>
 const DEFAULT_API="https://maricopa-server.onrender.com";
 const store={get:k=>{try{return localStorage.getItem(k)}catch{return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch{}}};
-const CFG={API:(store.get("mca_api")||DEFAULT_API).replace(/\/+$/,""),TIMEOUT:45000};
+/* Accepts "my-server.onrender.com", "https://my-server.onrender.com/", or a URL with a path; returns the clean origin */
+const normApi=v=>{v=String(v||"").trim();if(!v)return"";if(!/^https?:\/\//i.test(v))v="https://"+v;try{return new URL(v).origin}catch{return""}};
+const CFG={API:normApi(store.get("mca_api")||DEFAULT_API),TIMEOUT:70000};
 let auth="",me="",products=[],orders=[],ofilter="all",editing=null,img="",groups=[],specs=[],timer=null,lastAw=0;
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const KSH=n=>"KSh "+Math.round(Number(n)||0).toLocaleString("en-KE");
 const when=i=>{try{return new Date(i).toLocaleString("en-KE",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})}catch{return i}};
@@ -192,21 +197,52 @@ function toast(type,title,msg,ms=type==="error"?7000:4000){
 }
 function status(ok,t){const e=$("#bs");e.className="bs "+(ok?"ok":"bad");$("#bst").textContent=t||(ok?"Connected":"Disconnected")}
 
-async function api(p,o={}){
+/* ---------- connection diagnosis ----------
+   Works out WHY the server can't be reached:
+   ok    = server up, this website allowed, database connected
+   cors  = server up but blocking this website
+   db    = server up but MongoDB not connected
+   down  = server unreachable (wrong address, asleep, or crashed) */
+async function diagnose(){
+  const base=CFG.API;
+  try{
+    const r=await fetch(base+"/health",{cache:"no-store",signal:AbortSignal.timeout(65000)});
+    if(!r.ok)return{kind:"down",msg:`The server replied with an error (${r.status}). It may still be starting. Check the Logs tab on Render.`};
+    const h=await r.json().catch(()=>({}));
+    if(h.originAllowed===false)return{kind:"cors",msg:`The server is running but blocks this website. In Render, set ALLOWED_ORIGINS to include ${h.yourOrigin||location.origin} (or leave it empty), then redeploy.`};
+    if(h.db===false)return{kind:"db",msg:"The server is running but is not connected to MongoDB. Check MONGODB_URI and Atlas Network Access in the Render logs."};
+    return{kind:"ok",msg:"Server ready",h};
+  }catch(e){
+    try{
+      await fetch(base+"/health",{mode:"no-cors",cache:"no-store",signal:AbortSignal.timeout(20000)});
+      return{kind:"cors",msg:`The server is reachable but is blocking this website. Make sure server.js is the latest version, and that ALLOWED_ORIGINS includes ${location.origin} (or is empty).`};
+    }catch{
+      return{kind:"down",msg:`Can't reach ${base}. Check this is exactly your Render URL (open ${base}/health in a new tab to test). Free servers can take up to a minute to wake up.`};
+    }
+  }
+}
+
+async function api(p,o={},n=0){
   if(!CFG.API){status(false,"No server");throw new Error("Server address not set. Open Settings to add it.")}
   const c=new AbortController(),t=setTimeout(()=>c.abort(),CFG.TIMEOUT);
   try{
     const r=await fetch(CFG.API+p,{...o,signal:c.signal,headers:{"Content-Type":"application/json",...(auth?{Authorization:auth}:{})}});
+    if([502,503,504].includes(r.status)&&n<3){status(false,"Waking up…");await sleep(4000);return api(p,o,n+1)} /* Render is starting the server */
     let d=null;try{d=await r.json()}catch{}
-    if(!r.ok&&!d&&r.status>=500)throw new Error("The server is waking up. Please wait a few seconds and try again.");
+    if(!r.ok&&!d&&r.status>=500)throw Object.assign(new Error("The server had a problem ("+r.status+"). Check the Logs tab on Render."),{http:1});
     status(true);
     if(r.status===401)throw Object.assign(new Error("Wrong username or password."),{auth:1});
     if(!r.ok)throw Object.assign(new Error(d?.error||d?.message||"Request failed ("+r.status+")"),{http:1});
     return d;
   }catch(e){
     if(e.auth||e.http)throw e;
-    if(e.name==="AbortError"){status(false,"Timeout");throw new Error("The server is slow to respond. It may be waking up, so please try again.")}
-    if(e.message==="Failed to fetch"){status(false,"Offline");throw new Error("Cannot reach the server. Check your internet and the server address. If both are right, add this website to ALLOWED_ORIGINS on the server.")}
+    if(e.name==="AbortError"||e instanceof TypeError){
+      status(false,"Checking…");
+      const g=await diagnose();
+      if(g.kind==="down"&&n<1){status(false,"Waking up…");await sleep(5000);return api(p,o,n+1)}
+      status(false,g.kind==="cors"?"Blocked":"Offline");
+      throw new Error(g.msg);
+    }
     status(false,"Error");throw e;
   }finally{clearTimeout(t)}
 }
@@ -214,13 +250,15 @@ async function api(p,o={}){
 /* ---------- sign in ---------- */
 async function ping(){
   const b=$("#srv"),t=$("#srvT");
-  if(!CFG.API){b.className="srv";t.textContent="No server address set";return}
-  b.className="srv wait";t.textContent="Waking up the server… (can take up to a minute)";
-  try{const r=await fetch(CFG.API+"/health",{signal:AbortSignal.timeout(60000)});if(!r.ok)throw 0;b.className="srv ok";t.textContent="Server ready"}
-  catch{b.className="srv";t.textContent="Can't reach the server yet. You can still try signing in."}
+  $("#orig").textContent="This website's address: "+location.origin+"  ·  Server: "+(CFG.API||"not set");
+  if(!CFG.API){b.className="srv";t.textContent="No server address set. Open “Server address” below.";$("#adv").open=true;return}
+  b.className="srv wait";t.textContent="Contacting the server… (can take up to a minute if it was asleep)";
+  const g=await diagnose();
+  b.className="srv"+(g.kind==="ok"?" ok":"");t.textContent=g.msg;
+  if(g.kind!=="ok")$("#adv").open=true;
 }
 function setApi(v){
-  v=v.trim().replace(/\/+$/,"");if(!v||v===CFG.API)return false;
+  v=normApi(v);if(!v||v===CFG.API)return false;
   CFG.API=v;store.set("mca_api",v);$("#la").value=v;$("#api").value=v;return true;
 }
 async function login(){
@@ -228,13 +266,15 @@ async function login(){
   e.style.color="";e.textContent="";
   if(!u){e.textContent="Please enter your username.";$("#lu").focus();return}
   if(!pw){e.textContent="Please enter your password.";$("#lp").focus();return}
-  if(setApi($("#la").value))ping();
-  if(!CFG.API){e.textContent="Please enter your server address under “Server address”.";$("#login details").open=true;return}
+  const typed=$("#la").value.trim();
+  if(typed&&!normApi(typed)){e.textContent="That server address doesn't look right. It should look like https://your-server.onrender.com";$("#adv").open=true;return}
+  if(setApi(typed))ping();
+  if(!CFG.API){e.textContent="Please enter your server address under “Server address”.";$("#adv").open=true;return}
   b.disabled=true;b.textContent="Signing in…";
   const slow=setTimeout(()=>{e.style.color="var(--mute)";e.textContent="The server is waking up. This can take up to a minute the first time. Please wait…"},4000);
   auth="Basic "+btoa(unescape(encodeURIComponent(u+":"+pw)));
   try{await api("/api/admin/orders?status=all")}
-  catch(x){auth="";e.style.color="";e.textContent=x.auth?"That username or password isn't right. Check for typos (passwords are case-sensitive) and try again.":x.message;return}
+  catch(x){auth="";e.style.color="";e.textContent=x.auth?"That username or password isn't right. Check for typos (passwords are case-sensitive) and try again.":x.message;if(!x.auth)ping();return}
   finally{clearTimeout(slow);b.disabled=false;b.textContent="Sign in"}
   me=u;store.set("mca_user",u);$("#lp").value="";$("#who").textContent=u;
   $("#login").hidden=true;$("#app").hidden=false;
@@ -292,6 +332,7 @@ function openOrder(id){
   $("#omB").innerHTML=`<div class="meta"><div><small>Customer</small><b>${esc(o.customer.name)}</b></div><div><small>Phone</small><b>+${esc(o.customer.phone)}</b></div>
   <div><small>Deliver to</small><b>${esc(o.customer.location)}</b></div><div><small>Placed</small><b>${when(o.createdAt)}</b></div>
   <div><small>Payment</small><span class="pill ${esc(o.paymentStatus)}">${esc(o.paymentStatus)}</span></div><div><small>M-Pesa receipt</small><b>${esc(o.mpesaReceipt||"Not yet received")}</b></div></div>
+  ${o.needsReview?`<p style="margin-bottom:12px;color:var(--bad);font-weight:700">⚠️ Needs review: ${esc(o.reviewNote||"check this payment in M-Pesa")}</p>`:""}
   ${table(["Item","Qty","Unit price","Line total"],(o.items||[]).map(i=>`<tr><td>${esc(i.name)}${i.options&&Object.keys(i.options).length?`<br><small class="mute">${esc(Object.values(i.options).join(", "))}</small>`:""}${i.note?`<br><small class="mute">📝 ${esc(i.note)}</small>`:""}</td><td>${i.quantity}</td><td>${KSH(i.unitPrice)}</td><td><b>${KSH(i.lineTotal)}</b></td></tr>`))}
   <div class="tot"><span>Total</span><span>${KSH(o.total)}</span></div>
   ${o.adminConfirmed?'<p style="margin-top:12px;color:var(--ok);font-weight:700">✓ Released. The customer has been told their order is confirmed.</p>':""}`;
@@ -374,7 +415,12 @@ const ACT={
   dg:d=>{groups.splice(+d.g,1);drawGroups()},ac:d=>{groups[+d.g].choices.push({value:"",priceAdjust:0});drawGroups()},
   dc:d=>{const g=groups[+d.g];if(g.choices.length===1)groups.splice(+d.g,1);else g.choices.splice(+d.c,1);drawGroups()},
   as:()=>{specs.push(["",""]);drawSpecs()},ds:d=>{specs.splice(+d.s,1);drawSpecs()},
-  async saveApi(){setApi($("#api").value);try{await api("/api/admin/orders?status=all");toast("success","Connected","The server is responding.");loadAll(true)}catch(e){toast("error","Connection failed",e.message)}},
+  async saveApi(){
+    const v=$("#api").value.trim();
+    if(v&&!normApi(v))return toast("error","Address doesn't look right","It should look like https://your-server.onrender.com");
+    setApi(v);
+    try{await api("/api/admin/orders?status=all");toast("success","Connected","The server is responding.");loadAll(true)}catch(e){toast("error","Connection failed",e.message)}
+  },
   out:()=>logout()
 };
 document.addEventListener("click",e=>{
@@ -391,11 +437,13 @@ document.addEventListener("input",e=>{
 document.addEventListener("keydown",e=>{if(e.key==="Escape")$$(".ov.open").forEach(o=>o.classList.remove("open"))});
 $("#pf").onchange=e=>pickImage(e.target.files[0]);
 $("#lb").onclick=login;
+$("#retest").onclick=()=>{if($("#la").value.trim())setApi($("#la").value);ping()};
 $("#lu").addEventListener("keydown",e=>{if(e.key==="Enter")$("#lp").focus()});
 $("#lp").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
 $("#lp").addEventListener("keyup",e=>{$("#caps").hidden=!(e.getModifierState&&e.getModifierState("CapsLock"))});
 
 $("#la").value=CFG.API;$("#api").value=CFG.API;$("#lu").value=store.get("mca_user")||"";
+$("#fileNote").hidden=location.protocol!=="file:";
 ($("#lu").value?$("#lp"):$("#lu")).focus();
 ping();
 </script>
