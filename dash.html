@@ -7,7 +7,7 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f59e0b'/%3E%3Cpath d='M14 48V16h8l10 16 10-16h8v32h-8V31L32 46 22 31v17z' fill='%2316171a'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f59e0b'/%3E%3Cpath d='M14 48V16h8l10 16 10-16h8v32h-8V31L32 46 22 31v17z' fill='%2316171a'/%3E%3C/svg%3E">
 <meta name="theme-color" content="#16171a">
-<meta name="description" content="Order concrete, cement, aggregates, blocks and steel online from Maricopa Concrete and Allied. Pay with M-Pesa.">
+<meta name="description" content="Order concrete, cement, aggregates, blocks and steel online from Maricopa Concrete and Allied. Pay securely with IntaSend (M-Pesa, card, bank).">
 <style>
 :root{color-scheme:light;--bg:#f4f1ec;--card:#fff;--ink:#1b1b1d;--mute:#6b6a68;--line:#e3ded6;--acc:#f59e0b;--acc2:#d97706;--dark:#16171a;--ok:#16a34a;--danger:#dc2626;--info:#2563eb;--shadow:0 10px 30px rgba(0,0,0,.08);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#101113;--card:#1a1c20;--ink:#f3f1ed;--mute:#a09d97;--line:#2b2e34;--shadow:0 10px 30px rgba(0,0,0,.4)}}
@@ -176,13 +176,13 @@ footer b{color:#fff}
   <div>
     <span class="tag">🏗️ Built on strength. Delivered on time.</span>
     <h1>Quality concrete &amp; building materials, <span>ordered in minutes.</span></h1>
-    <p>Pick your products, choose your quantities and pay securely with M-Pesa. Maricopa Concrete and Allied supplies contractors, builders and homeowners.</p>
+    <p>Pick your products, choose your quantities and pay securely with IntaSend (M-Pesa, card or bank). Maricopa Concrete and Allied supplies contractors, builders and homeowners.</p>
     <div class="cta"><a class="btn" href="#shop">Shop materials</a><button class="btn ghost" onclick="openCart()">View cart</button></div>
   </div>
   <div class="stats" aria-hidden="true">
     <div class="stat"><b>24hr</b><span>Fast dispatch</span></div>
     <div class="stat"><b>100%</b><span>Quality tested</span></div>
-    <div class="stat"><b>M-Pesa</b><span>Instant payment</span></div>
+    <div class="stat"><b>IntaSend</b><span>Secure payment</span></div>
     <div class="stat"><b>Bulk</b><span>Site delivery</span></div>
   </div>
 </div></section>
@@ -190,7 +190,7 @@ footer b{color:#fff}
 <section class="trust"><div class="wrap">
   <div class="t"><em aria-hidden="true">🚚</em><div><b>Site delivery</b>Anywhere in your area</div></div>
   <div class="t"><em aria-hidden="true">✅</em><div><b>Certified mix</b>Tested grades</div></div>
-  <div class="t"><em aria-hidden="true">📲</em><div><b>Pay by M-Pesa</b>STK push to your phone</div></div>
+  <div class="t"><em aria-hidden="true">💳</em><div><b>Pay via IntaSend</b>M-Pesa, card or bank</div></div>
   <div class="t"><em aria-hidden="true">🧾</em><div><b>Instant receipt</b>Print or save</div></div>
 </div></section>
 
@@ -209,7 +209,7 @@ footer b{color:#fff}
   <div class="tools"><input id="q" type="search" placeholder="🔍 Search products (e.g. cement, C25, block)" aria-label="Search products" autocomplete="off"></div>
   <div class="notice" id="adminNotice">
     <em aria-hidden="true">🔒</em>
-    <div><b>Admin-managed store</b>Product availability, prices and images are set by the admin. All payments are confirmed by the admin before goods are released. You will receive an order confirmation once your payment is authorised.</div>
+    <div><b>Admin-managed store</b>Product availability, prices and images are set by the admin. Payments are processed securely by IntaSend and confirmed by the admin before goods are released. You will receive an order confirmation once your payment is authorised.</div>
   </div>
   <div class="grid" id="grid" aria-live="polite"></div>
 </div></section>
@@ -217,7 +217,7 @@ footer b{color:#fff}
 
 <footer><div class="wrap">
   <div><b>Maricopa Concrete &amp; Allied</b><br>Quality materials for every build.</div>
-  <div>Prices in Kenya Shillings (KSh)<br>Delivery fee confirmed at dispatch.</div>
+  <div>Prices in Kenya Shillings (KSh)<br>Payments secured by IntaSend. Delivery fee confirmed at dispatch.</div>
 </div></footer>
 
 <!-- Quantity modal -->
@@ -235,7 +235,7 @@ footer b{color:#fff}
   </div>
 </div></div>
 
-<!-- Checkout / STK modal -->
+<!-- Checkout / IntaSend modal -->
 <div class="overlay" id="pm" role="dialog" aria-modal="true" aria-labelledby="pTitle"><div class="modal"><div class="stk" id="pBody"></div></div></div>
 
 <aside class="drawer" id="drawer" aria-label="Cart" aria-hidden="true">
@@ -251,8 +251,8 @@ footer b{color:#fff}
       <label for="cLoc">Delivery location</label><input id="cLoc" placeholder="Town / site / landmark" autocomplete="street-address">
       <div class="err" id="err" role="alert"></div>
     </div>
-    <button class="pay" id="payBtn"><span class="mp">M-PESA</span> Pay now</button>
-    <p style="font-size:.72rem;color:var(--mute);margin-top:10px;text-align:center">Payment is confirmed by our admin before goods are released.</p>
+    <button class="pay" id="payBtn"><span class="mp">INTASEND</span> Pay now</button>
+    <p style="font-size:.72rem;color:var(--mute);margin-top:10px;text-align:center">Payments are processed securely by IntaSend and confirmed by our admin before goods are released.</p>
   </div>
 </aside>
 <div class="overlay" id="dim" style="z-index:55"></div>
@@ -263,11 +263,16 @@ footer b{color:#fff}
 <script>
 'use strict';
 /* =====================================================================
-   CONFIGURATION
+   CONFIGURATION — IntaSend edition
    The server address is, in order of priority:
      1. ?api=https://your-server.onrender.com in the page address (saved for next time)
      2. the address saved in this browser (also used by the admin page)
      3. the default below — change it to your real Render URL
+
+   IntaSend endpoints expected on the backend:
+     POST /api/orders                 -> create order (idempotent)
+     POST /api/intasend/stkpush       -> trigger M-Pesa STK push via IntaSend
+     GET  /api/orders/:id/status      -> { paymentStatus, adminConfirmed, mpesaReceipt }
    ===================================================================== */
 const DEFAULT_API = "https://maricopa-server.onrender.com";
 const normApi = v => { v = String(v || "").trim(); if (!v) return ""; if (!/^https?:\/\//i.test(v)) v = "https://" + v; try { return new URL(v).origin; } catch(e) { return ""; } };
@@ -279,9 +284,9 @@ const CONFIG = {
   API: normApi(lsGet("mca_api") || DEFAULT_API),
   PRODUCTS: "/api/products",
   ORDERS:   "/api/orders",
-  STK:      "/api/mpesa/stkpush",
+  STK:      "/api/intasend/stkpush",            // ← changed from /api/mpesa/stkpush
   STATUS:   id => `/api/orders/${encodeURIComponent(id)}/status`,
-  TIMEOUT:  70000,          // free Render servers can take ~1 minute to wake up
+  TIMEOUT:  70000,
   POLL_MS:  3000,
   POLL_MAX: 60
 };
@@ -377,6 +382,7 @@ async function diagnose() {
     const h = await r.json().catch(() => ({}));
     if (h.originAllowed === false) return { kind: "cors", msg: `The server is blocking this website. Add ${h.yourOrigin || location.origin} to ALLOWED_ORIGINS in Render (or leave it empty), then redeploy.` };
     if (h.db === false) return { kind: "db", msg: "The server is running but is not connected to its database. Check MONGODB_URI and Atlas Network Access." };
+    if (h.intasend === false) return { kind: "down", msg: "The server is up but IntaSend is not configured. Check INTASEND_PUBLISHABLE_KEY / INTASEND_SECRET_KEY on Render." };
     return { kind: "ok", msg: "Server ready" };
   } catch(e) {
     try {
@@ -388,10 +394,7 @@ async function diagnose() {
   }
 }
 
-/* ---------------- API helper ----------------
-   - Only real connection problems raise the red "backend" banner.
-     Normal server answers (e.g. "out of stock") do not.
-   - GET requests are retried while a sleeping Render server wakes up. */
+/* ---------------- API helper ---------------- */
 async function api(path, opt = {}, n = 0) {
   if (!CONFIG.API) {
     const msg = "Backend not configured. Set DEFAULT_API to your server URL.";
@@ -413,7 +416,7 @@ async function api(path, opt = {}, n = 0) {
     }
     let d = null;
     try { d = await r.json(); } catch(e) {}
-    setBackendAlert(true); // the server answered, so the connection is fine
+    setBackendAlert(true);
     if (!r.ok) {
       throw Object.assign(new Error((d && (d.error || d.message)) || `The server had a problem (${r.status}).`), { http: true });
     }
@@ -422,7 +425,7 @@ async function api(path, opt = {}, n = 0) {
     if (e.http) throw e;
     if (e.name === "AbortError" || e instanceof TypeError) {
       const g = await diagnose();
-      if (g.kind === "ok") { // server is fine; this was a one-off hiccup
+      if (g.kind === "ok") {
         setBackendAlert(true);
         throw new Error("The connection dropped. Please try again.");
       }
@@ -633,7 +636,7 @@ $("#closeCart").onclick = closeCart;
 $("#dim").onclick = closeCart;
 window.openCart = openCart;
 
-/* ---------------- Payment ---------------- */
+/* ---------------- Payment (IntaSend) ---------------- */
 function normPhone(v) {
   v = String(v || "").replace(/[\s\-+()]/g, "");
   if (/^0[17]\d{8}$/.test(v)) return "254" + v.slice(1);
@@ -653,9 +656,11 @@ async function waitPaid(id) {
     try { s = await api(CONFIG.STATUS(id)); } catch(e) { continue; }
     const st = String(s.paymentStatus || s.status || "").toLowerCase();
     if (st === "paid") {
-      // the server sets adminConfirmed = true only after the admin authorises
       if (s.adminConfirmed === true) {
-        return { receipt: s.mpesaReceipt || s.receipt, adminConfirmed: true };
+        return {
+          receipt: s.mpesaReceipt || s.receipt || s.intasendReceipt || s.providerRef,
+          adminConfirmed: true
+        };
       }
       if (!told) {
         told = true;
@@ -712,11 +717,11 @@ $("#payBtn").onclick = async () => {
 
     stk(`<div class="pulse" aria-hidden="true">📲</div>
       <h3 id="pTitle">Check your phone</h3>
-      <p style="color:var(--mute);margin-top:6px">An M-Pesa prompt for <b>${KSH(ord.total)}</b> is being sent to <b>+${esc(ph)}</b>. Enter your PIN to complete payment.</p>
-      <p style="color:var(--mute);font-size:.8rem;margin-top:14px">After payment, our admin will confirm your order before goods are released.</p>`);
+      <p style="color:var(--mute);margin-top:6px">An M-Pesa prompt for <b>${KSH(ord.total)}</b> is being sent via <b>IntaSend</b> to <b>+${esc(ph)}</b>. Enter your PIN to complete payment.</p>
+      <p style="color:var(--mute);font-size:.8rem;margin-top:14px">After payment, IntaSend notifies our server and our admin will confirm your order before goods are released.</p>`);
 
     await api(CONFIG.STK, { method:"POST", body: JSON.stringify({ orderId: ord.orderId, phone: ph }) });
-    toast("info", "M-Pesa prompt sent", "Enter your PIN on your phone.");
+    toast("info", "IntaSend prompt sent", "Enter your M-Pesa PIN on your phone.");
 
     const r = await waitPaid(ord.orderId);
     success(ord, snap, { name, loc, ph }, r.receipt);
@@ -749,7 +754,7 @@ function fail(e, ord) {
         const s = await api(CONFIG.STATUS(ord.orderId));
         if (String(s.paymentStatus).toLowerCase() === "paid" && s.adminConfirmed === true) {
           toast("success", "Admin confirmed");
-          success(ord, [], { name:"", loc:"", ph:"" }, s.mpesaReceipt);
+          success(ord, [], { name:"", loc:"", ph:"" }, s.mpesaReceipt || s.receipt || s.intasendReceipt);
         } else {
           toast("info", "Still pending", "Admin has not confirmed yet. Please wait a moment.");
         }
@@ -766,7 +771,7 @@ function success(ord, snap, c, ref) {
   toast("success", "Order confirmed", "Admin has authorised your payment. Thank you!", 6000);
   stk(`<div class="pulse ok" aria-hidden="true">✓</div>
     <h3 id="pTitle">Order confirmed!</h3>
-    <p style="color:var(--mute);margin-top:4px">Order <b>${esc(ord.reference || ord.orderId)}</b> · M-Pesa ref <b>${esc(r)}</b></p>
+    <p style="color:var(--mute);margin-top:4px">Order <b>${esc(ord.reference || ord.orderId)}</b> · Payment ref <b>${esc(r)}</b></p>
     <div class="rc">
       ${snap.map(i => `<div><span>${i.q} × ${esc(i.name)}</span><span>${KSH(i.q * i.price)}</span></div>`).join("")}
       <div style="border-top:1px dashed var(--line);margin-top:6px;padding-top:6px"><b>Total paid</b><b>${KSH(ord.total)}</b></div>
@@ -781,7 +786,8 @@ function success(ord, snap, c, ref) {
     <h2>MARICOPA CONCRETE &amp; ALLIED</h2>
     <p>Receipt · ${d}</p>
     <p>Order: ${esc(ord.reference || ord.orderId)}<br>
-       M-Pesa ref: ${esc(r)}<br>
+       Payment ref: ${esc(r)}<br>
+       Paid via: IntaSend (M-Pesa)<br>
        Customer: ${esc(c.name)}<br>
        Phone: +${esc(c.ph)}<br>
        Deliver to: ${esc(c.loc)}</p>
@@ -789,7 +795,7 @@ function success(ord, snap, c, ref) {
     ${snap.map(i => `<p>${i.q} × ${esc(i.name)}${i.d ? " (" + esc(i.d) + ")" : ""} — ${KSH(i.q * i.price)}</p>`).join("")}
     <hr>
     <h3>TOTAL: ${KSH(ord.total)}</h3>
-    <p>Paid via M-Pesa · Admin confirmed. Thank you!</p>`;
+    <p>Processed securely by IntaSend · Admin confirmed. Thank you!</p>`;
 
   $("#prt").onclick = () => window.print();
   $("#done").onclick = () => { $("#pm").classList.remove("open"); closeCart(); };
