@@ -263,15 +263,25 @@ footer b{color:#fff}
 <script>
 'use strict';
 /* =====================================================================
-   CONFIGURATION — must match the server.js endpoints exactly
+   CONFIGURATION
+   The server address is, in order of priority:
+     1. ?api=https://your-server.onrender.com in the page address (saved for next time)
+     2. the address saved in this browser (also used by the admin page)
+     3. the default below — change it to your real Render URL
    ===================================================================== */
+const DEFAULT_API = "https://maricopa-server.onrender.com";
+const normApi = v => { v = String(v || "").trim(); if (!v) return ""; if (!/^https?:\/\//i.test(v)) v = "https://" + v; try { return new URL(v).origin; } catch(e) { return ""; } };
+const lsGet = k => { try { return localStorage.getItem(k); } catch(e) { return null; } };
+const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch(e) {} };
+try { const qa = normApi(new URLSearchParams(location.search).get("api")); if (qa) lsSet("mca_api", qa); } catch(e) {}
+
 const CONFIG = {
-  API: "https://maricopa-server.onrender.com",
+  API: normApi(lsGet("mca_api") || DEFAULT_API),
   PRODUCTS: "/api/products",
   ORDERS:   "/api/orders",
   STK:      "/api/mpesa/stkpush",
   STATUS:   id => `/api/orders/${encodeURIComponent(id)}/status`,
-  TIMEOUT:  15000,
+  TIMEOUT:  70000,          // free Render servers can take ~1 minute to wake up
   POLL_MS:  3000,
   POLL_MAX: 60
 };
@@ -330,7 +340,7 @@ function setBackendAlert(ok, msg) {
   const el = $("#backendAlert");
   if (!el) return;
   if (ok) { el.classList.remove("show"); setAdminSync(true, "Synced with admin"); return; }
-  el.querySelector("span").textContent = msg || "Backend connection failed. Orders cannot be processed.";
+  el.querySelector("span").textContent = "⚠️ " + (msg || "Backend connection failed. Orders cannot be processed.");
   el.classList.add("show");
   setAdminSync(false, "Admin offline");
 }
@@ -354,13 +364,41 @@ function toast(type, title, msg, ms) {
   box.appendChild(d);
 }
 
-/* ---------------- API helper (matches server.js error format) ---------------- */
-async function api(path, opt = {}) {
+/* ---------------- Connection diagnosis ----------------
+   ok   = server up, this website allowed, database connected
+   cors = server up but blocking this website
+   db   = server up but MongoDB not connected
+   down = server unreachable (wrong address, asleep, or crashed) */
+async function diagnose() {
+  const base = CONFIG.API;
+  try {
+    const r = await fetch(base + "/health", { cache: "no-store", signal: AbortSignal.timeout(65000) });
+    if (!r.ok) return { kind: "down", msg: `The server replied with an error (${r.status}). It may still be starting. Please try again in a minute.` };
+    const h = await r.json().catch(() => ({}));
+    if (h.originAllowed === false) return { kind: "cors", msg: `The server is blocking this website. Add ${h.yourOrigin || location.origin} to ALLOWED_ORIGINS in Render (or leave it empty), then redeploy.` };
+    if (h.db === false) return { kind: "db", msg: "The server is running but is not connected to its database. Check MONGODB_URI and Atlas Network Access." };
+    return { kind: "ok", msg: "Server ready" };
+  } catch(e) {
+    try {
+      await fetch(base + "/health", { mode: "no-cors", cache: "no-store", signal: AbortSignal.timeout(20000) });
+      return { kind: "cors", msg: `The server is reachable but blocking this website. Make sure server.js is the latest version and ALLOWED_ORIGINS includes ${location.origin} (or is empty).` };
+    } catch(x) {
+      return { kind: "down", msg: `Can't reach ${base}. Check that this is your exact Render URL (open ${base}/health in a new tab). Free servers can take up to a minute to wake up.` };
+    }
+  }
+}
+
+/* ---------------- API helper ----------------
+   - Only real connection problems raise the red "backend" banner.
+     Normal server answers (e.g. "out of stock") do not.
+   - GET requests are retried while a sleeping Render server wakes up. */
+async function api(path, opt = {}, n = 0) {
   if (!CONFIG.API) {
-    const msg = "Backend not configured. Set CONFIG.API to your server URL.";
+    const msg = "Backend not configured. Set DEFAULT_API to your server URL.";
     setBackendAlert(false, msg);
     throw new Error(msg);
   }
+  const isGet = (opt.method || "GET").toUpperCase() === "GET";
   const c = new AbortController(), t = setTimeout(() => c.abort(), CONFIG.TIMEOUT);
   try {
     const r = await fetch(CONFIG.API + path, {
@@ -368,20 +406,36 @@ async function api(path, opt = {}) {
       signal: c.signal,
       headers: { "Content-Type": "application/json", ...(opt.headers || {}) }
     });
+    if (isGet && [502, 503, 504].includes(r.status) && n < 3) {
+      setAdminSync(false, "Server waking up…");
+      await sleep(4000);
+      return api(path, opt, n + 1);
+    }
     let d = null;
     try { d = await r.json(); } catch(e) {}
+    setBackendAlert(true); // the server answered, so the connection is fine
     if (!r.ok) {
-      // server.js returns { error: "..." } for errors
-      throw new Error((d && (d.error || d.message)) || `Request failed (${r.status})`);
+      throw Object.assign(new Error((d && (d.error || d.message)) || `The server had a problem (${r.status}).`), { http: true });
     }
-    setBackendAlert(true);
     return d;
   } catch(e) {
-    const msg = e.name === "AbortError" ? "The server took too long to respond." :
-      e.message === "Failed to fetch" ? "Cannot reach the server. Check your internet connection." :
-      e.message;
-    setBackendAlert(false, msg);
-    throw new Error(msg);
+    if (e.http) throw e;
+    if (e.name === "AbortError" || e instanceof TypeError) {
+      const g = await diagnose();
+      if (g.kind === "ok") { // server is fine; this was a one-off hiccup
+        setBackendAlert(true);
+        throw new Error("The connection dropped. Please try again.");
+      }
+      if (g.kind === "down" && isGet && n < 1) {
+        setAdminSync(false, "Server waking up…");
+        await sleep(4000);
+        return api(path, opt, n + 1);
+      }
+      setBackendAlert(false, g.msg);
+      throw new Error(g.msg);
+    }
+    setBackendAlert(false, e.message);
+    throw e;
   } finally { clearTimeout(t); }
 }
 
@@ -400,7 +454,7 @@ function renderGrid() {
   const g = $("#grid");
   if (!g) return;
   if (!P.length) {
-    g.innerHTML = '<div class="nores">No products available. The admin has not added any products yet, or the backend is unreachable.</div>';
+    g.innerHTML = '<div class="nores">No products available yet. Products appear here after the admin adds them.</div>';
     return;
   }
   const list = shown();
@@ -579,7 +633,7 @@ $("#closeCart").onclick = closeCart;
 $("#dim").onclick = closeCart;
 window.openCart = openCart;
 
-/* ---------------- Payment (matches server.js flow exactly) ---------------- */
+/* ---------------- Payment ---------------- */
 function normPhone(v) {
   v = String(v || "").replace(/[\s\-+()]/g, "");
   if (/^0[17]\d{8}$/.test(v)) return "254" + v.slice(1);
@@ -592,17 +646,19 @@ const stk = h => { $("#pBody").innerHTML = h; $("#pm").classList.add("open"); };
 const busy = m => `<div class="pulse wait" aria-hidden="true">⏳</div><h3 id="pTitle">${esc(m)}</h3>`;
 
 async function waitPaid(id) {
+  let told = false;
   for (let i = 0; i < CONFIG.POLL_MAX; i++) {
     await sleep(CONFIG.POLL_MS);
     let s;
     try { s = await api(CONFIG.STATUS(id)); } catch(e) { continue; }
     const st = String(s.paymentStatus || s.status || "").toLowerCase();
     if (st === "paid") {
-      // server.js sets adminConfirmed = true only after admin authorises
+      // the server sets adminConfirmed = true only after the admin authorises
       if (s.adminConfirmed === true) {
         return { receipt: s.mpesaReceipt || s.receipt, adminConfirmed: true };
       }
-      if (i === 0) {
+      if (!told) {
+        told = true;
         toast("info", "Payment received", "Waiting for admin confirmation before release.");
         setAdminSync(false, "Awaiting admin approval");
       }
@@ -622,10 +678,6 @@ $("#payBtn").onclick = async () => {
   const err = $("#err");
   const bad = m => { err.textContent = m; toast("warning", "Check your details", m); };
 
-  if (backendOk === false) {
-    toast("error", "Backend unavailable", "Cannot process payment. The store is not connected to the server.", 8000);
-    return;
-  }
   if (!cart.length) return toast("warning", "Your cart is empty");
   if (!name) return bad("Please enter your name.");
   if (!ph) return bad("Enter a valid Safaricom number, e.g. 0712 345 678.");
@@ -650,7 +702,7 @@ $("#payBtn").onclick = async () => {
   try {
     if (!ord) {
       stk(busy("Placing your order…"));
-      // server.js requires a valid Idempotency-Key header (8–100 chars)
+      // the server requires a valid Idempotency-Key header (8–100 chars)
       ord = await api(CONFIG.ORDERS, { method:"POST", headers:{"Idempotency-Key":uid()}, body:sig });
       pend = { sig, ord };
       if (Math.round(ord.total) !== Math.round(total())) {
@@ -660,7 +712,7 @@ $("#payBtn").onclick = async () => {
 
     stk(`<div class="pulse" aria-hidden="true">📲</div>
       <h3 id="pTitle">Check your phone</h3>
-      <p style="color:var(--mute);margin-top:6px">An M-Pesa prompt for <b>${KSH(ord.total)}</b> was sent to <b>+${esc(ph)}</b>. Enter your PIN to complete payment.</p>
+      <p style="color:var(--mute);margin-top:6px">An M-Pesa prompt for <b>${KSH(ord.total)}</b> is being sent to <b>+${esc(ph)}</b>. Enter your PIN to complete payment.</p>
       <p style="color:var(--mute);font-size:.8rem;margin-top:14px">After payment, our admin will confirm your order before goods are released.</p>`);
 
     await api(CONFIG.STK, { method:"POST", body: JSON.stringify({ orderId: ord.orderId, phone: ph }) });
@@ -755,14 +807,14 @@ document.addEventListener("keydown", e => {
 /* ---------------- Load / init ---------------- */
 async function load() {
   if (!CONFIG.API) {
-    setBackendAlert(false, "Backend not configured. Set CONFIG.API to your server URL before going live.");
-    $("#grid").innerHTML = '<div class="nores">⚠️ Backend not configured.<br><br>The storefront cannot load products or process payments until CONFIG.API is set to your server URL.</div>';
-    toast("error", "Backend not configured", "Set CONFIG.API to your server URL before going live.", 10000);
+    setBackendAlert(false, "Backend not configured. Set DEFAULT_API to your server URL before going live.");
+    $("#grid").innerHTML = '<div class="nores">⚠️ Backend not configured.<br><br>Set DEFAULT_API in this page to your server URL.</div>';
     return;
   }
 
   setAdminSync(false, "Connecting…");
   $("#grid").innerHTML = Array(8).fill('<div class="sk"></div>').join("");
+  const wake = setTimeout(() => toast("info", "Waking up the server…", "This can take up to a minute the first time. Please wait.", 12000), 6000);
   try {
     const d = await api(CONFIG.PRODUCTS);
     P = (d.products || d || []).map(fromApi).filter(p => p.id);
@@ -776,11 +828,10 @@ async function load() {
     setBackendAlert(true);
     setAdminSync(true, "Synced with admin");
   } catch(e) {
-    $("#grid").innerHTML = `<div class="nores"> Could not load products.<br><br>${esc(e.message)}<br><br><button class="btn" id="retry">Try again</button></div>`;
+    $("#grid").innerHTML = `<div class="nores">Could not load products.<br><br>${esc(e.message)}<br><br><button class="btn" id="retry">Try again</button></div>`;
     const retry = $("#retry");
     if (retry) retry.onclick = load;
-    toast("error", "Could not load products", e.message, 8000);
-  }
+  } finally { clearTimeout(wake); }
 }
 
 try {
