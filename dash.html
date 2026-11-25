@@ -176,7 +176,7 @@ footer b{color:#fff}
   <div>
     <span class="tag">🏗️ Built on strength. Delivered on time.</span>
     <h1>Quality concrete &amp; building materials, <span>ordered in minutes.</span></h1>
-    <p>Pick your products, choose your quantities and pay securely with IntaSend (M-Pesa, card or bank). Maricopa Concrete and Allied supplies contractors, builders and homeowners.</p>
+    <p>Pick your products, choose your quantities and pay securely with IntaSend. M-Pesa STK push is available now; card and bank payments are coming soon.</p>
     <div class="cta"><a class="btn" href="#shop">Shop materials</a><button class="btn ghost" onclick="openCart()">View cart</button></div>
   </div>
   <div class="stats" aria-hidden="true">
@@ -190,7 +190,7 @@ footer b{color:#fff}
 <section class="trust"><div class="wrap">
   <div class="t"><em aria-hidden="true">🚚</em><div><b>Site delivery</b>Anywhere in your area</div></div>
   <div class="t"><em aria-hidden="true">✅</em><div><b>Certified mix</b>Tested grades</div></div>
-  <div class="t"><em aria-hidden="true">💳</em><div><b>Pay via IntaSend</b>M-Pesa, card or bank</div></div>
+  <div class="t"><em aria-hidden="true">📲</em><div><b>Pay via IntaSend</b>M-Pesa now · card & bank soon</div></div>
   <div class="t"><em aria-hidden="true">🧾</em><div><b>Instant receipt</b>Print or save</div></div>
 </div></section>
 
@@ -251,8 +251,8 @@ footer b{color:#fff}
       <label for="cLoc">Delivery location</label><input id="cLoc" placeholder="Town / site / landmark" autocomplete="street-address">
       <div class="err" id="err" role="alert"></div>
     </div>
-    <button class="pay" id="payBtn"><span class="mp">INTASEND</span> Pay now</button>
-    <p style="font-size:.72rem;color:var(--mute);margin-top:10px;text-align:center">Payments are processed securely by IntaSend and confirmed by our admin before goods are released.</p>
+    <button class="pay" id="payBtn"><span class="mp">INTASEND</span> Pay now (M-Pesa)</button>
+    <p style="font-size:.72rem;color:var(--mute);margin-top:10px;text-align:center">Payments are processed securely by IntaSend and confirmed by our admin before goods are released.<br><span style="opacity:.8">Card, Apple Pay, Google Pay & PesaLink will be available soon.</span></p>
   </div>
 </aside>
 <div class="overlay" id="dim" style="z-index:55"></div>
@@ -284,7 +284,7 @@ const CONFIG = {
   API: normApi(lsGet("mca_api") || DEFAULT_API),
   PRODUCTS: "/api/products",
   ORDERS:   "/api/orders",
-  STK:      "/api/intasend/stkpush",            // ← changed from /api/mpesa/stkpush
+  STK:      "/api/intasend/stkpush",
   STATUS:   id => `/api/orders/${encodeURIComponent(id)}/status`,
   TIMEOUT:  70000,
   POLL_MS:  3000,
@@ -369,11 +369,7 @@ function toast(type, title, msg, ms) {
   box.appendChild(d);
 }
 
-/* ---------------- Connection diagnosis ----------------
-   ok   = server up, this website allowed, database connected
-   cors = server up but blocking this website
-   db   = server up but MongoDB not connected
-   down = server unreachable (wrong address, asleep, or crashed) */
+/* ---------------- Connection diagnosis ---------------- */
 async function diagnose() {
   const base = CONFIG.API;
   try {
@@ -648,6 +644,16 @@ function normPhone(v) {
 const stk = h => { $("#pBody").innerHTML = h; $("#pm").classList.add("open"); };
 const busy = m => `<div class="pulse wait" aria-hidden="true">⏳</div><h3 id="pTitle">${esc(m)}</h3>`;
 
+/* Friendly IntaSend failure messages. Codes: 1032 cancelled, 1037 timeout/unreachable */
+function friendlyFailure(code, fallback) {
+  const n = Number(code);
+  if (n === 1032) return "You cancelled the M-Pesa prompt. You can try again whenever you're ready.";
+  if (n === 1037) return "The M-Pesa prompt timed out or your phone couldn't be reached. Please check your phone is on and try again.";
+  if (n === 1) return "Insufficient M-Pesa balance. Please top up and try again.";
+  if (n === 2001) return "Wrong M-Pesa PIN entered. Please try again.";
+  return fallback || "The payment was not completed. Please try again.";
+}
+
 async function waitPaid(id) {
   let told = false;
   for (let i = 0; i < CONFIG.POLL_MAX; i++) {
@@ -670,7 +676,10 @@ async function waitPaid(id) {
       continue;
     }
     if (st === "failed" || st === "cancelled") {
-      throw new Error(s.message || "The payment was cancelled or failed.");
+      // Use the server's message (which should carry failed_code from IntaSend)
+      const msg = s.message || "The payment was cancelled or failed.";
+      const code = s.failed_code || s.failedCode;
+      throw Object.assign(new Error(friendlyFailure(code, msg)), { code });
     }
   }
   throw Object.assign(new Error("We haven't received admin confirmation yet."), {late:true});
@@ -707,7 +716,6 @@ $("#payBtn").onclick = async () => {
   try {
     if (!ord) {
       stk(busy("Placing your order…"));
-      // the server requires a valid Idempotency-Key header (8–100 chars)
       ord = await api(CONFIG.ORDERS, { method:"POST", headers:{"Idempotency-Key":uid()}, body:sig });
       pend = { sig, ord };
       if (Math.round(ord.total) !== Math.round(total())) {
@@ -734,11 +742,16 @@ $("#payBtn").onclick = async () => {
 
 function fail(e, ord) {
   const late = !!e.late;
+  const cancelled = e.code === 1032 || e.code === 1037;
   ord = ord || {};
-  toast(late ? "warning" : "error", late ? "Admin confirmation pending" : "Payment failed", e.message, 8000);
-  stk(`<div class="pulse ${late ? "wait" : ""}" style="${late ? "" : "background:var(--danger)"}" aria-hidden="true">
-        ${late ? "⏳" : "✕"}</div>
-       <h3 id="pTitle">${late ? "Awaiting admin confirmation" : "Payment not completed"}</h3>
+  toast(cancelled ? "warning" : (late ? "warning" : "error"),
+        cancelled ? (e.code === 1032 ? "Payment cancelled" : "Payment timed out") :
+        (late ? "Admin confirmation pending" : "Payment failed"),
+        e.message, 8000);
+  stk(`<div class="pulse ${cancelled ? "" : (late ? "wait" : "")}" style="${cancelled ? "background:var(--acc)" : (late ? "" : "background:var(--danger)")}" aria-hidden="true">
+        ${cancelled ? "!" : (late ? "⏳" : "✕")}</div>
+       <h3 id="pTitle">${cancelled ? (e.code === 1032 ? "You cancelled the prompt" : "Payment timed out") :
+        (late ? "Awaiting admin confirmation" : "Payment not completed")}</h3>
        <p style="color:var(--mute);margin:8px 0 18px">
          ${esc(e.message)}
          ${late ? `If M-Pesa already deducted the money, don't pay again. Quote reference <b>${esc(ord.reference || ord.orderId)}</b> and our team will confirm it.` : "Your cart is safe, so you can try again."}
