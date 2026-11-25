@@ -258,47 +258,9 @@ footer b{color:#fff}
 <div id="printRc"></div>
 
 <script>
-/* =====================================================================
-   MARICOPA STORE — PRODUCTION-READY STOREFRONT (DARAJA BACKEND)
-   =====================================================================
-   BACKEND INTEGRATION CONTRACT (matches admin.html)
-   ---------------------------------------------------------------------
-   The server (admin-controlled) is the single source of truth for:
-     • Product catalogue (name, category, unit, price, description,
-       image, inStock, emoji, gradient, specs, options)
-     • Order creation and pricing (server must recompute every price)
-     • M-Pesa STK push via Daraja API (keys stay server-side)
-     • Payment confirmation (admin authorises before goods released)
 
-   ENDPOINTS
-   GET  /api/products
-        → { products: [ { id, name, category, unit, price, description,
-             image, inStock, emoji, gradient, specs: [[label,value]],
-             options: [{ key, choices: [ { value, priceAdjust } ] }]
-           } ] }
-
-   POST /api/orders
-        Headers: Idempotency-Key: <uuid>
-        Body: { customer: { name, phone, location },
-                items: [ { productId, quantity, options, note } ] }
-        → { orderId, reference, total }
-
-   POST /api/mpesa/stkpush
-        Body: { orderId, phone }
-        → { checkoutRequestId }
-
-   GET  /api/orders/:id/status
-        → { paymentStatus: "pending" | "paid" | "failed" | "cancelled",
-            mpesaReceipt, adminConfirmed: true | false }
-
-   ADMIN CONFIRMATION RULE:
-     paymentStatus becomes "paid" only after the admin confirms the
-     M-Pesa payment. The storefront polls this endpoint and shows
-     "Awaiting admin confirmation" until adminConfirmed is true.
-     Goods are never released before adminConfirmed === true.
-   ===================================================================== */
 const CONFIG = {
-  API: "",                       // ⚠️ REQUIRED: set to your backend base URL, e.g. "https://api.maricopa.co.ke"
+  API: "https://maricopa-server-2.onrender.com",                   
   PRODUCTS: "/api/products",
   ORDERS:   "/api/orders",
   STK:      "/api/mpesa/stkpush",
