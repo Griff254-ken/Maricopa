@@ -118,7 +118,7 @@ th{background:var(--bg);color:var(--mute);font-size:.78rem;font-weight:700;paddi
 </section>
 
 <section class="sec" id="s-orders">
-  <div class="ph"><div><h1>Orders</h1><p>Check payments and release goods.</p></div><button class="btn ghost sm" data-a="refresh">↻ Refresh</button></div>
+  <div class="ph"><div><h1>Orders</h1><p>Check payments and release goods. Delete clears the row permanently from your list — the IntaSend dashboard keeps the transaction.</p></div><button class="btn ghost sm" data-a="refresh">↻ Refresh</button></div>
   <div class="chips" id="chips">
     <button class="chip on" data-a="filter" data-f="all">All</button><button class="chip" data-a="filter" data-f="paid">Awaiting approval</button>
     <button class="chip" data-a="filter" data-f="pending">Unpaid</button><button class="chip" data-a="filter" data-f="cancelled">Cancelled</button>
@@ -308,6 +308,8 @@ const awaiting=o=>o.paymentStatus==="paid"&&!o.adminConfirmed;
 const FIL={all:()=>true,paid:awaiting,pending:o=>o.paymentStatus==="pending"||o.paymentStatus==="failed",cancelled:o=>o.paymentStatus==="cancelled"};
 const table=(h,r)=>`<div class="tw"><table><thead><tr>${h.map(x=>`<th>${x}</th>`).join("")}</tr></thead><tbody>${r.join("")}</tbody></table></div>`;
 const cust=o=>`${esc(o.customer.name)}<br><small class="mute">+${esc(o.customer.phone)}</small>`;
+/* A released order is kept for the record; anything else can be deleted. */
+const canDelete=o=>!o.adminConfirmed;
 
 function render(){
   const aw=orders.filter(awaiting);
@@ -319,7 +321,8 @@ function render(){
   $("#ord").innerHTML=l.length?table(["Reference","Customer","Items","Total","Payment","Approval",""],l.map(o=>{
     const n=(o.items||[]).reduce((s,i)=>s+(i.quantity||0),0);
     const ap=o.adminConfirmed?'<span class="pill ok">Released</span>':awaiting(o)?'<span class="pill wait">Awaiting approval</span>':"–";
-    return `<tr><td><b>${esc(o.reference)}</b><br><small class="mute">${when(o.createdAt)}</small></td><td>${cust(o)}</td><td>${n}</td><td><b>${KSH(o.total)}</b></td><td><span class="pill ${esc(o.paymentStatus)}">${esc(o.paymentStatus)}</span></td><td>${ap}</td><td class="act"><button class="btn ghost sm" data-a="view" data-id="${esc(o.id)}">View</button></td></tr>`}))
+    const del=canDelete(o)?`<button class="btn bad sm" data-a="delo" data-id="${esc(o.id)}" aria-label="Delete order ${esc(o.reference)}">Delete</button>`:"";
+    return `<tr><td><b>${esc(o.reference)}</b><br><small class="mute">${when(o.createdAt)}</small></td><td>${cust(o)}</td><td>${n}</td><td><b>${KSH(o.total)}</b></td><td><span class="pill ${esc(o.paymentStatus)}">${esc(o.paymentStatus)}</span></td><td>${ap}</td><td class="act"><button class="btn ghost sm" data-a="view" data-id="${esc(o.id)}">View</button>${del}</td></tr>`}))
     :`<div class="empty">📦<br>${orders.length?"No orders match this filter.":"No orders yet. They will appear here when customers check out."}</div>`;
   $("#prod").innerHTML=products.length?table(["Product","Category","Price","Stock",""],products.map(p=>`<tr><td><div class="th"><span>${p.image?`<img src="${esc(p.image)}" alt="" onerror="this.remove()">`:esc(p.emoji||"📦")}</span><div><b>${esc(p.name)}</b><br><small class="mute">${esc(p.unit)}</small></div></div></td><td>${esc(p.category)}</td><td><b>${KSH(p.price)}</b></td><td><span class="pill ${p.inStock?"ok":"out"}">${p.inStock?"In stock":"Out of stock"}</span></td><td class="act"><button class="btn ghost sm" data-a="edit" data-id="${esc(p.id)}">Edit</button><button class="btn bad sm" data-a="del" data-id="${esc(p.id)}">Delete</button></td></tr>`))
     :'<div class="empty">🏷️<br>No products yet. Choose “+ Add product” to add your first one.</div>';
@@ -338,7 +341,8 @@ function openOrder(id){
   ${table(["Item","Qty","Unit price","Line total"],(o.items||[]).map(i=>`<tr><td>${esc(i.name)}${i.options&&Object.keys(i.options).length?`<br><small class="mute">${esc(Object.values(i.options).join(", "))}</small>`:""}${i.note?`<br><small class="mute">📝 ${esc(i.note)}</small>`:""}</td><td>${i.quantity}</td><td>${KSH(i.unitPrice)}</td><td><b>${KSH(i.lineTotal)}</b></td></tr>`))}
   <div class="tot"><span>Total</span><span>${KSH(o.total)}</span></div>
   ${o.adminConfirmed?'<p style="margin-top:12px;color:var(--ok);font-weight:700">✓ Released. The customer has been told their order is confirmed.</p>':""}`;
-  $("#omF").innerHTML=awaiting(o)?`<button class="btn bad" data-a="reject" data-id="${esc(o.id)}">Cancel order</button><button class="btn ok" data-a="confirm" data-id="${esc(o.id)}">Confirm and release</button>`:`<button class="btn ghost" data-a="close">Close</button>`;
+  const del=canDelete(o)?`<button class="btn bad" data-a="delo" data-id="${esc(o.id)}">Delete order</button>`:"";
+  $("#omF").innerHTML=awaiting(o)?`${del}<button class="btn bad" data-a="reject" data-id="${esc(o.id)}">Cancel order</button><button class="btn ok" data-a="confirm" data-id="${esc(o.id)}">Confirm and release</button>`:`${del}<button class="btn ghost" data-a="close">Close</button>`;
   $("#om").classList.add("open");
 }
 async function confirmOrder(id){
@@ -349,6 +353,21 @@ async function rejectOrder(id){
   if(!confirm("Cancel this order? If the customer already paid, you will need to refund them in the IntaSend dashboard yourself."))return;
   try{await api(`/api/admin/orders/${encodeURIComponent(id)}/reject`,{method:"POST"});toast("warning","Order cancelled");$("#om").classList.remove("open");await loadAll(true)}
   catch(e){toast("error","Couldn't cancel order",e.message)}
+}
+async function deleteOrder(id){
+  const o=orders.find(x=>x.id===id);
+  if(!o)return;
+  if(o.adminConfirmed)return toast("warning","Can't delete a released order","Released orders are kept as a record. Cancel is no longer possible.");
+  const msg=o.paymentStatus==="paid"
+    ?`Delete ${o.reference}? This order was PAID via IntaSend but has not been released yet.\n\nThe order will disappear from your list. Refund the customer in the IntaSend dashboard if needed — IntaSend keeps the transaction record.`
+    :`Delete ${o.reference}? This removes the order from your list permanently.\n\nIntaSend still keeps any transaction record.`;
+  if(!confirm(msg))return;
+  try{
+    await api(`/api/admin/orders/${encodeURIComponent(id)}`,{method:"DELETE"});
+    toast("success","Order deleted",o.reference);
+    if($("#om").classList.contains("open"))$("#om").classList.remove("open");
+    await loadAll(true);
+  }catch(e){toast("error","Couldn't delete order",e.message)}
 }
 
 /* ---------- products ---------- */
@@ -410,6 +429,7 @@ const ACT={
   refresh(){loadAll().then(ok=>ok&&toast("info","Refreshed"))},
   filter(d){ofilter=d.f;$$("#chips .chip").forEach(c=>c.classList.toggle("on",c.dataset.f===d.f));render()},
   view:d=>openOrder(d.id),confirm:d=>confirmOrder(d.id),reject:d=>rejectOrder(d.id),
+  delo:d=>deleteOrder(d.id),
   add:()=>openProduct(),edit:d=>openProduct(d.id),del:d=>delProduct(d.id),save:saveProduct,
   close(){this.closest(".ov").classList.remove("open")},tab:d=>tab(d.t),
   pick:()=>$("#pf").click(),noimg:()=>{setImg("");$("#pf").value=""},
