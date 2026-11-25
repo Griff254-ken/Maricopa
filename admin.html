@@ -1,849 +1,451 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Maricopa Concrete &amp; Allied | Order Online</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Admin · Maricopa Concrete &amp; Allied</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f59e0b'/%3E%3Cpath d='M14 48V16h8l10 16 10-16h8v32h-8V31L32 46 22 31v17z' fill='%2316171a'/%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f59e0b'/%3E%3Cpath d='M14 48V16h8l10 16 10-16h8v32h-8V31L32 46 22 31v17z' fill='%2316171a'/%3E%3C/svg%3E">
 <meta name="theme-color" content="#16171a">
-<meta name="description" content="Order concrete, cement, aggregates, blocks and steel online from Maricopa Concrete and Allied. Pay with M-Pesa.">
+<meta name="robots" content="noindex,nofollow">
 <style>
-:root{color-scheme:light;--bg:#f4f1ec;--card:#fff;--ink:#1b1b1d;--mute:#6b6a68;--line:#e3ded6;--acc:#f59e0b;--acc2:#d97706;--dark:#16171a;--ok:#16a34a;--danger:#dc2626;--info:#2563eb;--shadow:0 10px 30px rgba(0,0,0,.08);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#101113;--card:#1a1c20;--ink:#f3f1ed;--mute:#a09d97;--line:#2b2e34;--shadow:0 10px 30px rgba(0,0,0,.4)}}
-:root[data-theme="dark"]{color-scheme:dark;--bg:#101113;--card:#1a1c20;--ink:#f3f1ed;--mute:#a09d97;--line:#2b2e34;--shadow:0 10px 30px rgba(0,0,0,.4)}
-*{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth;scroll-padding-top:80px}
-body{background:var(--bg);color:var(--ink);font-family:'Segoe UI',system-ui,-apple-system,Roboto,sans-serif;line-height:1.5}
-button{font:inherit;cursor:pointer;border:0}
-.wrap{max-width:1180px;margin:auto;padding:0 20px}
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--dark);color:#fff;border-bottom:3px solid var(--acc)}
-.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
-.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.5px;font-size:1.05rem}
+:root{--bg:#f4f1ec;--card:#fff;--ink:#1b1b1d;--mute:#6b6a68;--line:#e3ded6;--acc:#f59e0b;--acc2:#d97706;--dark:#16171a;--ok:#16a34a;--bad:#dc2626;--info:#2563eb;box-sizing:border-box;padding-top:env(safe-area-inset-top,0);padding-bottom:env(safe-area-inset-bottom,0)}
+@media(prefers-color-scheme:dark){:root{--bg:#101113;--card:#1a1c20;--ink:#f3f1ed;--mute:#a09d97;--line:#2b2e34}}
+*{box-sizing:border-box;margin:0}[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 'Segoe UI',system-ui,-apple-system,Roboto,sans-serif;min-height:100vh}
+button{font:inherit;cursor:pointer;border:0;color:inherit}input,select,textarea{font:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.wrap{max-width:1200px;margin:auto;padding:0 20px}.mute{color:var(--mute)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.5px}
 .logo i{width:34px;height:34px;background:var(--acc);color:#111;display:grid;place-items:center;font-style:normal;border-radius:8px;transform:rotate(-6deg)}
-.logo small{display:block;font-weight:500;font-size:.62rem;color:#bbb;letter-spacing:2px;margin-top:-2px}
-.cartbtn{position:relative;background:var(--acc);color:#111;font-weight:700;padding:10px 16px;border-radius:999px;display:flex;gap:8px;align-items:center;transition:.2s}
-.cartbtn:hover{background:#fbbf24;transform:translateY(-1px)}
-.badge{background:#111;color:#fff;border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;font-size:.75rem;padding:0 6px}
-.bump{animation:bump .4s}@keyframes bump{50%{transform:scale(1.25)}}
-.hero{background:radial-gradient(circle at 80% 20%,rgba(245,158,11,.35),transparent 45%),linear-gradient(135deg,#16171a,#2a2c31);color:#fff;padding:70px 0 90px;position:relative;overflow:hidden}
-.hero:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0 2px,transparent 2px 22px)}
-.hero .wrap{position:relative;z-index:1;display:grid;gap:30px;grid-template-columns:1.3fr 1fr;align-items:center}
-.tag{display:inline-block;background:rgba(245,158,11,.15);color:var(--acc);border:1px solid rgba(245,158,11,.4);padding:4px 12px;border-radius:999px;font-size:.8rem;font-weight:600}
-h1{font-size:clamp(2rem,5vw,3.6rem);line-height:1.08;margin:16px 0;font-weight:900}
-h1 span{color:var(--acc)}
-.hero p{color:#cfcfcf;max-width:520px}
-.cta{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
-.btn{background:var(--acc);color:#111;font-weight:700;padding:13px 22px;border-radius:10px;transition:.2s;text-decoration:none;display:inline-block}
-.btn:hover{background:#fbbf24;transform:translateY(-2px)}
-.btn.ghost{background:transparent;color:#fff;border:1px solid #555}
-.btn.ghost:hover{background:rgba(255,255,255,.08)}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:18px;border-radius:14px;backdrop-filter:blur(6px)}
-.stat b{font-size:1.7rem;color:var(--acc);display:block}
-.stat span{font-size:.8rem;color:#bbb}
-.trust{margin-top:-34px;position:relative;z-index:2}
-.trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
-.t{background:var(--card);padding:16px 18px;border-radius:14px;box-shadow:var(--shadow);display:flex;gap:12px;align-items:center;font-size:.9rem}
-.t em{font-style:normal;font-size:1.6rem}
-.t b{display:block}
-section.shop{padding:60px 0}
-.head{display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:16px;margin-bottom:26px}
-h2{font-size:1.9rem;font-weight:800}
-.head p{color:var(--mute)}
-.filters{display:flex;gap:8px;flex-wrap:wrap}
-.chip{background:var(--card);color:var(--ink);border:1px solid var(--line);padding:8px 16px;border-radius:999px;font-weight:600;font-size:.88rem;transition:.2s}
-.chip.on,.chip:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
-.card{background:var(--card);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);cursor:pointer;transition:.25s;border:1px solid var(--line);display:flex;flex-direction:column;animation:rise .5s both}
-.card:hover{transform:translateY(-6px);border-color:var(--acc)}
-@keyframes rise{from{opacity:0;transform:translateY(16px)}}
-.pic{height:150px;display:grid;place-items:center;font-size:4rem;position:relative;overflow:hidden}
-.pic small{position:absolute;top:12px;left:12px;background:rgba(0,0,0,.55);color:#fff;font-size:.68rem;padding:3px 10px;border-radius:999px;letter-spacing:.5px;z-index:2}
-.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.info{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
-.info h3{font-size:1.05rem}
-.info p{color:var(--mute);font-size:.84rem;flex:1}
-.price{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
-.price b{font-size:1.2rem}.price b small{font-weight:500;color:var(--mute);font-size:.75rem}
-.add{background:var(--dark);color:#fff;width:38px;height:38px;border-radius:50%;font-size:1.3rem;transition:.2s}
-.card:hover .add{background:var(--acc);color:#111;transform:rotate(90deg)}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:50;display:none;align-items:center;justify-content:center;padding:16px}
-.overlay.open{display:flex;animation:fade .2s}@keyframes fade{from{opacity:0}}
-.modal{background:var(--card);border-radius:22px;width:100%;max-width:460px;max-height:92vh;overflow:auto;overscroll-behavior:contain;box-shadow:0 30px 80px rgba(0,0,0,.5);animation:pop .3s cubic-bezier(.2,1.4,.4,1)}
-@keyframes pop{from{transform:scale(.85);opacity:0}}
-.modal .pic{height:130px;font-size:3.6rem}
-.mb{padding:22px}
-.mb h3{font-size:1.3rem}.mb p{color:var(--mute);font-size:.9rem;margin:4px 0 16px}
-.qty{display:flex;align-items:center;justify-content:center;gap:14px;margin:10px 0}
-.qty button{width:46px;height:46px;border-radius:12px;background:var(--bg);color:var(--ink);font-size:1.5rem;border:1px solid var(--line)}
-.qty button:hover{background:var(--acc);color:#111}
-.qty input{width:90px;height:50px;text-align:center;font-size:1.5rem;font-weight:800;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)}
-.qty input:focus{outline:none;border-color:var(--acc)}
-.sub{display:flex;justify-content:space-between;font-weight:700;padding:14px 0;border-top:1px dashed var(--line);margin-top:12px}
-.row{display:flex;gap:10px}.row .btn{flex:1;text-align:center}
-.btn.light{background:var(--bg);color:var(--ink);border:1px solid var(--line)}
-.drawer{position:fixed;top:0;right:0;bottom:0;width:100%;max-width:440px;background:var(--card);z-index:60;transform:translateX(105%);transition:.35s cubic-bezier(.3,.9,.3,1);display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.3);padding-top:env(safe-area-inset-top,0px)}
-.drawer.open{transform:none}
-.dh{padding:20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}
-.x{background:var(--bg);color:var(--ink);width:36px;height:36px;border-radius:50%;font-size:1.1rem}
-.items{flex:1;overflow:auto;padding:14px 20px}
-.it{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
-.it .e{font-size:1.9rem;background:var(--bg);width:52px;height:52px;display:grid;place-items:center;border-radius:12px}
-.it b{font-size:.92rem;display:block}.it small{color:var(--mute)}
-.mini{display:inline-flex;align-items:center;gap:6px;margin-top:4px}
-.mini button{width:24px;height:24px;border-radius:6px;background:var(--bg);color:var(--ink);border:1px solid var(--line)}
-.rm{background:none;color:var(--danger);font-size:.75rem;margin-top:4px;display:block;margin-left:auto}
-.empty{text-align:center;color:var(--mute);padding:60px 10px}.empty em{font-size:3rem;display:block;font-style:normal}
-.df{padding:18px 20px;border-top:1px solid var(--line);background:var(--bg)}
-.tot{display:flex;justify-content:space-between;font-size:.9rem;color:var(--mute);margin-bottom:4px}
-.tot.g{font-size:1.25rem;color:var(--ink);font-weight:800;margin:8px 0 14px}
-.f label{font-size:.8rem;font-weight:700;color:var(--mute)}
-.f input,.f select{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;margin:4px 0 10px}
-.f input:focus{outline:2px solid var(--acc);border-color:transparent}
-.pay{width:100%;background:var(--ok);color:#fff;font-weight:800;padding:15px;border-radius:12px;font-size:1rem;display:flex;justify-content:center;gap:10px;align-items:center;transition:.2s}
-.pay:hover{background:#15803d}.pay:disabled{opacity:.5;cursor:not-allowed}
-.mp{background:#fff;color:var(--ok);padding:2px 8px;border-radius:6px;font-weight:900;font-size:.8rem}
-.err{color:var(--danger);font-size:.8rem;margin:-6px 0 8px;min-height:1em}
-.stk{text-align:center;padding:34px 26px}
-.pulse{width:84px;height:84px;margin:0 auto 18px;border-radius:50%;background:var(--ok);display:grid;place-items:center;font-size:2.2rem;color:#fff;position:relative}
-.pulse:after{content:"";position:absolute;inset:0;border-radius:50%;border:3px solid var(--ok);animation:ring 1.4s infinite}
-@keyframes ring{to{transform:scale(1.8);opacity:0}}
-.ok{background:var(--ok)}.ok:after{display:none}
-.pulse.wait{background:var(--acc)}.pulse.wait:after{border-color:var(--acc)}
-.rc{text-align:left;background:var(--bg);border-radius:12px;padding:14px;margin:16px 0;font-size:.85rem;max-height:200px;overflow:auto}
-.rc div{display:flex;justify-content:space-between;padding:3px 0}
-footer{background:var(--dark);color:#bbb;padding:40px 0;margin-top:30px;font-size:.88rem}
-footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px}
-footer b{color:#fff}
-#toasts{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right:16px;z-index:100;display:flex;flex-direction:column;gap:10px;width:min(380px,calc(100vw - 32px));pointer-events:none}
-.tt{pointer-events:auto;position:relative;overflow:hidden;display:grid;grid-template-columns:36px 1fr 24px;gap:12px;align-items:start;background:var(--card);color:var(--ink);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:14px;padding:14px 12px 17px 14px;box-shadow:0 18px 50px rgba(0,0,0,.28);animation:tin .4s cubic-bezier(.2,1.2,.4,1)}
-.tt i{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:900;color:#fff;background:var(--c)}
-.tt b{display:block;font-size:.95rem}.tt p{font-size:.84rem;color:var(--mute);margin-top:2px}
-.tt button{background:none;color:var(--mute);font-size:.8rem;width:24px;height:24px}
-.tt span{position:absolute;left:0;bottom:0;height:3px;width:100%;background:var(--c);transform-origin:left;animation:tbar linear forwards}
-.tt.success{--c:var(--ok)}.tt.error{--c:var(--danger)}.tt.warning{--c:var(--acc)}.tt.info{--c:var(--info)}.tt.hold span{animation-play-state:paused}.tt.out{animation:tout .25s forwards}
-@keyframes tin{from{opacity:0;transform:translateX(40px) scale(.95)}}@keyframes tout{to{opacity:0;transform:translateX(40px)}}@keyframes tbar{to{transform:scaleX(0)}}
-@media(max-width:600px){#toasts{right:50%;transform:translateX(50%)}}
-.specs{width:100%;border-collapse:collapse;font-size:.85rem;margin:6px 0 14px}.specs td{padding:7px 0;border-bottom:1px solid var(--line)}.specs td:first-child{color:var(--mute);width:42%}.specs td:last-child{font-weight:600;text-align:right}
-.sp{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.sp span{background:var(--bg);border:1px solid var(--line);font-size:.7rem;padding:3px 8px;border-radius:6px;color:var(--mute)}
-.tools{margin-bottom:20px}.tools input{width:100%;padding:13px 18px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}.tools input:focus{outline:2px solid var(--acc);border-color:transparent}
-.calc{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:12px;font-size:.85rem}.calc summary{cursor:pointer;font-weight:700}.calc .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}.calc input{width:100%;padding:9px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}.calc label{font-size:.7rem;color:var(--mute)}
-.nores{grid-column:1/-1;text-align:center;color:var(--mute);padding:40px}.chip{white-space:nowrap}.fab{display:none}
-@keyframes slide{from{transform:translateY(100%)}}
-@media(min-width:1400px){.wrap{max-width:1320px}}
-@media(max-width:800px){.hero .wrap{grid-template-columns:1fr}.hero{padding:44px 0 70px}.filters{overflow-x:auto;flex-wrap:nowrap;width:100%;padding-bottom:6px}.head{align-items:start}}
-@media(max-width:600px){.wrap{padding:0 14px}.grid{grid-template-columns:1fr 1fr;gap:12px}.pic{height:110px;font-size:3rem}.info{padding:12px}.info h3{font-size:.92rem}.info p{display:none}.price{flex-direction:column;align-items:flex-start;gap:6px}.price b{font-size:1rem}.add{display:none}.overlay{align-items:flex-end;padding:0}.modal{max-width:none;border-radius:22px 22px 0 0;max-height:94vh;animation:slide .3s}.drawer{max-width:none}.qty button{width:54px;height:54px}.f input,.tools input,.calc input{font-size:16px}h2{font-size:1.5rem}.fab{display:flex;position:fixed;left:14px;right:14px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:40;background:var(--acc);color:#111;font-weight:800;padding:14px 18px;border-radius:14px;justify-content:space-between;box-shadow:0 10px 30px rgba(0,0,0,.4)}.fab[data-e="1"]{display:none}footer{padding-bottom:90px}.toast{bottom:calc(84px + env(safe-area-inset-bottom,0px));width:max-content;max-width:90vw}}
-@media print{body>*:not(#printRc){display:none!important}#printRc{display:block!important}}
-#printRc{display:none;font-family:monospace;padding:20px}
-.og{margin-bottom:12px}.og label{display:block;font-size:.72rem;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
-.seg{display:flex;flex-wrap:wrap;gap:6px}.seg button{background:var(--bg);color:var(--ink);border:1px solid var(--line);padding:9px 12px;border-radius:10px;font-size:.84rem;font-weight:600;transition:.15s}.seg button:hover{border-color:var(--acc)}.seg button.on{background:var(--dark);color:#fff;border-color:var(--acc);box-shadow:0 0 0 2px var(--acc)}.seg small{opacity:.7}
-.og textarea{width:100%;min-height:60px;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;resize:vertical}.og textarea:focus{outline:2px solid var(--acc);border-color:transparent}
-.oos{opacity:.55}.it small.o{display:block;color:var(--ink);opacity:.8}
-.sk{height:290px;border-radius:18px;background:linear-gradient(90deg,var(--card) 25%,var(--line) 50%,var(--card) 75%);background-size:200% 100%;animation:sh 1.2s infinite}@keyframes sh{to{background-position:-200% 0}}
-.notice{background:#fef3c7;border:1px solid #fcd34d;border-radius:12px;padding:14px 16px;margin-bottom:20px;display:flex;gap:12px;align-items:flex-start;font-size:.9rem}
-.notice em{font-style:normal;font-size:1.3rem;flex-shrink:0}
-.notice b{display:block;margin-bottom:2px}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .notice{background:#2a2418;border-color:#5c4a1e}}
-:root[data-theme="dark"] .notice{background:#2a2418;border-color:#5c4a1e}
-/* Backend connection alert */
-.backend-alert{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--danger);color:#fff;text-align:center;padding:12px 16px;font-weight:700;font-size:.9rem;display:none;align-items:center;justify-content:center;gap:10px;box-shadow:0 4px 20px rgba(0,0,0,.3)}
-.backend-alert.show{display:flex;animation:slideDown .3s}
-@keyframes slideDown{from{transform:translateY(-100%)}}
-.backend-alert button{background:rgba(255,255,255,.2);color:#fff;padding:4px 12px;border-radius:6px;font-weight:600;font-size:.8rem}
-.backend-alert button:hover{background:rgba(255,255,255,.3)}
-/* Admin sync badge */
-.admin-sync{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:999px;margin-left:auto}
-.admin-sync.ok{background:rgba(22,163,74,.15);color:var(--ok)}
-.admin-sync.warn{background:rgba(245,158,11,.15);color:var(--acc2)}
-.admin-sync.bad{background:rgba(220,38,38,.15);color:var(--danger)}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.logo small{display:block;font-weight:500;font-size:.62rem;color:#999;letter-spacing:2px;margin-top:-2px}
+.btn{background:var(--dark);color:#fff;font-weight:700;padding:10px 16px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.15s;font-size:.9rem;text-decoration:none}
+.btn:hover{filter:brightness(1.15)}.btn.acc{background:var(--acc);color:#111}.btn.ok{background:var(--ok)}.btn.bad{background:var(--bad)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn.sm{padding:6px 11px;font-size:.8rem;border-radius:8px}.btn:disabled{opacity:.5;cursor:not-allowed}
+/* login */
+.lw{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at 80% 20%,rgba(245,158,11,.25),transparent 50%),linear-gradient(135deg,#16171a,#2a2c31)}
+.lc{background:var(--card);border-radius:20px;padding:34px 30px;width:100%;max-width:410px;box-shadow:0 30px 80px rgba(0,0,0,.4)}
+.lc .logo{justify-content:center}.lc h1{text-align:center;font-size:1.35rem;margin:14px 0 2px}.sub{text-align:center;color:var(--mute);font-size:.88rem;margin-bottom:14px}
+.srv,.bs{display:flex;align-items:center;justify-content:center;gap:8px;font-size:.78rem;color:var(--mute)}.srv{margin-bottom:10px;align-items:flex-start;line-height:1.4}.srv .d{flex:none;margin-top:5px}
+.d{width:8px;height:8px;border-radius:50%;background:var(--bad)}.wait .d{background:var(--acc);animation:p 1.2s infinite}.ok .d{background:var(--ok)}@keyframes p{50%{opacity:.35}}
+.f{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}.f.full{grid-column:1/-1}
+.f label{font-size:.8rem;font-weight:700;color:var(--mute)}.f small{color:var(--mute);font-size:.75rem}
+.f input,.f select,.f textarea,details input{padding:11px 13px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--ink);width:100%}
+.f textarea{min-height:70px;resize:vertical}
+.pw{position:relative}.pw input{padding-right:46px}.pw button{position:absolute;right:5px;top:50%;transform:translateY(-50%);background:none;width:36px;height:36px}
+.lc .btn{width:100%;padding:13px}.err{color:var(--bad);font-size:.84rem;text-align:center;min-height:1.3em;margin-top:8px}
+.help{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--bg);font-size:.8rem;color:var(--mute)}code{background:var(--card);padding:1px 5px;border-radius:5px;font-size:.76rem}
+details{margin-top:12px;font-size:.8rem;color:var(--mute)}summary{cursor:pointer;font-weight:600}details input{margin:8px 0 4px}
+/* shell */
+header{position:sticky;top:env(safe-area-inset-top,0);z-index:20;background:var(--dark);color:#fff;border-bottom:3px solid var(--acc)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:62px;gap:10px}.nr{display:flex;align-items:center;gap:8px}
+.bs{padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.07);color:#bbb}.bs.bad .d{animation:p 1.2s infinite}
+.nl{color:#ddd;text-decoration:none;font-size:.88rem;padding:8px 11px;border-radius:8px;background:none}.nl:hover{background:rgba(255,255,255,.1)}.nl.sf{background:var(--acc);color:#111;font-weight:700}
+.lay{display:grid;grid-template-columns:220px 1fr}.side{background:var(--card);border-right:1px solid var(--line);padding:16px 10px;position:sticky;top:65px;height:calc(100vh - 65px)}
+.side nav{display:flex;flex-direction:column;gap:2px}.side button{display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:9px;background:none;font-weight:600;text-align:left}
+.side button:hover{background:var(--bg)}.side button.on{background:var(--dark);color:#fff}.cnt{margin-left:auto;background:var(--acc);color:#111;font-size:.72rem;padding:1px 8px;border-radius:999px}
+main{padding:26px 0 60px;min-width:0}.sec{display:none}.sec.on{display:block}
+.ph{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;margin-bottom:20px}.ph h1{font-size:1.6rem}.ph p{color:var(--mute);font-size:.9rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:20px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 17px}.stat b{font-size:1.7rem;display:block;line-height:1.2}.stat span{font-size:.82rem;color:var(--mute)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:18px;overflow:hidden}.pb{padding:18px 20px}.pt{padding:16px 20px;border-bottom:1px solid var(--line)}.pt h2{font-size:1.05rem}.pt p{font-size:.84rem;color:var(--mute)}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:620px}
+th{background:var(--bg);color:var(--mute);font-size:.78rem;font-weight:700;padding:10px 14px;text-align:left;white-space:nowrap}td{padding:11px 14px;border-top:1px solid var(--line);vertical-align:middle}
+.act{display:flex;gap:6px;justify-content:flex-end}.empty{text-align:center;color:var(--mute);padding:36px 12px}
+.th{display:flex;align-items:center;gap:10px}.th span{width:42px;height:42px;border-radius:9px;background:var(--bg);display:grid;place-items:center;font-size:1.4rem;overflow:hidden;flex:none}.th img{width:100%;height:100%;object-fit:cover}
+.pill{display:inline-block;font-size:.75rem;font-weight:700;padding:3px 10px;border-radius:999px;background:rgba(107,106,104,.15);color:var(--mute)}
+.pill.paid,.pill.ok{background:rgba(22,163,74,.15);color:var(--ok)}.pill.pending,.pill.wait{background:rgba(245,158,11,.17);color:var(--acc2)}.pill.failed,.pill.out{background:rgba(220,38,38,.15);color:var(--bad)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.chip{background:var(--card);border:1px solid var(--line);padding:7px 14px;border-radius:999px;font-weight:600;font-size:.84rem}.chip.on{background:var(--dark);color:#fff;border-color:var(--dark)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+/* modal */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:50;display:none;align-items:center;justify-content:center;padding:14px}.ov.open{display:flex}
+.md{background:var(--card);border-radius:18px;width:100%;max-width:640px;max-height:92vh;overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.mh,.mf{padding:16px 22px;display:flex;justify-content:space-between;align-items:center;gap:10px;position:sticky;background:var(--card);z-index:1}.mh{top:0;border-bottom:1px solid var(--line)}.mf{bottom:0;border-top:1px solid var(--line);justify-content:flex-end}
+.x{background:var(--bg);width:34px;height:34px;border-radius:50%}.mbd{padding:20px 22px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:16px}.tabs button{background:none;color:var(--mute);padding:9px 13px;font-weight:700;border-bottom:2px solid transparent;margin-bottom:-1px}.tabs button.on{color:var(--ink);border-color:var(--acc)}
+.tab{display:none}.tab.on{display:block}
+.im{display:flex;gap:14px;align-items:center;flex-wrap:wrap}.ip{width:100px;height:100px;border-radius:12px;border:2px dashed var(--line);background:var(--bg);display:grid;place-items:center;font-size:2rem;overflow:hidden;cursor:pointer}.ip img{width:100%;height:100%;object-fit:cover}
+.og{border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:10px;background:var(--bg)}.r2,.r3{display:grid;gap:8px;margin-bottom:8px;align-items:center}.r2{grid-template-columns:1fr auto}.r3{grid-template-columns:1fr 1fr auto}
+.og input,.r3 input{padding:9px 11px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);width:100%}.og .x{border-radius:8px;width:auto;padding:0 10px;height:34px;color:var(--bad)}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}.meta small{color:var(--mute);display:block;font-size:.78rem}.meta b{font-weight:600}
+.tot{display:flex;justify-content:space-between;font-weight:800;font-size:1.05rem;padding-top:10px}
+#toasts{position:fixed;top:calc(12px + env(safe-area-inset-top,0));right:14px;z-index:100;display:flex;flex-direction:column;gap:8px;width:min(370px,calc(100vw - 28px));pointer-events:none}
+.tt{pointer-events:auto;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:12px;padding:12px 14px;box-shadow:0 14px 40px rgba(0,0,0,.28);display:flex;justify-content:space-between;gap:10px}
+.tt b{display:block;font-size:.92rem}.tt p{font-size:.84rem;color:var(--mute)}.tt button{background:none;color:var(--mute)}.tt.success{--c:var(--ok)}.tt.error{--c:var(--bad)}.tt.warning{--c:var(--acc)}.tt.info{--c:var(--info)}
+@media(max-width:900px){.lay{grid-template-columns:1fr}.side{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:8px}.side nav{flex-direction:row;overflow-x:auto}.side button{white-space:nowrap}}
+@media(max-width:600px){.wrap{padding:0 14px}.grid2,.meta{grid-template-columns:1fr}.nl.sf,.bs{display:none}.ph h1{font-size:1.35rem}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<div class="backend-alert" id="backendAlert" role="alert" aria-live="assertive">
-  <span>⚠️ Backend connection failed. Orders cannot be processed.</span>
-  <button onclick="location.reload()">Retry</button>
-</div>
 
-<header><div class="wrap nav">
-  <div class="logo"><i aria-hidden="true">M</i><div>MARICOPA<small>CONCRETE &amp; ALLIED</small></div></div>
-  <button class="cartbtn" id="openCart" aria-label="Open cart">🛒 Cart <span class="badge" id="count" aria-live="polite">0</span></button>
-</div></header>
-
-<main>
-<section class="hero"><div class="wrap">
-  <div>
-    <span class="tag">🏗️ Built on strength. Delivered on time.</span>
-    <h1>Quality concrete &amp; building materials, <span>ordered in minutes.</span></h1>
-    <p>Pick your products, choose your quantities and pay securely with M-Pesa. Maricopa Concrete and Allied supplies contractors, builders and homeowners.</p>
-    <div class="cta"><a class="btn" href="#shop">Shop materials</a><button class="btn ghost" onclick="openCart()">View cart</button></div>
-  </div>
-  <div class="stats" aria-hidden="true">
-    <div class="stat"><b>24hr</b><span>Fast dispatch</span></div>
-    <div class="stat"><b>100%</b><span>Quality tested</span></div>
-    <div class="stat"><b>M-Pesa</b><span>Instant payment</span></div>
-    <div class="stat"><b>Bulk</b><span>Site delivery</span></div>
-  </div>
-</div></section>
-
-<section class="trust"><div class="wrap">
-  <div class="t"><em aria-hidden="true">🚚</em><div><b>Site delivery</b>Anywhere in your area</div></div>
-  <div class="t"><em aria-hidden="true">✅</em><div><b>Certified mix</b>Tested grades</div></div>
-  <div class="t"><em aria-hidden="true">📲</em><div><b>Pay by M-Pesa</b>STK push to your phone</div></div>
-  <div class="t"><em aria-hidden="true">🧾</em><div><b>Instant receipt</b>Print or save</div></div>
-</div></section>
-
-<section class="shop" id="shop"><div class="wrap">
-  <div class="head">
-    <div>
-      <h2>Our Products</h2>
-      <p>Tap any product to choose a quantity.</p>
-      <span class="admin-sync" id="adminSync" title="Live sync with admin console" aria-live="polite">
-        <span aria-hidden="true">●</span>
-        <span id="adminSyncText">Connecting…</span>
-      </span>
-    </div>
-    <div class="filters" id="filters" role="tablist" aria-label="Product categories"></div>
-  </div>
-  <div class="tools"><input id="q" type="search" placeholder="🔍 Search products (e.g. cement, C25, block)" aria-label="Search products" autocomplete="off"></div>
-  <div class="notice" id="adminNotice">
-    <em aria-hidden="true">🔒</em>
-    <div><b>Admin-managed store</b>Product availability, prices and images are set by the admin. All payments are confirmed by the admin before goods are released. You will receive an order confirmation once your payment is authorised.</div>
-  </div>
-  <div class="grid" id="grid" aria-live="polite"></div>
-</div></section>
-</main>
-
-<footer><div class="wrap">
-  <div><b>Maricopa Concrete &amp; Allied</b><br>Quality materials for every build.</div>
-  <div>Prices in Kenya Shillings (KSh)<br>Delivery fee confirmed at dispatch.</div>
-</div></footer>
-
-<!-- Quantity modal -->
-<div class="overlay" id="qm" role="dialog" aria-modal="true" aria-labelledby="qName"><div class="modal">
-  <div class="pic" id="qPic"></div>
-  <div class="mb">
-    <h3 id="qName"></h3><p id="qDesc"></p>
-    <table class="specs" id="qSpecs"></table>
-    <div id="qOpts"></div>
-    <details class="calc" id="qCalc"><summary>📐 Not sure how much? Calculate volume</summary><div class="g3"><div><label for="cL">Length (m)</label><input id="cL" type="number" min="0" step="0.1" inputmode="decimal"></div><div><label for="cW">Width (m)</label><input id="cW" type="number" min="0" step="0.1" inputmode="decimal"></div><div><label for="cT">Thickness (mm)</label><input id="cT" type="number" min="0" value="150" inputmode="decimal"></div></div><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b id="cOut">Enter all three sizes</b><button class="btn" id="cUse" style="padding:8px 14px">Use</button></div></details>
-    <div style="font-size:.8rem;font-weight:700;color:var(--mute);text-align:center" id="qUnit"></div>
-    <div class="qty"><button id="qm1" aria-label="Decrease quantity">−</button><input id="qIn" type="number" min="1" value="1" inputmode="numeric" aria-label="Quantity"><button id="qp1" aria-label="Increase quantity">+</button></div>
-    <div class="sub"><span>Subtotal</span><span id="qSub"></span></div>
-    <div class="row"><button class="btn light" id="qCancel">Cancel</button><button class="btn" id="qAdd">Add to cart</button></div>
-  </div>
+<div id="login" class="lw"><div class="lc">
+  <div class="logo"><i>M</i><div>MARICOPA<small>CONCRETE &amp; ALLIED</small></div></div>
+  <h1>Welcome 👋</h1><p class="sub">Sign in to manage products and approve orders.</p>
+  <div class="srv wait" id="srv"><span class="d"></span><span id="srvT">Checking server…</span></div>
+  <button type="button" class="btn ghost sm" id="retest" style="width:auto;padding:6px 12px;margin:0 auto 14px;display:flex">↻ Test connection</button>
+  <div class="f"><label for="lu">Username</label><input id="lu" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="e.g. admin"></div>
+  <div class="f"><label for="lp">Password</label><div class="pw"><input id="lp" type="password" autocomplete="current-password" placeholder="Your password"><button type="button" data-a="pw" aria-label="Show password">👁</button></div><small id="caps" hidden>⚠️ Caps Lock is on</small></div>
+  <button class="btn acc" id="lb">Sign in</button><div class="err" id="le" role="alert"></div>
+  <div class="help" id="fileNote" hidden><b>Heads up:</b> this page was opened as a file from your computer. Some servers block that. Upload it to your website (or any static host) and open it from there.</div>
+  <div class="help"><b>First time here?</b> Use the admin username and password you set in your server settings (<code>ADMIN_USERNAME</code> and <code>ADMIN_PASSWORD</code> on Render). Passwords are case-sensitive.</div>
+  <details id="adv"><summary>Server address</summary><input id="la" placeholder="https://your-server.onrender.com"><small>Must be exactly the URL shown at the top of your service in Render.</small><br><small id="orig" class="mute"></small></details>
 </div></div>
 
-<!-- Checkout / STK modal -->
-<div class="overlay" id="pm" role="dialog" aria-modal="true" aria-labelledby="pTitle"><div class="modal"><div class="stk" id="pBody"></div></div></div>
+<div id="app" hidden>
+<header><div class="wrap nav">
+  <div class="logo"><i>M</i><div>MARICOPA<small>ADMIN CONSOLE</small></div></div>
+  <div class="nr"><span class="bs" id="bs"><span class="d"></span><span id="bst">Checking…</span></span>
+  <a class="nl sf" href="index.html" target="_blank" rel="noopener">🛍️ Storefront</a><button class="nl" data-a="out">Sign out</button></div>
+</div></header>
+<div class="lay">
+<aside class="side"><nav>
+  <button data-a="nav" data-s="dash" class="on">📊 Dashboard</button>
+  <button data-a="nav" data-s="orders">📦 Orders <b class="cnt" id="cnt" hidden>0</b></button>
+  <button data-a="nav" data-s="products">🏷️ Products</button>
+  <button data-a="nav" data-s="settings">⚙️ Settings</button>
+</nav></aside>
+<main><div class="wrap">
 
-<aside class="drawer" id="drawer" aria-label="Cart" aria-hidden="true">
-  <div class="dh"><h2 style="font-size:1.3rem">Your Cart</h2><button class="x" id="closeCart" aria-label="Close cart">✕</button></div>
-  <div class="items" id="items"></div>
-  <div class="df" id="df">
-    <div class="tot"><span>Subtotal</span><span id="tSub"></span></div>
-    <div class="tot"><span>VAT (16% included)</span><span id="tVat"></span></div>
-    <div class="tot g"><span>Total</span><span id="tAll"></span></div>
-    <div class="f">
-      <label for="cName">Full name</label><input id="cName" placeholder="e.g. Caroline Amagove" autocomplete="name">
-      <label for="cPhone">M-Pesa phone number</label><input id="cPhone" placeholder="07XX XXX XXX" inputmode="tel" autocomplete="tel">
-      <label for="cLoc">Delivery location</label><input id="cLoc" placeholder="Town / site / landmark" autocomplete="street-address">
-      <div class="err" id="err" role="alert"></div>
-    </div>
-    <button class="pay" id="payBtn"><span class="mp">M-PESA</span> Pay now</button>
-    <p style="font-size:.72rem;color:var(--mute);margin-top:10px;text-align:center">Payment is confirmed by our admin before goods are released.</p>
+<section class="sec on" id="s-dash">
+  <div class="ph"><div><h1>Dashboard</h1><p>What needs your attention right now.</p></div><button class="btn ghost sm" data-a="refresh">↻ Refresh</button></div>
+  <div class="stats">
+    <div class="stat"><b id="st1" style="color:var(--acc2)">–</b><span>Payments awaiting approval</span></div>
+    <div class="stat"><b id="st2" style="color:var(--ok)">–</b><span>Released orders</span></div>
+    <div class="stat"><b id="st3" style="color:var(--info)">–</b><span>Products listed</span></div>
+    <div class="stat"><b id="st4" style="color:var(--bad)">–</b><span>Out of stock</span></div>
   </div>
-</aside>
-<div class="overlay" id="dim" style="z-index:55"></div>
-<button class="fab" id="fab" data-e="1" onclick="openCart()"><span>🛒 View cart (<span id="fc">0</span>)</span><b id="ft">KSh 0</b></button>
-<div id="toasts" aria-live="polite" aria-atomic="false"></div>
-<div id="printRc"></div>
+  <div class="panel"><div class="pt"><h2>Orders to approve</h2><p>Customers have paid. Confirm to release their goods. New payments appear here automatically.</p></div><div id="dash"></div></div>
+</section>
+
+<section class="sec" id="s-orders">
+  <div class="ph"><div><h1>Orders</h1><p>Check payments and release goods.</p></div><button class="btn ghost sm" data-a="refresh">↻ Refresh</button></div>
+  <div class="chips" id="chips">
+    <button class="chip on" data-a="filter" data-f="all">All</button><button class="chip" data-a="filter" data-f="paid">Awaiting approval</button>
+    <button class="chip" data-a="filter" data-f="pending">Unpaid</button><button class="chip" data-a="filter" data-f="cancelled">Cancelled</button>
+  </div>
+  <div class="panel" id="ord"></div>
+</section>
+
+<section class="sec" id="s-products">
+  <div class="ph"><div><h1>Products</h1><p>Add products, set prices and photos, mark items out of stock.</p></div><button class="btn acc" data-a="add">+ Add product</button></div>
+  <div class="panel" id="prod"></div>
+</section>
+
+<section class="sec" id="s-settings">
+  <div class="ph"><div><h1>Settings</h1><p>Server connection and your session.</p></div></div>
+  <div class="panel"><div class="pt"><h2>Server address</h2></div><div class="pb">
+    <div class="f"><label for="api">Address of your backend</label><input id="api" placeholder="https://your-server.onrender.com"><small>The storefront and this page must use the same server. It is saved in this browser.</small></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn acc" data-a="saveApi">Save and test</button></div>
+  </div></div>
+  <div class="panel"><div class="pt"><h2>Session</h2></div><div class="pb"><p class="mute" style="margin-bottom:12px">Signed in as <b id="who" style="color:var(--ink)"></b>. Orders refresh every 30 seconds.</p><button class="btn bad" data-a="out">Sign out</button></div></div>
+</section>
+
+</div></main></div></div>
+
+<div class="ov" id="pm"><div class="md">
+  <div class="mh"><h2 id="pmT">Add product</h2><button class="x" data-a="close" aria-label="Close">✕</button></div>
+  <div class="mbd">
+    <div class="tabs"><button class="on" data-a="tab" data-t="t1">Details</button><button data-a="tab" data-t="t2">Price and stock</button><button data-a="tab" data-t="t3">Options and specs</button></div>
+    <div class="tab on" id="t1"><div class="grid2">
+      <div class="f full"><label for="pN">Product name *</label><input id="pN" placeholder="e.g. Ready-mix concrete C25"></div>
+      <div class="f"><label for="pC">Category</label><input id="pC" list="cats" placeholder="e.g. Concrete"><datalist id="cats"></datalist></div>
+      <div class="f"><label for="pE">Emoji (shown if no photo)</label><input id="pE" maxlength="4" placeholder="📦"></div>
+      <div class="f full"><label for="pD">Description</label><textarea id="pD" placeholder="A short description customers will see"></textarea></div>
+      <div class="f full"><label>Photo</label><div class="im"><div class="ip" id="ip" data-a="pick" title="Choose a photo">📷</div>
+        <div style="display:grid;gap:8px"><button class="btn ghost sm" data-a="pick">Choose photo</button><button class="btn ghost sm" data-a="noimg">Remove photo</button><small class="mute">Photos are resized automatically.</small></div>
+        <input type="file" id="pf" accept="image/*" hidden></div></div>
+    </div></div>
+    <div class="tab" id="t2"><div class="grid2">
+      <div class="f"><label for="pP">Price (KSh) *</label><input id="pP" type="number" min="0" step="any" placeholder="0"></div>
+      <div class="f"><label for="pU">Unit *</label><input id="pU" placeholder="e.g. per m³, per bag"><small>Units with “m³” are sold in half-steps (0.5, 1, 1.5…).</small></div>
+      <div class="f"><label for="pS">Availability</label><select id="pS"><option value="true">In stock</option><option value="false">Out of stock</option></select></div>
+    </div></div>
+    <div class="tab" id="t3">
+      <div class="ph" style="margin-bottom:10px"><div><b>Options</b><p>Choices customers pick, like slump or size. Price +/− is added to the base price.</p></div><button class="btn ghost sm" data-a="ag">+ Add option</button></div>
+      <div id="og"></div>
+      <div class="ph" style="margin:16px 0 10px"><div><b>Specifications</b><p>Facts shown on the product page, like grade or weight.</p></div><button class="btn ghost sm" data-a="as">+ Add spec</button></div>
+      <div id="sp"></div>
+    </div>
+  </div>
+  <div class="mf"><button class="btn ghost" data-a="close">Cancel</button><button class="btn acc" id="ps" data-a="save">Save product</button></div>
+</div></div>
+
+<div class="ov" id="om"><div class="md">
+  <div class="mh"><h2 id="omT">Order</h2><button class="x" data-a="close" aria-label="Close">✕</button></div>
+  <div class="mbd" id="omB"></div><div class="mf" id="omF"></div>
+</div></div>
+<div id="toasts" aria-live="polite"></div>
 
 <script>
-'use strict';
-/* =====================================================================
-   CONFIGURATION
-   The server address is, in order of priority:
-     1. ?api=https://your-server.onrender.com in the page address (saved for next time)
-     2. the address saved in this browser (also used by the admin page)
-     3. the default below — change it to your real Render URL
-   ===================================================================== */
-const DEFAULT_API = "https://maricopa-server.onrender.com";
-const normApi = v => { v = String(v || "").trim(); if (!v) return ""; if (!/^https?:\/\//i.test(v)) v = "https://" + v; try { return new URL(v).origin; } catch(e) { return ""; } };
-const lsGet = k => { try { return localStorage.getItem(k); } catch(e) { return null; } };
-const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch(e) {} };
-try { const qa = normApi(new URLSearchParams(location.search).get("api")); if (qa) lsSet("mca_api", qa); } catch(e) {}
+const DEFAULT_API="https://maricopa-server.onrender.com";
+const store={get:k=>{try{return localStorage.getItem(k)}catch{return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch{}}};
+/* Accepts "my-server.onrender.com", "https://my-server.onrender.com/", or a URL with a path; returns the clean origin */
+const normApi=v=>{v=String(v||"").trim();if(!v)return"";if(!/^https?:\/\//i.test(v))v="https://"+v;try{return new URL(v).origin}catch{return""}};
+const CFG={API:normApi(store.get("mca_api")||DEFAULT_API),TIMEOUT:70000};
+let auth="",me="",products=[],orders=[],ofilter="all",editing=null,img="",groups=[],specs=[],timer=null,lastAw=0;
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const KSH=n=>"KSh "+Math.round(Number(n)||0).toLocaleString("en-KE");
+const when=i=>{try{return new Date(i).toLocaleString("en-KE",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})}catch{return i}};
 
-const CONFIG = {
-  API: normApi(lsGet("mca_api") || DEFAULT_API),
-  PRODUCTS: "/api/products",
-  ORDERS:   "/api/orders",
-  STK:      "/api/mpesa/stkpush",
-  STATUS:   id => `/api/orders/${encodeURIComponent(id)}/status`,
-  TIMEOUT:  70000,          // free Render servers can take ~1 minute to wake up
-  POLL_MS:  3000,
-  POLL_MAX: 60
-};
-
-/* ---------------- Helpers ---------------- */
-const $ = s => document.querySelector(s);
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const KSH = n => "KSh " + Math.round(Number(n) || 0).toLocaleString("en-KE");
-const sleep = ms => new Promise(r => setTimeout(r, ms));
-const uid = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now() + Math.random().toString(16).slice(2));
-const grad = g => `linear-gradient(135deg,${Array.isArray(g) && g.length === 2 ? g[0] : "#64748b"},${Array.isArray(g) && g.length === 2 ? g[1] : "#334155"})`;
-const normOpts = o => (Array.isArray(o) ? o : []).map(x => ({
-  k: x.key || x.k || (Array.isArray(x) ? x[0] : ""),
-  ch: (x.choices || x.ch || (Array.isArray(x) ? x[1] : []) || []).map(c => typeof c === "string" ? {v:c, a:0} : {v:c.value ?? c.v, a:+(c.priceAdjust ?? c.a) || 0})
-})).filter(o => o.k && o.ch.length);
-const fromApi = a => ({
-  id: String(a.id ?? a._id),
-  n: a.name || "Unnamed product",
-  c: a.category || "Other",
-  e: a.emoji || "📦",
-  u: a.unit || "",
-  p: +a.price || 0,
-  d: a.description || "",
-  g: Array.isArray(a.gradient) && a.gradient.length === 2 ? a.gradient : ["#64748b","#334155"],
-  img: typeof a.image === "string" ? a.image : "",
-  ok: a.inStock !== false,
-  specs: Array.isArray(a.specs) ? a.specs : Object.entries(a.specs || {}),
-  opts: normOpts(a.options || [])
-});
-
-/* ---------------- State ---------------- */
-let P = [], cart = [], cat = "All", Q = "", cur = null, sel = {}, note = "", step = 1, pend = null;
-let backendOk = null;
-let adminSyncOk = false;
-try { cart = JSON.parse(localStorage.getItem("mca_cart2") || "[]"); } catch(e) { cart = []; }
-const save = () => { try { localStorage.setItem("mca_cart2", JSON.stringify(cart)); } catch(e) {} };
-const prod = id => P.find(p => p.id === String(id));
-const up = (p, s) => p.p + p.opts.reduce((t, o) => t + ((o.ch.find(c => c.v === s[o.k]) || {}).a || 0), 0);
-const lineTotal = i => { const p = prod(i.id); return p ? up(p, i.sel) * i.q : 0; };
-const total = () => cart.reduce((s, i) => s + lineTotal(i), 0);
-const stepOf = p => (/m³/.test(p.u) ? 0.5 : 1);
-
-/* ---------------- Admin sync indicator ---------------- */
-function setAdminSync(ok, text) {
-  adminSyncOk = ok;
-  const el = $("#adminSync");
-  if (!el) return;
-  el.classList.remove("ok", "warn", "bad");
-  el.classList.add(ok ? "ok" : (backendOk === false ? "bad" : "warn"));
-  $("#adminSyncText").textContent = text;
+function toast(type,title,msg,ms=type==="error"?7000:4000){
+  const b=$("#toasts");while(b.children.length>=4)b.firstChild.remove();
+  const d=document.createElement("div");d.className="tt "+type;d.setAttribute("role",type==="error"?"alert":"status");
+  d.innerHTML=`<div><b>${esc(title)}</b>${msg?`<p>${esc(msg)}</p>`:""}</div><button aria-label="Dismiss">✕</button>`;
+  d.querySelector("button").onclick=()=>d.remove();b.appendChild(d);setTimeout(()=>d.remove(),ms);
 }
+function status(ok,t){const e=$("#bs");e.className="bs "+(ok?"ok":"bad");$("#bst").textContent=t||(ok?"Connected":"Disconnected")}
 
-/* ---------------- Backend connection alert ---------------- */
-function setBackendAlert(ok, msg) {
-  backendOk = ok;
-  const el = $("#backendAlert");
-  if (!el) return;
-  if (ok) { el.classList.remove("show"); setAdminSync(true, "Synced with admin"); return; }
-  el.querySelector("span").textContent = "⚠️ " + (msg || "Backend connection failed. Orders cannot be processed.");
-  el.classList.add("show");
-  setAdminSync(false, "Admin offline");
-}
-
-/* ---------------- Toasts ---------------- */
-const IC = {success:"✓",error:"✕",warning:"!",info:"i"};
-function toast(type, title, msg, ms) {
-  const box = $("#toasts");
-  if (!box) return;
-  while (box.children.length >= 4) box.firstChild.remove();
-  const d = document.createElement("div");
-  const life = ms || (type === "error" ? 7000 : 4000);
-  d.className = "tt " + type;
-  d.setAttribute("role", type === "error" ? "alert" : "status");
-  d.innerHTML = `<i aria-hidden="true">${IC[type]}</i><div><b>${esc(title)}</b>${msg ? `<p>${esc(msg)}</p>` : ""}</div><button aria-label="Dismiss">✕</button><span style="animation-duration:${life}ms"></span>`;
-  const kill = () => { d.classList.add("out"); setTimeout(() => d.remove(), 250); };
-  let t = setTimeout(kill, life);
-  d.querySelector("button").onclick = kill;
-  d.onmouseenter = () => { clearTimeout(t); d.classList.add("hold"); };
-  d.onmouseleave = () => { d.classList.remove("hold"); t = setTimeout(kill, 1500); };
-  box.appendChild(d);
-}
-
-/* ---------------- Connection diagnosis ----------------
-   ok   = server up, this website allowed, database connected
-   cors = server up but blocking this website
-   db   = server up but MongoDB not connected
-   down = server unreachable (wrong address, asleep, or crashed) */
-async function diagnose() {
-  const base = CONFIG.API;
-  try {
-    const r = await fetch(base + "/health", { cache: "no-store", signal: AbortSignal.timeout(65000) });
-    if (!r.ok) return { kind: "down", msg: `The server replied with an error (${r.status}). It may still be starting. Please try again in a minute.` };
-    const h = await r.json().catch(() => ({}));
-    if (h.originAllowed === false) return { kind: "cors", msg: `The server is blocking this website. Add ${h.yourOrigin || location.origin} to ALLOWED_ORIGINS in Render (or leave it empty), then redeploy.` };
-    if (h.db === false) return { kind: "db", msg: "The server is running but is not connected to its database. Check MONGODB_URI and Atlas Network Access." };
-    return { kind: "ok", msg: "Server ready" };
-  } catch(e) {
-    try {
-      await fetch(base + "/health", { mode: "no-cors", cache: "no-store", signal: AbortSignal.timeout(20000) });
-      return { kind: "cors", msg: `The server is reachable but blocking this website. Make sure server.js is the latest version and ALLOWED_ORIGINS includes ${location.origin} (or is empty).` };
-    } catch(x) {
-      return { kind: "down", msg: `Can't reach ${base}. Check that this is your exact Render URL (open ${base}/health in a new tab). Free servers can take up to a minute to wake up.` };
+/* ---------- connection diagnosis ----------
+   Works out WHY the server can't be reached:
+   ok    = server up, this website allowed, database connected
+   cors  = server up but blocking this website
+   db    = server up but MongoDB not connected
+   down  = server unreachable (wrong address, asleep, or crashed) */
+async function diagnose(){
+  const base=CFG.API;
+  try{
+    const r=await fetch(base+"/health",{cache:"no-store",signal:AbortSignal.timeout(65000)});
+    if(!r.ok)return{kind:"down",msg:`The server replied with an error (${r.status}). It may still be starting. Check the Logs tab on Render.`};
+    const h=await r.json().catch(()=>({}));
+    if(h.originAllowed===false)return{kind:"cors",msg:`The server is running but blocks this website. In Render, set ALLOWED_ORIGINS to include ${h.yourOrigin||location.origin} (or leave it empty), then redeploy.`};
+    if(h.db===false)return{kind:"db",msg:"The server is running but is not connected to MongoDB. Check MONGODB_URI and Atlas Network Access in the Render logs."};
+    return{kind:"ok",msg:"Server ready",h};
+  }catch(e){
+    try{
+      await fetch(base+"/health",{mode:"no-cors",cache:"no-store",signal:AbortSignal.timeout(20000)});
+      return{kind:"cors",msg:`The server is reachable but is blocking this website. Make sure server.js is the latest version, and that ALLOWED_ORIGINS includes ${location.origin} (or is empty).`};
+    }catch{
+      return{kind:"down",msg:`Can't reach ${base}. Check this is exactly your Render URL (open ${base}/health in a new tab to test). Free servers can take up to a minute to wake up.`};
     }
   }
 }
 
-/* ---------------- API helper ----------------
-   - Only real connection problems raise the red "backend" banner.
-     Normal server answers (e.g. "out of stock") do not.
-   - GET requests are retried while a sleeping Render server wakes up. */
-async function api(path, opt = {}, n = 0) {
-  if (!CONFIG.API) {
-    const msg = "Backend not configured. Set DEFAULT_API to your server URL.";
-    setBackendAlert(false, msg);
-    throw new Error(msg);
-  }
-  const isGet = (opt.method || "GET").toUpperCase() === "GET";
-  const c = new AbortController(), t = setTimeout(() => c.abort(), CONFIG.TIMEOUT);
-  try {
-    const r = await fetch(CONFIG.API + path, {
-      ...opt,
-      signal: c.signal,
-      headers: { "Content-Type": "application/json", ...(opt.headers || {}) }
-    });
-    if (isGet && [502, 503, 504].includes(r.status) && n < 3) {
-      setAdminSync(false, "Server waking up…");
-      await sleep(4000);
-      return api(path, opt, n + 1);
-    }
-    let d = null;
-    try { d = await r.json(); } catch(e) {}
-    setBackendAlert(true); // the server answered, so the connection is fine
-    if (!r.ok) {
-      throw Object.assign(new Error((d && (d.error || d.message)) || `The server had a problem (${r.status}).`), { http: true });
-    }
+async function api(p,o={},n=0){
+  if(!CFG.API){status(false,"No server");throw new Error("Server address not set. Open Settings to add it.")}
+  const c=new AbortController(),t=setTimeout(()=>c.abort(),CFG.TIMEOUT);
+  try{
+    const r=await fetch(CFG.API+p,{...o,signal:c.signal,headers:{"Content-Type":"application/json",...(auth?{Authorization:auth}:{})}});
+    if([502,503,504].includes(r.status)&&n<3){status(false,"Waking up…");await sleep(4000);return api(p,o,n+1)} /* Render is starting the server */
+    let d=null;try{d=await r.json()}catch{}
+    if(!r.ok&&!d&&r.status>=500)throw Object.assign(new Error("The server had a problem ("+r.status+"). Check the Logs tab on Render."),{http:1});
+    status(true);
+    if(r.status===401)throw Object.assign(new Error("Wrong username or password."),{auth:1});
+    if(!r.ok)throw Object.assign(new Error(d?.error||d?.message||"Request failed ("+r.status+")"),{http:1});
     return d;
-  } catch(e) {
-    if (e.http) throw e;
-    if (e.name === "AbortError" || e instanceof TypeError) {
-      const g = await diagnose();
-      if (g.kind === "ok") { // server is fine; this was a one-off hiccup
-        setBackendAlert(true);
-        throw new Error("The connection dropped. Please try again.");
-      }
-      if (g.kind === "down" && isGet && n < 1) {
-        setAdminSync(false, "Server waking up…");
-        await sleep(4000);
-        return api(path, opt, n + 1);
-      }
-      setBackendAlert(false, g.msg);
+  }catch(e){
+    if(e.auth||e.http)throw e;
+    if(e.name==="AbortError"||e instanceof TypeError){
+      status(false,"Checking…");
+      const g=await diagnose();
+      if(g.kind==="down"&&n<1){status(false,"Waking up…");await sleep(5000);return api(p,o,n+1)}
+      status(false,g.kind==="cors"?"Blocked":"Offline");
       throw new Error(g.msg);
     }
-    setBackendAlert(false, e.message);
-    throw e;
-  } finally { clearTimeout(t); }
+    status(false,"Error");throw e;
+  }finally{clearTimeout(t)}
 }
 
-/* ---------------- Catalogue ---------------- */
-const shown = () => P.filter(p => (cat === "All" || p.c === cat) && (p.n + " " + p.c).toLowerCase().includes(Q));
-
-function renderFilters() {
-  const el = $("#filters");
-  if (!el) return;
-  const cats = ["All", ...new Set(P.map(p => p.c))];
-  el.innerHTML = cats.map(c => `<button class="chip ${c === cat ? "on" : ""}" data-c="${esc(c)}" role="tab" aria-selected="${c === cat}">${esc(c)}</button>`).join("");
-  el.querySelectorAll(".chip").forEach(b => b.onclick = () => { cat = b.dataset.c; renderFilters(); renderGrid(); });
+/* ---------- sign in ---------- */
+async function ping(){
+  const b=$("#srv"),t=$("#srvT");
+  $("#orig").textContent="This website's address: "+location.origin+"  ·  Server: "+(CFG.API||"not set");
+  if(!CFG.API){b.className="srv";t.textContent="No server address set. Open “Server address” below.";$("#adv").open=true;return}
+  b.className="srv wait";t.textContent="Contacting the server… (can take up to a minute if it was asleep)";
+  const g=await diagnose();
+  b.className="srv"+(g.kind==="ok"?" ok":"");t.textContent=g.msg;
+  if(g.kind!=="ok")$("#adv").open=true;
+}
+function setApi(v){
+  v=normApi(v);if(!v||v===CFG.API)return false;
+  CFG.API=v;store.set("mca_api",v);$("#la").value=v;$("#api").value=v;return true;
+}
+async function login(){
+  const u=$("#lu").value.trim(),pw=$("#lp").value,e=$("#le"),b=$("#lb");
+  e.style.color="";e.textContent="";
+  if(!u){e.textContent="Please enter your username.";$("#lu").focus();return}
+  if(!pw){e.textContent="Please enter your password.";$("#lp").focus();return}
+  const typed=$("#la").value.trim();
+  if(typed&&!normApi(typed)){e.textContent="That server address doesn't look right. It should look like https://your-server.onrender.com";$("#adv").open=true;return}
+  if(setApi(typed))ping();
+  if(!CFG.API){e.textContent="Please enter your server address under “Server address”.";$("#adv").open=true;return}
+  b.disabled=true;b.textContent="Signing in…";
+  const slow=setTimeout(()=>{e.style.color="var(--mute)";e.textContent="The server is waking up. This can take up to a minute the first time. Please wait…"},4000);
+  auth="Basic "+btoa(unescape(encodeURIComponent(u+":"+pw)));
+  try{await api("/api/admin/orders?status=all")}
+  catch(x){auth="";e.style.color="";e.textContent=x.auth?"That username or password isn't right. Check for typos (passwords are case-sensitive) and try again.":x.message;if(!x.auth)ping();return}
+  finally{clearTimeout(slow);b.disabled=false;b.textContent="Sign in"}
+  me=u;store.set("mca_user",u);$("#lp").value="";$("#who").textContent=u;
+  $("#login").hidden=true;$("#app").hidden=false;
+  toast("success","Signed in","Welcome, "+u+".");
+  await loadAll();
+  if(!products.length)toast("info","Let's get started","Open Products and choose “+ Add product” to add your first item.",9000);
+  clearInterval(timer);timer=setInterval(()=>{if(!document.hidden&&auth)loadAll(true)},30000);
+}
+function logout(msg){
+  auth="";me="";clearInterval(timer);products=[];orders=[];
+  $("#app").hidden=true;$("#login").hidden=false;$$(".ov").forEach(o=>o.classList.remove("open"));
+  const e=$("#le");e.style.color="";e.textContent=msg||"";$("#lp").focus();
 }
 
-function renderGrid() {
-  const g = $("#grid");
-  if (!g) return;
-  if (!P.length) {
-    g.innerHTML = '<div class="nores">No products available yet. Products appear here after the admin adds them.</div>';
-    return;
+/* ---------- data ---------- */
+async function loadAll(quiet){
+  try{
+    const [p,o]=await Promise.all([api("/api/admin/products"),api("/api/admin/orders?status=all")]);
+    products=p.products||[];orders=o.orders||[];
+    const aw=orders.filter(awaiting).length;
+    if(quiet&&aw>lastAw)toast("info","New payment","An order is waiting for your approval.");
+    lastAw=aw;render();return true;
+  }catch(e){
+    if(e.auth)logout("Your session ended. Please sign in again.");
+    else if(!quiet)toast("error","Couldn't refresh",e.message);
+    return false;
   }
-  const list = shown();
-  if (!list.length) { g.innerHTML = '<div class="nores">No products match your search.</div>'; return; }
-  g.innerHTML = list.map((p, i) => `
-    <div class="card ${p.ok ? "" : "oos"}" style="animation-delay:${i * 40}ms" data-id="${esc(p.id)}" tabindex="0" role="button" aria-label="${esc(p.n)} — ${p.ok ? "add to cart" : "out of stock"}">
-      <div class="pic" style="background:${grad(p.g)}">
-        <small>${esc(p.c.toUpperCase())}</small>
-        ${esc(p.e)}
-        ${p.img ? `<img src="${esc(p.img)}" alt="" loading="lazy">` : ""}
-      </div>
-      <div class="info">
-        <h3>${esc(p.n)}</h3>
-        <p>${esc(p.d)}</p>
-        <div class="sp">${p.specs.slice(0, 2).map(s => `<span>${esc(Array.isArray(s) ? s[1] : s)}</span>`).join("")}</div>
-        <div class="price">
-          <b>${KSH(p.p)} <small>${esc(p.u)}</small></b>
-          ${p.ok ? '<button class="add" aria-label="Add to cart" tabindex="-1">+</button>' : "<small>Out of stock</small>"}
-        </div>
-      </div>
-    </div>`).join("");
-  g.querySelectorAll(".pic img").forEach(i => i.onerror = () => i.remove());
-  g.querySelectorAll(".card").forEach(c => {
-    const o = () => openQty(c.dataset.id);
-    c.onclick = o;
-    c.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); o(); } };
-  });
+}
+const awaiting=o=>o.paymentStatus==="paid"&&!o.adminConfirmed;
+const FIL={all:()=>true,paid:awaiting,pending:o=>o.paymentStatus==="pending"||o.paymentStatus==="failed",cancelled:o=>o.paymentStatus==="cancelled"};
+const table=(h,r)=>`<div class="tw"><table><thead><tr>${h.map(x=>`<th>${x}</th>`).join("")}</tr></thead><tbody>${r.join("")}</tbody></table></div>`;
+const cust=o=>`${esc(o.customer.name)}<br><small class="mute">+${esc(o.customer.phone)}</small>`;
+
+function render(){
+  const aw=orders.filter(awaiting);
+  $("#st1").textContent=aw.length;$("#st2").textContent=orders.filter(o=>o.adminConfirmed).length;
+  $("#st3").textContent=products.length;$("#st4").textContent=products.filter(p=>!p.inStock).length;
+  const c=$("#cnt");c.hidden=!aw.length;c.textContent=aw.length;
+  $("#dash").innerHTML=aw.length?table(["Reference","Customer","Total",""],aw.slice(0,8).map(o=>`<tr><td><b>${esc(o.reference)}</b><br><small class="mute">${when(o.createdAt)}</small></td><td>${cust(o)}</td><td><b>${KSH(o.total)}</b></td><td class="act"><button class="btn ok sm" data-a="confirm" data-id="${esc(o.id)}">Confirm and release</button></td></tr>`)):'<div class="empty">✅<br>No payments are waiting for approval.</div>';
+  const l=orders.filter(FIL[ofilter]);
+  $("#ord").innerHTML=l.length?table(["Reference","Customer","Items","Total","Payment","Approval",""],l.map(o=>{
+    const n=(o.items||[]).reduce((s,i)=>s+(i.quantity||0),0);
+    const ap=o.adminConfirmed?'<span class="pill ok">Released</span>':awaiting(o)?'<span class="pill wait">Awaiting approval</span>':"–";
+    return `<tr><td><b>${esc(o.reference)}</b><br><small class="mute">${when(o.createdAt)}</small></td><td>${cust(o)}</td><td>${n}</td><td><b>${KSH(o.total)}</b></td><td><span class="pill ${esc(o.paymentStatus)}">${esc(o.paymentStatus)}</span></td><td>${ap}</td><td class="act"><button class="btn ghost sm" data-a="view" data-id="${esc(o.id)}">View</button></td></tr>`}))
+    :`<div class="empty">📦<br>${orders.length?"No orders match this filter.":"No orders yet. They will appear here when customers check out."}</div>`;
+  $("#prod").innerHTML=products.length?table(["Product","Category","Price","Stock",""],products.map(p=>`<tr><td><div class="th"><span>${p.image?`<img src="${esc(p.image)}" alt="" onerror="this.remove()">`:esc(p.emoji||"📦")}</span><div><b>${esc(p.name)}</b><br><small class="mute">${esc(p.unit)}</small></div></div></td><td>${esc(p.category)}</td><td><b>${KSH(p.price)}</b></td><td><span class="pill ${p.inStock?"ok":"out"}">${p.inStock?"In stock":"Out of stock"}</span></td><td class="act"><button class="btn ghost sm" data-a="edit" data-id="${esc(p.id)}">Edit</button><button class="btn bad sm" data-a="del" data-id="${esc(p.id)}">Delete</button></td></tr>`))
+    :'<div class="empty">🏷️<br>No products yet. Choose “+ Add product” to add your first one.</div>';
+  $("#cats").innerHTML=[...new Set(products.map(p=>p.category))].map(c=>`<option value="${esc(c)}">`).join("");
 }
 
-/* ---------------- Quantity + specification popup ---------------- */
-function openQty(id) {
-  cur = prod(id);
-  if (!cur) return;
-  if (!cur.ok) return toast("warning", "Out of stock", `${cur.n} is currently unavailable.`);
-  step = stepOf(cur);
-  sel = {}; note = "";
-  cur.opts.forEach(o => sel[o.k] = o.ch[0].v);
-
-  const pic = $("#qPic");
-  pic.style.background = grad(cur.g);
-  pic.style.fontSize = "3.6rem";
-  pic.innerHTML = esc(cur.e) + (cur.img ? `<img src="${esc(cur.img)}" alt="">` : "");
-  pic.querySelectorAll("img").forEach(i => i.onerror = () => i.remove());
-
-  $("#qName").textContent = cur.n;
-  $("#qDesc").textContent = cur.d;
-  $("#qSpecs").innerHTML = cur.specs.map(s => `<tr><td>${esc(Array.isArray(s) ? s[0] : "")}</td><td>${esc(Array.isArray(s) ? s[1] : "")}</td></tr>`).join("");
-  $("#qCalc").style.display = step === 0.5 ? "" : "none";
-  $("#qCalc").open = false;
-  $("#qIn").step = step;
-  $("#qIn").value = 1;
-  renderOpts();
-  updSub();
-  $("#qm").classList.add("open");
-  setTimeout(() => $("#qIn").focus(), 100);
+/* ---------- orders ---------- */
+function openOrder(id){
+  const o=orders.find(x=>x.id===id);if(!o)return;
+  $("#omT").textContent="Order "+o.reference;
+  $("#omB").innerHTML=`<div class="meta"><div><small>Customer</small><b>${esc(o.customer.name)}</b></div><div><small>Phone</small><b>+${esc(o.customer.phone)}</b></div>
+  <div><small>Deliver to</small><b>${esc(o.customer.location)}</b></div><div><small>Placed</small><b>${when(o.createdAt)}</b></div>
+  <div><small>Payment</small><span class="pill ${esc(o.paymentStatus)}">${esc(o.paymentStatus)}</span></div><div><small>M-Pesa receipt</small><b>${esc(o.mpesaReceipt||"Not yet received")}</b></div></div>
+  ${o.needsReview?`<p style="margin-bottom:12px;color:var(--bad);font-weight:700">⚠️ Needs review: ${esc(o.reviewNote||"check this payment in M-Pesa")}</p>`:""}
+  ${table(["Item","Qty","Unit price","Line total"],(o.items||[]).map(i=>`<tr><td>${esc(i.name)}${i.options&&Object.keys(i.options).length?`<br><small class="mute">${esc(Object.values(i.options).join(", "))}</small>`:""}${i.note?`<br><small class="mute">📝 ${esc(i.note)}</small>`:""}</td><td>${i.quantity}</td><td>${KSH(i.unitPrice)}</td><td><b>${KSH(i.lineTotal)}</b></td></tr>`))}
+  <div class="tot"><span>Total</span><span>${KSH(o.total)}</span></div>
+  ${o.adminConfirmed?'<p style="margin-top:12px;color:var(--ok);font-weight:700">✓ Released. The customer has been told their order is confirmed.</p>':""}`;
+  $("#omF").innerHTML=awaiting(o)?`<button class="btn bad" data-a="reject" data-id="${esc(o.id)}">Cancel order</button><button class="btn ok" data-a="confirm" data-id="${esc(o.id)}">Confirm and release</button>`:`<button class="btn ghost" data-a="close">Close</button>`;
+  $("#om").classList.add("open");
+}
+async function confirmOrder(id){
+  try{await api(`/api/admin/orders/${encodeURIComponent(id)}/confirm`,{method:"POST"});toast("success","Order released","The customer's order is now confirmed.");await loadAll(true);if($("#om").classList.contains("open"))openOrder(id)}
+  catch(e){toast("error","Couldn't release order",e.message)}
+}
+async function rejectOrder(id){
+  if(!confirm("Cancel this order? If the customer already paid, you will need to refund them in M-Pesa yourself."))return;
+  try{await api(`/api/admin/orders/${encodeURIComponent(id)}/reject`,{method:"POST"});toast("warning","Order cancelled");$("#om").classList.remove("open");await loadAll(true)}
+  catch(e){toast("error","Couldn't cancel order",e.message)}
 }
 
-function renderOpts() {
-  const box = $("#qOpts");
-  if (!box) return;
-  box.innerHTML = cur.opts.map(o => `
-    <div class="og">
-      <label>${esc(o.k)}</label>
-      <div class="seg">${o.ch.map(c => `
-        <button type="button" class="${sel[o.k] === c.v ? "on" : ""}" data-k="${esc(o.k)}" data-v="${esc(c.v)}" aria-pressed="${sel[o.k] === c.v}">
-          ${esc(c.v)}${c.a ? ` <small>${c.a > 0 ? "+" : "−"}${KSH(Math.abs(c.a))}</small>` : ""}
-        </button>`).join("")}
-      </div>
-    </div>`).join("")
-    + `<div class="og">
-        <label for="qNote">Special requirements (optional)</label>
-        <textarea id="qNote" maxlength="200" placeholder="e.g. delivery time, finish, special size…"></textarea>
-       </div>`;
-  $("#qNote").value = note;
-  $("#qNote").oninput = e => note = e.target.value;
-  box.querySelectorAll(".seg button").forEach(b => b.onclick = () => {
-    sel[b.dataset.k] = b.dataset.v;
-    renderOpts();
-    updSub();
-  });
+/* ---------- products ---------- */
+function setImg(s){img=s;$("#ip").innerHTML=s?`<img src="${esc(s)}" alt="">`:"📷"}
+function openProduct(id){
+  editing=id?products.find(p=>p.id===id):null;
+  groups=JSON.parse(JSON.stringify(editing?.options||[]));specs=JSON.parse(JSON.stringify(editing?.specs||[]));
+  $("#pmT").textContent=editing?"Edit product":"Add product";
+  $("#pN").value=editing?.name||"";$("#pC").value=editing?.category||"";$("#pE").value=editing?.emoji||"";
+  $("#pD").value=editing?.description||"";$("#pP").value=editing?.price??"";$("#pU").value=editing?.unit||"";
+  $("#pS").value=String(editing?.inStock??true);setImg(editing?.image||"");
+  drawGroups();drawSpecs();tab("t1");$("#pm").classList.add("open");$("#pN").focus();
+}
+function tab(t){$$(".tabs button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));$$(".tab").forEach(e=>e.classList.toggle("on",e.id===t))}
+function pickImage(f){
+  if(!f||!f.type.startsWith("image/"))return toast("warning","Choose an image file","Use a JPG, PNG or WebP photo.");
+  const r=new FileReader();
+  r.onload=()=>{const im=new Image();
+    im.onload=()=>{const s=Math.min(1,900/Math.max(im.width,im.height)),c=document.createElement("canvas");
+      c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);const x=c.getContext("2d");
+      x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);setImg(c.toDataURL("image/jpeg",.85))};
+    im.onerror=()=>toast("error","Couldn't read that image","Try a different photo.");im.src=r.result};
+  r.readAsDataURL(f);
+}
+function drawGroups(){
+  $("#og").innerHTML=groups.map((g,i)=>`<div class="og"><div class="r2"><input data-g="${i}" data-f="key" placeholder="Option name, e.g. Slump" value="${esc(g.key)}"><button class="x" data-a="dg" data-g="${i}">Remove</button></div>
+  ${g.choices.map((c,j)=>`<div class="r3"><input data-g="${i}" data-c="${j}" data-f="value" placeholder="Choice, e.g. 75–100 mm" value="${esc(c.value)}"><input type="number" data-g="${i}" data-c="${j}" data-f="priceAdjust" placeholder="Price +/−" value="${c.priceAdjust||""}"><button class="x" data-a="dc" data-g="${i}" data-c="${j}" aria-label="Remove choice">✕</button></div>`).join("")}
+  <button class="btn ghost sm" data-a="ac" data-g="${i}">+ Add choice</button></div>`).join("")||'<p class="mute" style="font-size:.85rem">No options. Customers will only choose a quantity.</p>';
+}
+function drawSpecs(){
+  $("#sp").innerHTML=specs.map((s,i)=>`<div class="r3"><input data-s="${i}" data-k="0" placeholder="Label, e.g. Grade" value="${esc(s[0])}"><input data-s="${i}" data-k="1" placeholder="Value, e.g. C25" value="${esc(s[1])}"><button class="x" data-a="ds" data-s="${i}" aria-label="Remove spec">✕</button></div>`).join("")||'<p class="mute" style="font-size:.85rem">No specifications.</p>';
+}
+async function saveProduct(){
+  const name=$("#pN").value.trim(),unit=$("#pU").value.trim(),price=Number($("#pP").value);
+  if(!name){tab("t1");$("#pN").focus();return toast("warning","Product name needed","Enter a name for this product.")}
+  if(!$("#pP").value||!Number.isFinite(price)||price<0){tab("t2");$("#pP").focus();return toast("warning","Price needed","Enter a price of 0 or more.")}
+  if(!unit){tab("t2");$("#pU").focus();return toast("warning","Unit needed","Add a unit, for example “per bag”.")}
+  const body={name,unit,price,category:$("#pC").value.trim()||"Other",description:$("#pD").value.trim(),image:img||"",
+    inStock:$("#pS").value==="true",emoji:$("#pE").value.trim()||"📦",gradient:editing?.gradient||["#64748b","#334155"],
+    specs:specs.filter(s=>s[0].trim()&&s[1].trim()).map(s=>[s[0].trim(),s[1].trim()]),
+    options:groups.filter(g=>g.key.trim()&&g.choices.some(c=>c.value.trim())).map(g=>({key:g.key.trim(),choices:g.choices.filter(c=>c.value.trim()).map(c=>({value:c.value.trim(),priceAdjust:Number(c.priceAdjust)||0}))}))};
+  const b=$("#ps");b.disabled=true;b.textContent="Saving…";
+  try{
+    await api(editing?`/api/admin/products/${encodeURIComponent(editing.id)}`:"/api/admin/products",{method:editing?"PUT":"POST",body:JSON.stringify(body)});
+    toast("success",editing?"Product saved":"Product added",name);$("#pm").classList.remove("open");await loadAll(true);
+  }catch(e){toast("error","Couldn't save product",e.message)}
+  finally{b.disabled=false;b.textContent="Save product"}
+}
+async function delProduct(id){
+  const p=products.find(x=>x.id===id);if(!p||!confirm(`Delete “${p.name}”? This can't be undone. Past orders keep their details.`))return;
+  try{await api(`/api/admin/products/${encodeURIComponent(id)}`,{method:"DELETE"});toast("success","Product deleted",p.name);await loadAll(true)}
+  catch(e){toast("error","Couldn't delete product",e.message)}
 }
 
-const qv = () => {
-  const raw = +$("#qIn").value || step;
-  return Math.max(step, Math.round(raw / step) * step);
+/* ---------- events ---------- */
+const ACT={
+  pw(){const p=$("#lp"),s=p.type==="password";p.type=s?"text":"password";this.textContent=s?"🙈":"👁";this.setAttribute("aria-label",s?"Hide password":"Show password")},
+  nav(d){$$(".sec").forEach(s=>s.classList.toggle("on",s.id==="s-"+d.s));$$(".side button").forEach(b=>b.classList.toggle("on",b.dataset.s===d.s));scrollTo({top:0});if(d.s!=="settings")loadAll(true)},
+  refresh(){loadAll().then(ok=>ok&&toast("info","Refreshed"))},
+  filter(d){ofilter=d.f;$$("#chips .chip").forEach(c=>c.classList.toggle("on",c.dataset.f===d.f));render()},
+  view:d=>openOrder(d.id),confirm:d=>confirmOrder(d.id),reject:d=>rejectOrder(d.id),
+  add:()=>openProduct(),edit:d=>openProduct(d.id),del:d=>delProduct(d.id),save:saveProduct,
+  close(){this.closest(".ov").classList.remove("open")},tab:d=>tab(d.t),
+  pick:()=>$("#pf").click(),noimg:()=>{setImg("");$("#pf").value=""},
+  ag:()=>{groups.push({key:"",choices:[{value:"",priceAdjust:0}]});drawGroups()},
+  dg:d=>{groups.splice(+d.g,1);drawGroups()},ac:d=>{groups[+d.g].choices.push({value:"",priceAdjust:0});drawGroups()},
+  dc:d=>{const g=groups[+d.g];if(g.choices.length===1)groups.splice(+d.g,1);else g.choices.splice(+d.c,1);drawGroups()},
+  as:()=>{specs.push(["",""]);drawSpecs()},ds:d=>{specs.splice(+d.s,1);drawSpecs()},
+  async saveApi(){
+    const v=$("#api").value.trim();
+    if(v&&!normApi(v))return toast("error","Address doesn't look right","It should look like https://your-server.onrender.com");
+    setApi(v);
+    try{await api("/api/admin/orders?status=all");toast("success","Connected","The server is responding.");loadAll(true)}catch(e){toast("error","Connection failed",e.message)}
+  },
+  out:()=>logout()
 };
-function updSub() {
-  $("#qUnit").textContent = KSH(up(cur, sel)) + " " + cur.u;
-  $("#qSub").textContent = KSH(up(cur, sel) * qv());
-}
-function calcVol() {
-  const l = +$("#cL").value, w = +$("#cW").value, t = +$("#cT").value;
-  const v = l * w * t / 1000 * 1.05;
-  const r = v > 0 ? Math.ceil(v * 2) / 2 : 0;
-  $("#cOut").textContent = r ? `≈ ${r} m³ (incl. 5% wastage)` : "Enter all three sizes";
-  return r;
-}
-$("#qm1").onclick = () => { $("#qIn").value = Math.max(step, qv() - step); updSub(); };
-$("#qp1").onclick = () => { $("#qIn").value = qv() + step; updSub(); };
-$("#qIn").oninput = updSub;
-$("#qIn").onkeydown = e => { if (e.key === "Enter") $("#qAdd").click(); };
-$("#qCalc").oninput = calcVol;
-$("#cUse").onclick = () => { const v = calcVol(); if (v) { $("#qIn").value = v; updSub(); } };
-$("#qCancel").onclick = () => $("#qm").classList.remove("open");
-$("#qm").onclick = e => { if (e.target.id === "qm") $("#qm").classList.remove("open"); };
-$("#qAdd").onclick = () => {
-  const q = qv(), n = note.trim(), k = cur.id + "|" + JSON.stringify(sel) + "|" + n;
-  const ex = cart.find(i => i.k === k);
-  ex ? ex.q += q : cart.push({k, id:cur.id, q, sel:{...sel}, note:n});
-  save(); updCart(); $("#qm").classList.remove("open");
-  toast("success", "Added to cart", `${q} × ${cur.n}`);
-  const b = $(".cartbtn");
-  b.classList.remove("bump"); void b.offsetWidth; b.classList.add("bump");
-};
-
-/* ---------------- Cart ---------------- */
-function updCart() {
-  const n = cart.reduce((s, i) => s + i.q, 0);
-  $("#count").textContent = n;
-  $("#fc").textContent = n;
-  $("#ft").textContent = KSH(total());
-  $("#fab").dataset.e = n ? "" : "1";
-
-  const box = $("#items");
-  if (!cart.length) {
-    box.innerHTML = '<div class="empty"><em aria-hidden="true">🛒</em>Your cart is empty.<br>Pick a product to get started.</div>';
-    $("#df").style.display = "none";
-    return;
-  }
-  $("#df").style.display = "";
-
-  box.innerHTML = cart.map(i => {
-    const p = prod(i.id);
-    if (!p) return "";
-    const d = [...Object.values(i.sel), i.note].filter(Boolean).map(esc).join(" · ");
-    return `<div class="it">
-      <div class="e" style="background:${grad(p.g)}" aria-hidden="true">${esc(p.e)}</div>
-      <div>
-        <b>${esc(p.n)}</b>
-        ${d ? `<small class="o">${d}</small>` : ""}
-        <small>${KSH(up(p, i.sel))} ${esc(p.u)}</small>
-        <div class="mini">
-          <button data-a="-" data-k="${esc(i.k)}" aria-label="Decrease ${esc(p.n)}">−</button><b>${i.q}</b><button data-a="+" data-k="${esc(i.k)}" aria-label="Increase ${esc(p.n)}">+</button>
-        </div>
-      </div>
-      <div style="text-align:right">
-        <b>${KSH(lineTotal(i))}</b>
-        <button class="rm" data-a="x" data-k="${esc(i.k)}" aria-label="Remove ${esc(p.n)}">Remove</button>
-      </div>
-    </div>`;
-  }).join("");
-
-  box.querySelectorAll("button[data-a]").forEach(b => b.onclick = () => {
-    const it = cart.find(i => i.k === b.dataset.k);
-    if (!it) return;
-    const a = b.dataset.a;
-    const p = prod(it.id);
-    const s = p ? stepOf(p) : 1;
-    if (a === "+") it.q += s;
-    else if (a === "-") it.q -= s;
-    else it.q = 0;
-    cart = cart.filter(i => i.q > 0);
-    save(); updCart();
-  });
-
-  const t = total();
-  $("#tSub").textContent = KSH(t / 1.16);
-  $("#tVat").textContent = KSH(t - t / 1.16);
-  $("#tAll").textContent = KSH(t);
-}
-
-function openCart() { $("#drawer").classList.add("open"); $("#drawer").setAttribute("aria-hidden", "false"); $("#dim").classList.add("open"); }
-function closeCart() { $("#drawer").classList.remove("open"); $("#drawer").setAttribute("aria-hidden", "true"); $("#dim").classList.remove("open"); }
-$("#openCart").onclick = openCart;
-$("#closeCart").onclick = closeCart;
-$("#dim").onclick = closeCart;
-window.openCart = openCart;
-
-/* ---------------- Payment ---------------- */
-function normPhone(v) {
-  v = String(v || "").replace(/[\s\-+()]/g, "");
-  if (/^0[17]\d{8}$/.test(v)) return "254" + v.slice(1);
-  if (/^254[17]\d{8}$/.test(v)) return v;
-  if (/^[17]\d{8}$/.test(v)) return "254" + v;
-  return null;
-}
-
-const stk = h => { $("#pBody").innerHTML = h; $("#pm").classList.add("open"); };
-const busy = m => `<div class="pulse wait" aria-hidden="true">⏳</div><h3 id="pTitle">${esc(m)}</h3>`;
-
-async function waitPaid(id) {
-  let told = false;
-  for (let i = 0; i < CONFIG.POLL_MAX; i++) {
-    await sleep(CONFIG.POLL_MS);
-    let s;
-    try { s = await api(CONFIG.STATUS(id)); } catch(e) { continue; }
-    const st = String(s.paymentStatus || s.status || "").toLowerCase();
-    if (st === "paid") {
-      // the server sets adminConfirmed = true only after the admin authorises
-      if (s.adminConfirmed === true) {
-        return { receipt: s.mpesaReceipt || s.receipt, adminConfirmed: true };
-      }
-      if (!told) {
-        told = true;
-        toast("info", "Payment received", "Waiting for admin confirmation before release.");
-        setAdminSync(false, "Awaiting admin approval");
-      }
-      continue;
-    }
-    if (st === "failed" || st === "cancelled") {
-      throw new Error(s.message || "The payment was cancelled or failed.");
-    }
-  }
-  throw Object.assign(new Error("We haven't received admin confirmation yet."), {late:true});
-}
-
-$("#payBtn").onclick = async () => {
-  const name = $("#cName").value.trim();
-  const loc = $("#cLoc").value.trim();
-  const ph = normPhone($("#cPhone").value);
-  const err = $("#err");
-  const bad = m => { err.textContent = m; toast("warning", "Check your details", m); };
-
-  if (!cart.length) return toast("warning", "Your cart is empty");
-  if (!name) return bad("Please enter your name.");
-  if (!ph) return bad("Enter a valid Safaricom number, e.g. 0712 345 678.");
-  if (!loc) return bad("Please enter a delivery location.");
-  err.textContent = "";
-  try { localStorage.setItem("mca_cust", JSON.stringify({name, phone:$("#cPhone").value, loc})); } catch(e) {}
-
-  const body = {
-    customer: { name, phone: ph, location: loc },
-    items: cart.map(i => ({ productId: i.id, quantity: i.q, options: i.sel, note: i.note }))
-  };
-  const sig = JSON.stringify(body);
-  const snap = cart.map(i => {
-    const p = prod(i.id);
-    return { q: i.q, name: p.n, d: Object.values(i.sel).join(", "), price: up(p, i.sel) };
-  });
-
-  let ord = pend && pend.sig === sig ? pend.ord : null;
-  const btn = $("#payBtn");
-  btn.disabled = true;
-
-  try {
-    if (!ord) {
-      stk(busy("Placing your order…"));
-      // the server requires a valid Idempotency-Key header (8–100 chars)
-      ord = await api(CONFIG.ORDERS, { method:"POST", headers:{"Idempotency-Key":uid()}, body:sig });
-      pend = { sig, ord };
-      if (Math.round(ord.total) !== Math.round(total())) {
-        toast("info", "Prices updated", `Your total is now ${KSH(ord.total)}.`);
-      }
-    }
-
-    stk(`<div class="pulse" aria-hidden="true">📲</div>
-      <h3 id="pTitle">Check your phone</h3>
-      <p style="color:var(--mute);margin-top:6px">An M-Pesa prompt for <b>${KSH(ord.total)}</b> is being sent to <b>+${esc(ph)}</b>. Enter your PIN to complete payment.</p>
-      <p style="color:var(--mute);font-size:.8rem;margin-top:14px">After payment, our admin will confirm your order before goods are released.</p>`);
-
-    await api(CONFIG.STK, { method:"POST", body: JSON.stringify({ orderId: ord.orderId, phone: ph }) });
-    toast("info", "M-Pesa prompt sent", "Enter your PIN on your phone.");
-
-    const r = await waitPaid(ord.orderId);
-    success(ord, snap, { name, loc, ph }, r.receipt);
-  } catch(e) {
-    fail(e, ord);
-  } finally {
-    btn.disabled = false;
-  }
-};
-
-function fail(e, ord) {
-  const late = !!e.late;
-  ord = ord || {};
-  toast(late ? "warning" : "error", late ? "Admin confirmation pending" : "Payment failed", e.message, 8000);
-  stk(`<div class="pulse ${late ? "wait" : ""}" style="${late ? "" : "background:var(--danger)"}" aria-hidden="true">
-        ${late ? "⏳" : "✕"}</div>
-       <h3 id="pTitle">${late ? "Awaiting admin confirmation" : "Payment not completed"}</h3>
-       <p style="color:var(--mute);margin:8px 0 18px">
-         ${esc(e.message)}
-         ${late ? `If M-Pesa already deducted the money, don't pay again. Quote reference <b>${esc(ord.reference || ord.orderId)}</b> and our team will confirm it.` : "Your cart is safe, so you can try again."}
-       </p>
-       <div class="row">
-         ${late ? '<button class="btn light" id="chk">Check status</button>' : ""}
-         <button class="btn" id="cls">${late ? "Close" : "Back to cart"}</button>
-       </div>`);
-  $("#cls").onclick = () => $("#pm").classList.remove("open");
-  if (late && ord.orderId) {
-    $("#chk").onclick = async () => {
-      try {
-        const s = await api(CONFIG.STATUS(ord.orderId));
-        if (String(s.paymentStatus).toLowerCase() === "paid" && s.adminConfirmed === true) {
-          toast("success", "Admin confirmed");
-          success(ord, [], { name:"", loc:"", ph:"" }, s.mpesaReceipt);
-        } else {
-          toast("info", "Still pending", "Admin has not confirmed yet. Please wait a moment.");
-        }
-      } catch(x) { toast("error", "Couldn't check status", x.message); }
-    };
-  }
-}
-
-function success(ord, snap, c, ref) {
-  const d = new Date().toLocaleString("en-KE");
-  const r = ref || ord.reference;
-  pend = null;
-  setAdminSync(true, "Admin confirmed");
-  toast("success", "Order confirmed", "Admin has authorised your payment. Thank you!", 6000);
-  stk(`<div class="pulse ok" aria-hidden="true">✓</div>
-    <h3 id="pTitle">Order confirmed!</h3>
-    <p style="color:var(--mute);margin-top:4px">Order <b>${esc(ord.reference || ord.orderId)}</b> · M-Pesa ref <b>${esc(r)}</b></p>
-    <div class="rc">
-      ${snap.map(i => `<div><span>${i.q} × ${esc(i.name)}</span><span>${KSH(i.q * i.price)}</span></div>`).join("")}
-      <div style="border-top:1px dashed var(--line);margin-top:6px;padding-top:6px"><b>Total paid</b><b>${KSH(ord.total)}</b></div>
-    </div>
-    <p style="font-size:.8rem;color:var(--mute);margin-bottom:12px">✓ Admin has confirmed payment. Your goods will be dispatched.</p>
-    <div class="row">
-      <button class="btn light" id="prt">🖨️ Print</button>
-      <button class="btn" id="done">Done</button>
-    </div>`);
-
-  $("#printRc").innerHTML = `
-    <h2>MARICOPA CONCRETE &amp; ALLIED</h2>
-    <p>Receipt · ${d}</p>
-    <p>Order: ${esc(ord.reference || ord.orderId)}<br>
-       M-Pesa ref: ${esc(r)}<br>
-       Customer: ${esc(c.name)}<br>
-       Phone: +${esc(c.ph)}<br>
-       Deliver to: ${esc(c.loc)}</p>
-    <hr>
-    ${snap.map(i => `<p>${i.q} × ${esc(i.name)}${i.d ? " (" + esc(i.d) + ")" : ""} — ${KSH(i.q * i.price)}</p>`).join("")}
-    <hr>
-    <h3>TOTAL: ${KSH(ord.total)}</h3>
-    <p>Paid via M-Pesa · Admin confirmed. Thank you!</p>`;
-
-  $("#prt").onclick = () => window.print();
-  $("#done").onclick = () => { $("#pm").classList.remove("open"); closeCart(); };
-  cart = []; save(); updCart();
-}
-
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape") {
-    const qm = $("#qm");
-    if (qm && qm.classList.contains("open")) qm.classList.remove("open");
-    closeCart();
-  }
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-a]");
+  if(b&&ACT[b.dataset.a])ACT[b.dataset.a].call(b,b.dataset);
+  else if(e.target.classList.contains("ov"))e.target.classList.remove("open");
 });
+document.addEventListener("input",e=>{
+  const t=e.target,d=t.dataset;
+  if(d.g!==undefined){const g=groups[+d.g];if(d.c===undefined)g.key=t.value;else g.choices[+d.c][d.f]=d.f==="priceAdjust"?Number(t.value)||0:t.value}
+  else if(d.s!==undefined)specs[+d.s][+d.k]=t.value;
+  if(t.id==="lu"||t.id==="lp")$("#le").textContent="";
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$$(".ov.open").forEach(o=>o.classList.remove("open"))});
+$("#pf").onchange=e=>pickImage(e.target.files[0]);
+$("#lb").onclick=login;
+$("#retest").onclick=()=>{if($("#la").value.trim())setApi($("#la").value);ping()};
+$("#lu").addEventListener("keydown",e=>{if(e.key==="Enter")$("#lp").focus()});
+$("#lp").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
+$("#lp").addEventListener("keyup",e=>{$("#caps").hidden=!(e.getModifierState&&e.getModifierState("CapsLock"))});
 
-/* ---------------- Load / init ---------------- */
-async function load() {
-  if (!CONFIG.API) {
-    setBackendAlert(false, "Backend not configured. Set DEFAULT_API to your server URL before going live.");
-    $("#grid").innerHTML = '<div class="nores">⚠️ Backend not configured.<br><br>Set DEFAULT_API in this page to your server URL.</div>';
-    return;
-  }
-
-  setAdminSync(false, "Connecting…");
-  $("#grid").innerHTML = Array(8).fill('<div class="sk"></div>').join("");
-  const wake = setTimeout(() => toast("info", "Waking up the server…", "This can take up to a minute the first time. Please wait.", 12000), 6000);
-  try {
-    const d = await api(CONFIG.PRODUCTS);
-    P = (d.products || d || []).map(fromApi).filter(p => p.id);
-    const n = cart.length;
-    cart = cart.filter(i => prod(i.id));
-    save();
-    if (cart.length < n) toast("warning", "Cart updated", "Some items are no longer available.");
-    renderFilters();
-    renderGrid();
-    updCart();
-    setBackendAlert(true);
-    setAdminSync(true, "Synced with admin");
-  } catch(e) {
-    $("#grid").innerHTML = `<div class="nores">Could not load products.<br><br>${esc(e.message)}<br><br><button class="btn" id="retry">Try again</button></div>`;
-    const retry = $("#retry");
-    if (retry) retry.onclick = load;
-  } finally { clearTimeout(wake); }
-}
-
-try {
-  const c = JSON.parse(localStorage.getItem("mca_cust") || "null");
-  if (c) {
-    $("#cName").value = c.name || "";
-    $("#cPhone").value = c.phone || "";
-    $("#cLoc").value = c.loc || "";
-  }
-} catch(e) {}
-$("#q").oninput = e => { Q = e.target.value.trim().toLowerCase(); renderGrid(); };
-load();
+$("#la").value=CFG.API;$("#api").value=CFG.API;$("#lu").value=store.get("mca_user")||"";
+$("#fileNote").hidden=location.protocol!=="file:";
+($("#lu").value?$("#lp"):$("#lu")).focus();
+ping();
 </script>
 </body>
 </html>
