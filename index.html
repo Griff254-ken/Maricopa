@@ -1,1122 +1,176 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#17191b">
-
-<title>Maricopa Concrete | Loading</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14161a">
+<meta name="color-scheme" content="dark">
+<title>Maricopa Concrete &amp; Allied</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f97316'/%3E%3Cpath d='M14 48V16h8l10 16 10-16h8v32h-8V31L32 46 22 31v17z' fill='%23ffffff'/%3E%3C/svg%3E">
+<link rel="prefetch" href="dash.html">
+<noscript><meta http-equiv="refresh" content="1;url=dash.html"></noscript>
 <style>
-/* ================================
-   MARICOPA CONCRETE LOADING SCREEN
-================================ */
-
-:root {
-    --orange: #f28c28;
-    --orange-light: #ffb454;
-    --dark: #17191b;
-    --dark-light: #24272a;
-    --white: #ffffff;
-    --gray: #a9adb1;
+:root{
+  --acc:#f97316;--acc-d:#ea580c;--acc-l:#fdba74;
+  --dark:#14161a;--dark2:#1f2329;--ink:#f3f1ed;--mute:#9aa0aa;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --safe-b:env(safe-area-inset-bottom,0px);--safe-t:env(safe-area-inset-top,0px);
+  /* ---- OPTIONAL BACKGROUND PHOTO ----
+     Put a photo next to this file (e.g. site.jpg) and use:
+       --splash-image: url("site.jpg");
+     A dark overlay keeps everything readable. */
+  --splash-image:none;
 }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%}
+body{background:var(--dark);color:var(--ink);font-family:Inter,'Segoe UI',system-ui,-apple-system,Roboto,'Helvetica Neue',sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.screen{position:relative;width:100%;height:100vh;height:100dvh;display:flex;align-items:center;justify-content:center;padding:calc(24px + var(--safe-t)) 24px calc(24px + var(--safe-b));overflow:hidden;isolation:isolate;
+  background:
+    linear-gradient(rgba(20,22,26,.82),rgba(20,22,26,.9)),
+    var(--splash-image) center/cover no-repeat,
+    radial-gradient(circle at 50% 38%,#2c3037 0%,#1b1e23 45%,#14161a 80%)}
+
+/* soft orange glow + fine grid texture (all CSS, no external files) */
+.screen::before{content:"";position:absolute;left:50%;top:38%;width:min(120vw,780px);height:min(120vw,780px);transform:translate(-50%,-50%);border-radius:50%;z-index:-2;background:radial-gradient(circle,rgba(249,115,22,.22),transparent 62%);animation:glow 4s ease-in-out infinite}
+.screen::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background:
+    repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 44px),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 44px);
+  -webkit-mask:radial-gradient(circle at 50% 40%,#000,transparent 75%);mask:radial-gradient(circle at 50% 40%,#000,transparent 75%)}
+@keyframes glow{50%{opacity:.65;transform:translate(-50%,-50%) scale(1.08)}}
+
+.dust{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
+.dust i{position:absolute;bottom:-20px;width:var(--s,4px);height:var(--s,4px);border-radius:50%;background:rgba(253,186,116,.55);opacity:0;animation:rise var(--d,9s) linear infinite;animation-delay:var(--l,0s)}
+@keyframes rise{0%{transform:translate(0,0);opacity:0}15%{opacity:.7}80%{opacity:.25}100%{transform:translate(var(--x,30px),-105vh);opacity:0}}
+
+.content{width:100%;max-width:440px;display:flex;flex-direction:column;align-items:center;text-align:center}
+
+/* logo with progress ring */
+.mark{position:relative;width:148px;height:148px;display:grid;place-items:center;animation:pop .9s var(--ease) both}
+@keyframes pop{from{opacity:0;transform:scale(.8) translateY(10px)}}
+.mark svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.mark .tr{fill:none;stroke:rgba(255,255,255,.1);stroke-width:5}
+.mark .pr{fill:none;stroke:url(#g);stroke-width:5;stroke-linecap:round;stroke-dasharray:408;stroke-dashoffset:408;filter:drop-shadow(0 0 8px rgba(249,115,22,.6))}
+.tile{width:92px;height:92px;border-radius:28px;display:grid;place-items:center;font-size:3rem;font-weight:900;color:#fff;background:linear-gradient(135deg,#fb923c,var(--acc-d));box-shadow:0 16px 40px rgba(249,115,22,.4),inset 0 1px 0 rgba(255,255,255,.35);animation:float 3.2s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-5px)}}
+
+.name{margin-top:28px;font-size:clamp(1.5rem,6vw,2rem);font-weight:900;letter-spacing:.08em;text-transform:uppercase;line-height:1.1;animation:up .8s .15s var(--ease) both}
+.name span{color:var(--acc)}
+.sub{margin-top:8px;font-size:.66rem;font-weight:600;color:var(--mute);letter-spacing:.32em;text-transform:uppercase;animation:up .8s .25s var(--ease) both}
+.tag{margin-top:22px;color:#d5d8de;font-size:1rem;line-height:1.6;max-width:32ch;animation:up .8s .35s var(--ease) both}
+@keyframes up{from{opacity:0;transform:translateY(14px)}}
+
+.bar{width:min(100%,320px);margin-top:34px;animation:up .8s .45s var(--ease) both}
+.track{height:6px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
+.fill{height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--acc-d),var(--acc),var(--acc-l));box-shadow:0 0 14px rgba(249,115,22,.55);position:relative;overflow:hidden}
+.fill::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transform:translateX(-100%);animation:shine 1.3s linear infinite}
+@keyframes shine{to{transform:translateX(100%)}}
+.meta{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-size:.8rem;color:var(--mute)}
+.meta b{color:var(--acc);font-variant-numeric:tabular-nums;font-size:.9rem}
+
+.go{margin-top:22px;color:var(--mute);font-size:.82rem;text-decoration:none;padding:12px 18px;min-height:44px;display:inline-flex;align-items:center;border-radius:999px;transition:color .2s,background .2s;animation:up .8s .6s var(--ease) both}
+.go:hover,.go:focus-visible{color:#fff;background:rgba(255,255,255,.08);outline:none}
+
+.foot{position:absolute;left:0;right:0;bottom:calc(20px + var(--safe-b));display:flex;justify-content:center;gap:10px 22px;flex-wrap:wrap;padding:0 20px;color:#7d838d;font-size:.74rem;text-align:center;animation:up .8s .7s var(--ease) both}
+
+@media(max-width:480px){
+  .mark{width:128px;height:128px}.tile{width:80px;height:80px;font-size:2.6rem;border-radius:24px}
+  .name{margin-top:24px}.tag{font-size:.94rem}
 }
-
-html,
-body {
-    width: 100%;
-    height: 100%;
+@media(max-height:560px){
+  .mark{width:96px;height:96px}.tile{width:60px;height:60px;font-size:1.9rem;border-radius:18px}
+  .name{margin-top:14px}.tag{display:none}.bar{margin-top:18px}.foot,.go{display:none}
 }
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: var(--dark);
-    color: var(--white);
-    overflow: hidden;
-}
-
-/* MAIN BACKGROUND */
-
-.loading-screen {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    height: 100dvh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    isolation: isolate;
-    background:
-        radial-gradient(
-            circle at 50% 45%,
-            #36393c 0%,
-            #25282b 35%,
-            #17191b 75%
-        );
-}
-
-/* Concrete texture */
-
-.loading-screen::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -2;
-    opacity: 0.17;
-
-    background-image:
-        url("https://www.transparenttextures.com/patterns/concrete-wall.png");
-
-    background-repeat: repeat;
-    animation: textureMove 20s linear infinite;
-}
-
-/* Industrial lighting */
-
-.loading-screen::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-
-    background:
-        linear-gradient(
-            115deg,
-            transparent 20%,
-            rgba(242, 140, 40, 0.04) 45%,
-            transparent 70%
-        ),
-        radial-gradient(
-            ellipse at center,
-            transparent 30%,
-            rgba(0, 0, 0, 0.65) 100%
-        );
-}
-
-/* BACKGROUND STEEL */
-
-.steel-bars {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    opacity: 0.18;
-    z-index: -1;
-}
-
-.steel-bar {
-    position: absolute;
-    width: 150%;
-    height: 8px;
-    left: -25%;
-
-    background:
-        repeating-linear-gradient(
-            90deg,
-            #777d82 0px,
-            #a6adb2 3px,
-            #454a4f 6px,
-            #777d82 12px
-        );
-
-    border-top: 1px solid #b7bec3;
-    border-bottom: 1px solid #34383c;
-
-    box-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.5),
-        inset 0 1px 2px rgba(255, 255, 255, 0.2);
-}
-
-.steel-bar:nth-child(1) {
-    top: 15%;
-    transform: rotate(-18deg);
-    animation: steelMove1 12s ease-in-out infinite alternate;
-}
-
-.steel-bar:nth-child(2) {
-    top: 40%;
-    transform: rotate(15deg);
-    animation: steelMove2 15s ease-in-out infinite alternate;
-}
-
-.steel-bar:nth-child(3) {
-    top: 70%;
-    transform: rotate(-12deg);
-    animation: steelMove1 18s ease-in-out infinite alternate;
-}
-
-.steel-bar:nth-child(4) {
-    top: 90%;
-    transform: rotate(20deg);
-    animation: steelMove2 13s ease-in-out infinite alternate;
-}
-
-/* FLOATING CONCRETE PARTICLES */
-
-.particles {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-}
-
-.particle {
-    position: absolute;
-    bottom: -30px;
-
-    width: var(--size, 6px);
-    height: var(--size, 6px);
-
-    background: #aaa9a4;
-    border-radius: 50%;
-
-    opacity: 0;
-    animation: particleFloat var(--duration, 8s) linear infinite;
-    animation-delay: var(--delay, 0s);
-}
-
-/* MAIN CONTENT */
-
-.content {
-    position: relative;
-    z-index: 5;
-
-    width: 100%;
-    max-width: 650px;
-    padding: 25px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    text-align: center;
-}
-
-/* BRAND */
-
-.brand {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 13px;
-
-    margin-bottom: 12px;
-
-    animation: brandAppear 1s ease-out both;
-}
-
-.brand-symbol {
-    width: 48px;
-    height: 48px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: var(--orange);
-    color: #17191b;
-
-    font-size: 25px;
-    font-weight: 900;
-
-    clip-path: polygon(
-        25% 0,
-        75% 0,
-        100% 50%,
-        75% 100%,
-        25% 100%,
-        0 50%
-    );
-}
-
-.brand-name {
-    font-size: clamp(22px, 4vw, 32px);
-    font-weight: 900;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
-
-.brand-name span {
-    color: var(--orange);
-}
-
-.brand-subtitle {
-    margin-top: 5px;
-
-    color: #aeb2b5;
-    font-size: 10px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-}
-
-/* GEAR MECHANISM */
-
-.machine {
-    position: relative;
-
-    width: 270px;
-    height: 270px;
-
-    margin: 25px 0 20px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    animation: machineAppear 1.2s ease-out both;
-}
-
-/* Outer gear */
-
-.gear {
-    position: absolute;
-
-    width: 230px;
-    height: 230px;
-
-    border-radius: 50%;
-
-    background:
-        repeating-conic-gradient(
-            from 0deg,
-            #9b9fa2 0deg 8deg,
-            #45494c 8deg 15deg,
-            #73777a 15deg 22.5deg
-        );
-
-    -webkit-mask:
-        radial-gradient(
-            circle,
-            transparent 0 48%,
-            #000 49% 72%,
-            transparent 73%
-        );
-
-    mask:
-        radial-gradient(
-            circle,
-            transparent 0 48%,
-            #000 49% 72%,
-            transparent 73%
-        );
-
-    filter:
-        drop-shadow(0 8px 8px rgba(0, 0, 0, 0.5));
-
-    animation: gearRotate 12s linear infinite;
-}
-
-/* Inner rotating wheel */
-
-.gear-inner {
-    position: absolute;
-
-    width: 145px;
-    height: 145px;
-
-    border-radius: 50%;
-
-    border: 12px solid #5e6367;
-
-    background:
-        repeating-conic-gradient(
-            #747a7e 0deg 8deg,
-            #33383c 8deg 16deg
-        );
-
-    box-shadow:
-        inset 0 0 0 5px #292d30,
-        inset 0 0 15px rgba(0, 0, 0, 0.7),
-        0 0 15px rgba(0, 0, 0, 0.5);
-
-    animation: gearRotateReverse 8s linear infinite;
-}
-
-/* Center mixer wheel */
-
-.mixer-wheel {
-    position: absolute;
-
-    width: 95px;
-    height: 95px;
-
-    border-radius: 50%;
-
-    background:
-        linear-gradient(
-            145deg,
-            #f6a447,
-            #b96816 55%,
-            #f28c28
-        );
-
-    border: 7px solid #383c3f;
-
-    box-shadow:
-        inset 0 0 0 3px #f9b25d,
-        0 0 20px rgba(242, 140, 40, 0.25);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    animation: mixerRotate 5s linear infinite;
-}
-
-.mixer-wheel::before,
-.mixer-wheel::after {
-    content: "";
-    position: absolute;
-
-    width: 12px;
-    height: 62px;
-
-    background: #373b3e;
-    border-radius: 5px;
-
-    box-shadow:
-        0 0 0 2px rgba(255, 255, 255, 0.08);
-}
-
-.mixer-wheel::after {
-    transform: rotate(90deg);
-}
-
-.mixer-center {
-    position: relative;
-    z-index: 2;
-
-    width: 22px;
-    height: 22px;
-
-    border-radius: 50%;
-
-    background: #c9cdd0;
-    border: 5px solid #383c3f;
-}
-
-/* Small side gears */
-
-.small-gear {
-    position: absolute;
-
-    width: 65px;
-    height: 65px;
-
-    border-radius: 50%;
-
-    background:
-        repeating-conic-gradient(
-            #8d9296 0deg 12deg,
-            #45494c 12deg 24deg
-        );
-
-    -webkit-mask:
-        radial-gradient(
-            circle,
-            transparent 0 28%,
-            #000 29% 75%,
-            transparent 76%
-        );
-
-    mask:
-        radial-gradient(
-            circle,
-            transparent 0 28%,
-            #000 29% 75%,
-            transparent 76%
-        );
-
-    filter: drop-shadow(0 4px 4px #000);
-}
-
-.small-gear.left {
-    left: 0;
-    bottom: 28px;
-
-    animation: gearRotateReverse 5s linear infinite;
-}
-
-.small-gear.right {
-    right: 0;
-    top: 28px;
-
-    animation: gearRotate 5s linear infinite;
-}
-
-/* CONCRETE MIXING EFFECT */
-
-.concrete-flow {
-    position: absolute;
-
-    width: 160px;
-    height: 160px;
-
-    border-radius: 50%;
-
-    border: 1px dashed rgba(242, 140, 40, 0.35);
-
-    animation: gearRotateReverse 20s linear infinite;
-}
-
-.concrete-flow::before,
-.concrete-flow::after {
-    content: "";
-    position: absolute;
-
-    width: 9px;
-    height: 9px;
-
-    border-radius: 50%;
-    background: var(--orange);
-
-    box-shadow:
-        0 0 10px rgba(242, 140, 40, 0.7);
-}
-
-.concrete-flow::before {
-    top: 15px;
-    left: 30px;
-}
-
-.concrete-flow::after {
-    bottom: 20px;
-    right: 25px;
-}
-
-/* LOADING TEXT */
-
-.loading-title {
-    margin-top: 10px;
-
-    font-size: clamp(17px, 3vw, 22px);
-    font-weight: 800;
-
-    letter-spacing: 3px;
-    text-transform: uppercase;
-
-    animation: textAppear 1s ease-out both;
-}
-
-.loading-title span {
-    color: var(--orange);
-}
-
-.loading-description {
-    margin-top: 12px;
-
-    color: var(--gray);
-
-    font-size: 13px;
-    letter-spacing: 1px;
-    line-height: 1.7;
-}
-
-/* PROGRESS BAR */
-
-.progress-container {
-    width: min(100%, 340px);
-
-    margin-top: 30px;
-}
-
-.progress-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    margin-bottom: 10px;
-
-    color: #b8bdc1;
-
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
-
-#progressPercent {
-    color: var(--orange);
-    font-weight: 800;
-    font-size: 14px;
-}
-
-.progress-track {
-    width: 100%;
-    height: 5px;
-
-    background: #34383b;
-
-    border-radius: 20px;
-    overflow: hidden;
-
-    box-shadow:
-        inset 0 1px 3px rgba(0, 0, 0, 0.6);
-}
-
-.progress-fill {
-    width: 0%;
-    height: 100%;
-
-    background:
-        linear-gradient(
-            90deg,
-            #bd6b19,
-            #f28c28,
-            #ffc16f
-        );
-
-    border-radius: 20px;
-
-    box-shadow:
-        0 0 12px rgba(242, 140, 40, 0.5);
-
-    transition: width 0.15s linear;
-}
-
-/* LOADING STATUS */
-
-.status {
-    margin-top: 18px;
-
-    color: #858b90;
-
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
-
-.status::after {
-    content: "";
-    display: inline-block;
-
-    width: 18px;
-    text-align: left;
-
-    animation: dots 1.4s steps(4, end) infinite;
-}
-
-/* FOOTER */
-
-.footer {
-    position: absolute;
-    bottom: 25px;
-
-    width: 100%;
-    padding: 0 20px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: #70767a;
-
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-align: center;
-    text-transform: uppercase;
-}
-
-.footer span {
-    color: var(--orange);
-    margin: 0 5px;
-}
-
-/* ANIMATIONS */
-
-@keyframes gearRotate {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes gearRotateReverse {
-    from {
-        transform: rotate(360deg);
-    }
-
-    to {
-        transform: rotate(0deg);
-    }
-}
-
-@keyframes mixerRotate {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(-360deg);
-    }
-}
-
-@keyframes particleFloat {
-    0% {
-        transform: translateY(0) translateX(0) rotate(0deg);
-        opacity: 0;
-    }
-
-    15% {
-        opacity: 0.5;
-    }
-
-    70% {
-        opacity: 0.25;
-    }
-
-    100% {
-        transform:
-            translateY(-110vh)
-            translateX(var(--drift, 50px))
-            rotate(360deg);
-
-        opacity: 0;
-    }
-}
-
-@keyframes steelMove1 {
-    from {
-        margin-left: -30px;
-    }
-
-    to {
-        margin-left: 50px;
-    }
-}
-
-@keyframes steelMove2 {
-    from {
-        margin-left: 40px;
-    }
-
-    to {
-        margin-left: -40px;
-    }
-}
-
-@keyframes textureMove {
-    from {
-        background-position: 0 0;
-    }
-
-    to {
-        background-position: 200px 200px;
-    }
-}
-
-@keyframes brandAppear {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes machineAppear {
-    from {
-        opacity: 0;
-        transform: scale(0.7);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes textAppear {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes dots {
-    0% {
-        content: "";
-    }
-
-    25% {
-        content: ".";
-    }
-
-    50% {
-        content: "..";
-    }
-
-    75% {
-        content: "...";
-    }
-}
-
-/* MOBILE RESPONSIVENESS */
-
-@media (max-width: 480px) {
-    .machine {
-        width: 230px;
-        height: 230px;
-        margin: 20px 0;
-        transform: scale(0.9);
-    }
-
-    .gear {
-        width: 200px;
-        height: 200px;
-    }
-
-    .gear-inner {
-        width: 125px;
-        height: 125px;
-    }
-
-    .mixer-wheel {
-        width: 85px;
-        height: 85px;
-    }
-
-    .brand-symbol {
-        width: 40px;
-        height: 40px;
-        font-size: 21px;
-    }
-
-    .brand-name {
-        font-size: 23px;
-    }
-
-    .brand-subtitle {
-        font-size: 8px;
-        letter-spacing: 3px;
-    }
-
-    .loading-description {
-        font-size: 11px;
-    }
-
-    .footer {
-        bottom: 15px;
-        font-size: 8px;
-        letter-spacing: 1px;
-    }
-}
-
-/* ACCESSIBILITY */
-
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-    }
-}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important}.dust{display:none}}
 </style>
 </head>
-
 <body>
 
-<div class="loading-screen">
+<div class="screen">
+  <div class="dust" id="dust" aria-hidden="true"></div>
 
-    <!-- Background steel bars -->
-    <div class="steel-bars">
-        <div class="steel-bar"></div>
-        <div class="steel-bar"></div>
-        <div class="steel-bar"></div>
-        <div class="steel-bar"></div>
+  <main class="content">
+    <div class="mark" aria-hidden="true">
+      <svg viewBox="0 0 148 148">
+        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ea580c"/><stop offset="1" stop-color="#fdba74"/></linearGradient></defs>
+        <circle class="tr" cx="74" cy="74" r="65"/>
+        <circle class="pr" id="ring" cx="74" cy="74" r="65"/>
+      </svg>
+      <div class="tile">M</div>
     </div>
 
-    <!-- Concrete particles -->
-    <div class="particles" id="particles"></div>
+    <h1 class="name">Maricopa <span>Concrete</span></h1>
+    <div class="sub">&amp; Allied</div>
+    <p class="tag">Quality building materials, ordered in minutes and delivered to your site.</p>
 
-    <!-- Main content -->
-    <main class="content">
+    <div class="bar">
+      <div class="track" role="progressbar" aria-label="Loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="pb"><div class="fill" id="fill"></div></div>
+      <div class="meta"><span id="msg">Getting things ready…</span><b id="pct">0%</b></div>
+    </div>
 
-        <!-- Company branding -->
-        <div class="brand">
+    <a class="go" href="dash.html" id="go">Continue now →</a>
+  </main>
 
-            <div class="brand-symbol">
-                M
-            </div>
-
-            <div>
-                <div class="brand-name">
-                    MARICOPA <span>CONCRETE</span>
-                </div>
-
-                <div class="brand-subtitle">
-                    Strength in Every Structure
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Animated industrial machine -->
-        <div class="machine">
-
-            <div class="gear"></div>
-
-            <div class="gear-inner"></div>
-
-            <div class="small-gear left"></div>
-
-            <div class="small-gear right"></div>
-
-            <div class="concrete-flow"></div>
-
-            <div class="mixer-wheel">
-                <div class="mixer-center"></div>
-            </div>
-
-        </div>
-
-        <!-- Loading text -->
-        <h1 class="loading-title">
-            Building <span>Strength</span>
-        </h1>
-
-        <p class="loading-description">
-            Preparing your construction materials marketplace.<br>
-            Quality concrete products. Reliable service.
-        </p>
-
-        <!-- Progress bar -->
-        <div class="progress-container">
-
-            <div class="progress-info">
-                <span>Loading your experience</span>
-                <span id="progressPercent">0%</span>
-            </div>
-
-            <div
-                class="progress-track"
-                role="progressbar"
-                aria-label="Loading"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                aria-valuenow="0"
-                id="progressBar"
-            >
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-
-        </div>
-
-        <div class="status" id="loadingStatus">
-            Initializing system
-        </div>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        MARICOPA CONCRETE <span>•</span> Built on Quality
-    </footer>
-
+  <div class="foot"><span>🚚 Delivery to your site</span><span>📲 Pay easily with M-Pesa</span></div>
 </div>
 
 <script>
-/* =================================
-   MARICOPA CONCRETE LOADING SCRIPT
-================================= */
+(function(){
+  "use strict";
+  var DEST="dash.html";
+  var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var DURATION=reduce?700:3200;           /* how long the screen shows, in ms */
+  var $=function(i){return document.getElementById(i)};
+  var fill=$("fill"),pct=$("pct"),pb=$("pb"),msg=$("msg"),ring=$("ring"),CIRC=408;
+  var steps=[[0,"Getting things ready…"],[30,"Loading our products…"],[60,"Setting up your store…"],[88,"Almost there…"],[100,"Welcome!"]];
+  var done=false;
 
-(function () {
-    "use strict";
-
-    const progressFill = document.getElementById("progressFill");
-    const progressPercent = document.getElementById("progressPercent");
-    const progressBar = document.getElementById("progressBar");
-    const loadingStatus = document.getElementById("loadingStatus");
-    const particlesContainer = document.getElementById("particles");
-
-    // Dashboard destination
-    const DASHBOARD_URL = "dash.html";
-
-    // Total loading duration in milliseconds
-    const LOADING_DURATION = 5000;
-
-    // Loading status messages
-    const statusMessages = [
-        {
-            progress: 0,
-            text: "Initializing system"
-        },
-        {
-            progress: 20,
-            text: "Preparing concrete materials"
-        },
-        {
-            progress: 40,
-            text: "Calibrating industrial machinery"
-        },
-        {
-            progress: 60,
-            text: "Connecting marketplace"
-        },
-        {
-            progress: 80,
-            text: "Preparing your dashboard"
-        },
-        {
-            progress: 100,
-            text: "Ready to build"
-        }
-    ];
-
-    // Create floating concrete particles
-    function createParticles() {
-
-        const particleCount = 35;
-
-        for (let i = 0; i < particleCount; i++) {
-
-            const particle = document.createElement("div");
-
-            particle.className = "particle";
-
-            const size = Math.random() * 7 + 2;
-            const duration = Math.random() * 8 + 6;
-            const delay = Math.random() * 10;
-            const drift = Math.random() * 150 - 75;
-
-            particle.style.left = Math.random() * 100 + "%";
-
-            particle.style.setProperty(
-                "--size",
-                size + "px"
-            );
-
-            particle.style.setProperty(
-                "--duration",
-                duration + "s"
-            );
-
-            particle.style.setProperty(
-                "--delay",
-                "-" + delay + "s"
-            );
-
-            particle.style.setProperty(
-                "--drift",
-                drift + "px"
-            );
-
-            particlesContainer.appendChild(particle);
-        }
+  /* gentle floating dust */
+  if(!reduce){
+    var box=$("dust");
+    for(var i=0;i<22;i++){
+      var d=document.createElement("i");
+      d.style.left=Math.random()*100+"%";
+      d.style.setProperty("--s",(Math.random()*4+2)+"px");
+      d.style.setProperty("--d",(Math.random()*8+7)+"s");
+      d.style.setProperty("--l","-"+(Math.random()*12)+"s");
+      d.style.setProperty("--x",(Math.random()*120-60)+"px");
+      box.appendChild(d);
     }
+  }
 
-    // Update progress bar
-    function updateProgress(progress) {
+  function go(){
+    if(done)return;done=true;
+    try{window.location.replace(DEST)}catch(e){window.location.href=DEST}
+  }
+  $("go").addEventListener("click",function(e){e.preventDefault();go()});
 
-        const percentage = Math.min(
-            100,
-            Math.max(0, Math.floor(progress))
-        );
+  function paint(p){
+    p=Math.max(0,Math.min(100,p));
+    var n=Math.floor(p);
+    fill.style.width=p+"%";
+    ring.style.strokeDashoffset=CIRC*(1-p/100);
+    pct.textContent=n+"%";
+    pb.setAttribute("aria-valuenow",n);
+    for(var i=steps.length-1;i>=0;i--){if(n>=steps[i][0]){msg.textContent=steps[i][1];break}}
+  }
+  /* ease-out so it feels quick at first and settles smoothly */
+  var ease=function(t){return 1-Math.pow(1-t,2.2)};
 
-        progressFill.style.width = percentage + "%";
+  var t0=null;
+  function frame(ts){
+    if(t0===null)t0=ts;
+    var t=Math.min(1,(ts-t0)/DURATION);
+    paint(ease(t)*100);
+    if(t<1)requestAnimationFrame(frame);
+    else{paint(100);setTimeout(go,reduce?0:450)}
+  }
+  requestAnimationFrame(frame);
 
-        progressPercent.textContent = percentage + "%";
-
-        progressBar.setAttribute(
-            "aria-valuenow",
-            percentage
-        );
-
-        // Update loading message
-        let currentMessage = statusMessages[0];
-
-        for (const message of statusMessages) {
-
-            if (percentage >= message.progress) {
-                currentMessage = message;
-            }
-        }
-
-        loadingStatus.textContent = currentMessage.text;
-    }
-
-    // Start loading animation
-    function startLoading() {
-
-        const startTime = performance.now();
-
-        function animate(currentTime) {
-
-            const elapsed = currentTime - startTime;
-
-            const progress = Math.min(
-                100,
-                (elapsed / LOADING_DURATION) * 100
-            );
-
-            updateProgress(progress);
-
-            if (progress < 100) {
-
-                requestAnimationFrame(animate);
-
-            } else {
-
-                // Ensure the progress bar is fully complete
-                updateProgress(100);
-
-                loadingStatus.textContent = "Welcome to Maricopa Concrete";
-
-                // Redirect to dashboard
-                setTimeout(function () {
-
-                    window.location.replace(DASHBOARD_URL);
-
-                }, 500);
-            }
-        }
-
-        requestAnimationFrame(animate);
-    }
-
-    // Initialize loading screen
-    function initialize() {
-
-        createParticles();
-
-        startLoading();
-    }
-
-    // Start when the page is ready
-    if (document.readyState === "loading") {
-
-        document.addEventListener(
-            "DOMContentLoaded",
-            initialize
-        );
-
-    } else {
-
-        initialize();
-    }
-
+  /* safety net: if animation frames are paused (background tab), still continue */
+  setTimeout(go,DURATION+4000);
 })();
 </script>
-
 </body>
 </html>
